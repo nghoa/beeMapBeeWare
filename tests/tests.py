@@ -16,6 +16,10 @@ class LogicTests(unittest.TestCase):
         self.assertEqual(int(1) + int(1), int(2), "Basic addition failed")
         self.assertNotEqual(int(1) + int(1), int(3), "Basic addition failed")
 
+        # Test doubles
+        self.assertEqual(float(0.1) + float(0.2), float(0.3), "Floating addition failed")
+        self.assertNotEqual(float(1) + float(1), float(3), "Floating Addition failed")
+
 
 if __name__ == '__main__':
     unittest.main()
