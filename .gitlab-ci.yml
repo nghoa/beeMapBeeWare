@@ -69,10 +69,15 @@ test-security:
 
 deploy:
   stage: deploy
-  script:
-    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   environment:
     name: production
+  script:
+    - apk update -q
+    - apk add -y ruby-dev 
+    - gem install dpl
+    - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json 
+    - dpl gae --$PROJECT_ID --keyfile /tmp/$CI_PIPELINE_ID.json --config app.yaml
+    - rm /tmp/$CI_PIPELINE_ID.json 
 
   only:
     - master
