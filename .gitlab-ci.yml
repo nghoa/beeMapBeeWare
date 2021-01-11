@@ -73,7 +73,7 @@ deploy:
     name: production
   script:
     - apk update -q
-    - apk add -y ruby-dev 
+    - apk add ruby-dev 
     - gem install dpl
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json 
     - dpl gae --$PROJECT_ID --keyfile /tmp/$CI_PIPELINE_ID.json --config app.yaml
