@@ -71,13 +71,11 @@ deploy:
   stage: deploy
   environment:
     name: production
+  image: google/cloud-sdk:alpine
   script:
-    - apk update -q
-    - apk add ruby-dev 
-    - gem install dpl
-    - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json 
-    - dpl --provider=gae --project=$PROJECT_ID --keyfile=/tmp/$CI_PIPELINE_ID.json --config=app.yaml
-    - rm /tmp/$CI_PIPELINE_ID.json 
+  - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+  - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+  - gcloud --quiet --project $PROJECT_ID app deploy app.yaml
 
   only:
     - master
