@@ -76,7 +76,7 @@ deploy:
     - apk add ruby-dev 
     - gem install dpl
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json 
-    - dpl gae --$PROJECT_ID --keyfile /tmp/$CI_PIPELINE_ID.json --config app.yaml
+    - dpl --provider=gae --project=$PROJECT_ID --keyfile=/tmp/$CI_PIPELINE_ID.json --config=app.yaml
     - rm /tmp/$CI_PIPELINE_ID.json 
 
   only:
