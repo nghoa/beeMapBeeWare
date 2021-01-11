@@ -34,25 +34,25 @@ services:
   - docker:19.03.10-dind
 
 before_script:
+  # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384
+  - sleep 5 
   - docker info
-  - apk update
-  - apk add --no-cache python3 python3-dev py3-pip
 
  
 build-job:
   stage: build
   script:
-    - export PYTHONPATH=.
-    - export FLASK_APP=web
-    - apk update -q
-    - apk add python3-dev py-pip
-    - pip3 install Flask pytest pytest-cov
-    - pytest tests --cov --cov-report term --cov-report html
+    - echo "This builds something"
 
 test-job1:
   stage: test
   script:
-    - echo "This job tests something"
+    - export PYTHONPATH=.
+    - export FLASK_APP=web
+    - apk update -q
+    - apk add python3 python3-dev py3-pip
+    - pip3 install Flask pytest pytest-cov
+    - pytest tests --cov --cov-report term --cov-report html
 
 test-job2:
   stage: test
