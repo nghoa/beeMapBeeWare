@@ -7,3 +7,6 @@ to run app locally in docker
 `$ docker build -t beemaptemplate .`
 
 `$ docker run -p 5000:5000 beemaptemplate:latest`
+
+Change
+
