@@ -8,4 +8,4 @@ to run app locally in docker
 
 `$ docker run -p 5000:5000 beemaptemplate:latest`
 
-updateddd
+updatedddd
