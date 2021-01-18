@@ -6,8 +6,8 @@
 - [x] Group introductions and communication method selected
 - [x] GitLab project group created. Members and mentors (@jtuunas @mtovaska @tearautt) added.
 - [x] BeeMapTemplate forked and renamed (see: Local environment and repository setup).
-- [ ] Group meeting with mentor (see: Mentor weekly meetings) .
-- [ ] User-stories written (see: User Story Assignment for Week 1).
+- [x] Group meeting with mentor (see: Mentor weekly meetings) .
+- [x] User-stories written (see: User Story Assignment for Week 1).
 - [ ] Weekly report of tasks done (see: docs/reporting.md)
 - [ ] Bonus: Register as student in GitHub: https://education.github.com/. Existing github accounts can add university email to get education benefits on their main account.
 - Operative:
