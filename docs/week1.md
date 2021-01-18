@@ -34,18 +34,18 @@ https://owasp.org/www-project-top-ten/
 
 2. Broken authentication
 3. **Sensitive data exposure**
-- app uses http but doesn't currently use sensitive data
-- app user can't access files directly from the server
-- app doesn't store passwords, app keys, secrets etc.
+  - app uses http but doesn't currently use sensitive data
+  - app user can't access files directly from the server
+  - app doesn't store passwords, app keys, secrets etc.
 
 4. XML External Entities (XXE)
 5. Broken access control
 6. **Security misconfiguration**
-- using default static error pages that shouldn't contain stack traces etc.
-- using recent versions of the tools used
-  - python 3.8 used in app engine
-  - flask 1.1.x
-- access control as specified in the lectures
+  - using default static error pages that shouldn't contain stack traces etc.
+  - using recent versions of the tools used
+    - python 3.8 used in app engine
+    - flask 1.1.x
+  - access control as specified in the lectures
 
 
 7. Cross-Site Scripting (XSS)
