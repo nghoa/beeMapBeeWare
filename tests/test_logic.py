@@ -5,7 +5,7 @@ class LogicTests(unittest.TestCase):
     def test_boolean_logic(self):
         """ Test that boolean logic works """
 
-        self.assertTrue(True, "True should be equal to True.")
+        self.assertTrue(False, "True should be equal to True.")
         self.assertFalse(False, "False should not be equal to True.")
         self.assertNotEqual(True, False, "True should not be equal to False.")
 
