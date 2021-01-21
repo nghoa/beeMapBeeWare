@@ -26,9 +26,9 @@ function addPopUp(e) {
 }
 
 /** 
-Shows form on left side of map
-adds location to form
-@param e event
+ * Shows form on left side of map
+ * adds location to form
+ * @param e event
 */
 function showPanel(e) {
     let location = e.latlng;
@@ -40,7 +40,7 @@ function showPanel(e) {
 }
 
 /* 
-Hides form panel
+ * Hides form panel
 */
 function hidePanel(e) {
     let panel = document.getElementById("panel");
