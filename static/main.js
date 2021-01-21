@@ -1,11 +1,11 @@
 "use strict";
 
-var MAP = undefined;
+//leaflet map object
+let map = undefined;
 
 window.onload = () => {
-    MAP = createMap();
-    MAP.on("click", addPopUp);
-
+    initMap();
+    map.on("click", addPopUp);
 }
 
 /* 
@@ -21,9 +21,12 @@ function addPopUp(e) {
         .openOn(MAP);
 }
 
-function createMap() {
+/* 
+Adds map to document
+*/
+function initMap() {
     // initialize Leaflet
-    const map = L.map('map').setView({lon: 25.72088, lat: 62.24147}, 6);
+    map = L.map('map').setView({lon: 25.72088, lat: 62.24147}, 6);
 
     // add the OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -36,6 +39,4 @@ function createMap() {
 
     // show a marker on the map
     //L.marker({lon: 25.72088, lat: 62.24147}).bindPopup('Jyväskylä').addTo(map);
-
-    return map;
 }
