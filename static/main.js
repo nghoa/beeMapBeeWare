@@ -14,7 +14,6 @@ window.onload = () => {
  * @param e event
 */
 function addPopUp(e) {
-    console.log("addPopUp");
     let location = e.latlng;
     let popup = L.popup();
     //let message = `Valittu sijainti<br />${location.toString()}<br /><a href="#infoform">Valitse</a>`;
