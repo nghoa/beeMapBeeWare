@@ -5,47 +5,36 @@ let map = undefined;
 
 window.onload = () => {
     initMap();
-    map.on("click", showPanel);
+    map.on("click", addPopUp);
 }
 
 /**
  * Adds a popup where user clicks
- * 
+ * adds location to form
  * @param e event
 */
 function addPopUp(e) {
-    console.log("addPopUp");
     let location = e.latlng;
     let popup = L.popup();
     //let message = `Valittu sijainti<br />${location.toString()}<br /><a href="#infoform">Valitse</a>`;
-    let message = `Chosen location<br />${location.toString()}<br /><button onclick="showLeftPanel">Choose location</button>`;
+    let message = `Chosen location<br />${location.toString()}<br /><button onclick="togglePanel()">Choose location</button>`;
     popup
         .setLatLng(location)
         .setContent(message)
         .openOn(map);
+
+    let locationInput = document.getElementById("location");
+    locationInput.value = location.toString();
 }
 
 /** 
-Shows form on left side of map
-adds location to form
-@param e event
+ * Shows form panel
 */
-function showPanel(e) {
-    let location = e.latlng;
-    let locationInput = document.getElementById("location");
-    locationInput.value = location.toString();
-
+function togglePanel() {
     let panel = document.getElementById("panel");
     panel.classList.toggle("hidden");
 }
 
-/* 
-Hides form panel
-*/
-function hidePanel(e) {
-    let panel = document.getElementById("panel");
-    panel.classList.toggle("hidden");
-}
 
 /**
  * Adds map to document

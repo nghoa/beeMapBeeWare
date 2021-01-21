@@ -10,7 +10,8 @@
 
 <body>
     <div id="panel" class="hidden">
-        <button onclick="hidePanel()">Hide</button>
+        <button onclick="togglePanel()">Hide</button>
+        <h2>We want to know more about you</h2>
         <form action="">
             <div>
                 <label for="location">Location</label><input type="text" name="location" id="location">
@@ -19,7 +20,7 @@
                 <label for="name">Name</label><input type="text" name="name" id="name">
             </div>
             <div>
-                <input type="submit" value="Send">
+                <input type="submit" value="Send" id="submit">
             </div>
         </form>
     </div>
