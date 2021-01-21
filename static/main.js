@@ -1,6 +1,6 @@
 "use strict";
 
-//leaflet map object
+/** Leaflet map object */
 let map = undefined;
 
 window.onload = () => {
@@ -8,30 +8,33 @@ window.onload = () => {
     map.on("click", addPopUp);
 }
 
-/* 
-adds a popup where user clicks
+/**
+ * Adds a popup where user clicks
+ * 
+ * @param e event
 */
 function addPopUp(e) {
+    console.log("addPopUp");
     let location = e.latlng;
     let popup = L.popup();
     let message = `Valittu sijainti<br />${location.toString()}<br /><a href="#infoform">Valitse</a>`;
     popup
         .setLatLng(location)
         .setContent(message)
-        .openOn(MAP);
+        .openOn(map);
 }
 
-/* 
-Adds map to document
+/**
+ * Adds map to document
 */
 function initMap() {
     // initialize Leaflet
-    map = L.map('map').setView({lon: 25.72088, lat: 62.24147}, 6);
+    map = L.map('map').setView({ lon: 25.72088, lat: 62.24147 }, 6);
 
     // add the OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
     // show the scale bar on the lower left corner
