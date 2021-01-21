@@ -1,6 +1,9 @@
 pull changes from gitlab\
 `git pull` 
 
+create branch named feature\
+`git branch feature`
+
 stage all changes\
 `git add .`
 
