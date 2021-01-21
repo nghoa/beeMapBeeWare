@@ -1,10 +1,13 @@
-git pull 
+pull changes from gitlab\
+`git pull` 
 
-git add .
+stage all changes\
+`git add .`
 
-git commit
+open editor to write message and commits changes\
+`git commit`
 
-push branch to remote
-git push --set-upstream origin development
+push branch to remote\
+`git push --set-upstream origin development`
 
 FLASK_ENV = "development"
