@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#map {
+    /* configure the size of the map */
+    width: 80%;
+    height: 80%;
+    margin: 1em;
+}
+
+
+form {
+    border: 1px solid black;
+}
+
+#form-container {
+    padding: 1em;
+}
+
+a {
+    border: 1px solid black;
+    padding: 0.25em;
+}
