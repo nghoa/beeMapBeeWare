@@ -25,9 +25,10 @@ function addPopUp(e) {
         .openOn(map);
 }
 
-/* 
+/** 
 Shows form on left side of map
 adds location to form
+@param e event
 */
 function showPanel(e) {
     let location = e.latlng;
