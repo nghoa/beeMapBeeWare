@@ -9,19 +9,23 @@
 </head>
 
 <body>
-    <div id="map"></div>
-
-    <div id="form-container">
-        <h1>Tiedot</h1>
-        <form id="infoform">
+    <div id="panel" class="hidden">
+        <button onclick="hidePanel()">Hide</button>
+        <form action="">
             <div>
-                <label for="name">Nimi</label><input type="text" name="name" id="name">
+                <label for="location">Location</label><input type="text" name="location" id="location">
             </div>
             <div>
-                <input type="submit" value="Lähetä">
+                <label for="name">Name</label><input type="text" name="name" id="name">
+            </div>
+            <div>
+                <input type="submit" value="Send">
             </div>
         </form>
     </div>
+
+    <div id="map"></div>
+
 
 </body>
 
