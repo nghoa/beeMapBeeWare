@@ -2,6 +2,11 @@
 <html>
 
 <head>
+    <title>Beemap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="description" content="View and suggest bee-village location on map">
+    
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,7 +16,7 @@
 
 <body>
     <div id="panel" class="hidden">
-        <button onclick="togglePanel()">Hide</button>
+        <button id="hide-button" class="right-aligned" onclick="togglePanel()">Hide</button>
         <h2>We want to know more about you</h2>
         <form action="">
             <div>
