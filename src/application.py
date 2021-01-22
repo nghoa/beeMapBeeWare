@@ -27,7 +27,7 @@ def get_fields(form, fields):
     Returns:
         dict[str, str] dictionary of field names and values 
     """
-    app.logger.debug(form.get("name"))
+    #app.logger.debug(form.get("name"))
     return {name: form.get("name", default) for (name,default) in fields}
 
 def validateForm(fields):
@@ -51,7 +51,7 @@ def parseSuggestion():
     Parses json into fields
     """
     fields = request.get_json()
-    app.logger.debug(fields)
+    #app.logger.debug(fields)
 
     return fields
 

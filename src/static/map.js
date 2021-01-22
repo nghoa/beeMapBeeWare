@@ -39,12 +39,9 @@ function handleFormSubmit(e) {
         body: JSON.stringify(data)
     })
     .then(response => {
-        if (!response.ok) {
-            //TODO: show error messages
-            console.error("show errors")
-        }
-        let message = response.json();
-        console.log(message);
+        let errors = response.json();
+        //TODO: errors
+        console.log(errors);
     })
     .catch(e => console.error(e))
 }
