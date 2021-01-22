@@ -52,7 +52,7 @@ test-job1:
     - apk update -q
     - apk add python3 python3-dev py3-pip
     - pip3 install Flask
-    - python -m unittest src.tests
+    - python3 -m unittest src.tests
 
 test-job2:
   stage: test
