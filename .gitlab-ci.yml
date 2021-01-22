@@ -51,8 +51,8 @@ test-job1:
     - export FLASK_APP=web
     - apk update -q
     - apk add python3 python3-dev py3-pip
-    - pip3 install Flask pytest pytest-cov
-    - pytest tests --cov --cov-report term --cov-report html
+    - pip3 install Flask
+    - python -m unittest src.tests
 
 test-job2:
   stage: test
