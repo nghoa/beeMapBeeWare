@@ -13,7 +13,7 @@ stage all changes\
 open editor to write message and commits changes\
 `git commit`
 
-push branch to remote\
-`git push --set-upstream origin development`
+push branch to remote from branch named feature\
+`git push --set-upstream origin feature`
 
 FLASK_ENV = "development"
