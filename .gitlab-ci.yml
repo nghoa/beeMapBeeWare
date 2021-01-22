@@ -54,7 +54,6 @@ test-job1:
     - pip3 install Flask
     - python3 -m unittest
 
-
 deploy:
   stage: deploy
   environment:
