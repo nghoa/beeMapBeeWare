@@ -1,4 +1,7 @@
-pull changes from gitlab\
+get current version from gitlab\
+`git clone https://gitlab.jyu.fi/beeware/beemapbeeware.git`
+
+get current version from gitlab\
 `git pull` 
 
 create branch named feature\
