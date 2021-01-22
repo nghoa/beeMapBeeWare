@@ -11,7 +11,41 @@ window.onload = () => {
 
     // testin the putting the locations to the map
     getLocations();
+
+    document.getElementById("userForm").addEventListener("submit", handleFormSubmit);
 }
+
+/**
+ *  send form asynchronously to server 
+ */
+function handleFormSubmit(e) {
+    //don't send form normally
+    e.preventDefault();
+
+    let location = document.getElementById("location").value;
+    let name = document.getElementById("name").value;
+
+    console.log(location, name)
+
+    let data = {
+        "location": location,
+        "name": name
+    }
+    fetch("/save", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        let errors = response.json();
+        //TODO: errors
+        console.log(errors);
+    })
+    .catch(e => console.error(e))
+}
+
 
 /**
  * Adds a popup where user clicks
@@ -54,10 +88,10 @@ function togglePanel() {
 */
 function initMap() {
     // initialize Leaflet
-    map = L.map('map', {"zoomControl": false}).setView({ lon: 25.72088, lat: 62.24147 }, 6);
-    let control = L.control.zoom({"position": "topright"})
+    map = L.map('map', { "zoomControl": false }).setView({ lon: 25.72088, lat: 62.24147 }, 6);
+    let control = L.control.zoom({ "position": "topright" })
     map.addControl(control);
-    
+
     // add the OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -65,7 +99,7 @@ function initMap() {
     }).addTo(map);
 
     // show the scale bar on the lower left corner
-    L.control.scale({"imperial": false, "position": "bottomright"}).addTo(map);
+    L.control.scale({ "imperial": false, "position": "bottomright" }).addTo(map);
 
     // show a marker on the map
     //L.marker({lon: 25.72088, lat: 62.24147}).bindPopup('Jyväskylä').addTo(map);
@@ -93,12 +127,12 @@ function put_markers_to_map(data, textStatus, request) {
 function getLocations() {
     $.ajax({
         async: true,
-        url: "http://127.0.0.1:5000/locations",
+        url: "/locations",
         dataType: "json",
         type: "GET",
         success: put_markers_to_map,
         error: ajax_error
-    
+
     });
 }
 
