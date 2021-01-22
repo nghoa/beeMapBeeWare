@@ -25,5 +25,6 @@ form {
     width: 50%;
     height: 100vh;
     z-index: 2;
+    padding: 1em;
     background-color: white;
 }
