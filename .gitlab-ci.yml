@@ -51,7 +51,7 @@ test-job1:
     - export FLASK_APP=web
     - apk update -q
     - apk add python3 python3-dev py3-pip
-    - pip3 install Flask
+    - pip3 install -r ./requirements.txt
     - python3 -m unittest
 
 deploy:
