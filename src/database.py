@@ -6,7 +6,7 @@ def save_suggestion(fields):
     Params:
         fields: {"field name": "field value"}
     Returns:
-        TODO: possible errors from database
+        TODO: possible errors from database 
     """
     pass
 
@@ -20,4 +20,3 @@ def getLocations():
             "lon": entity["LatLng"].longitude
         })
     return locations
-    
