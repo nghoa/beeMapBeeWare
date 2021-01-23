@@ -41,7 +41,7 @@ def save():
     return jsonify(errors), status_code 
     
 
-@app.route("/locations", methods=["GET"])
+@app.route("/locations", methods=["GET", "POST"])
 def locations():
     locations = getLocations()
 
