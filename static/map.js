@@ -109,7 +109,6 @@ function initMap() {
  * Put the fetched markers to the map
  */
 function put_markers_to_map(data, textStatus, request) {
-
     let locations = [];
 
     for (let i = 0; i < data.length; i++) {
@@ -132,7 +131,6 @@ function getLocations() {
         type: "GET",
         success: put_markers_to_map,
         error: ajax_error
-
     });
 }
 

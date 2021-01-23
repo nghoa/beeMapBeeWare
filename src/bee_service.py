@@ -1,3 +1,5 @@
+from google.cloud import datastore
+
 def doubleTime(x):
     """
     TODO: remove this function
@@ -43,5 +45,12 @@ def save_suggestion(fields):
     pass
 
 def getLocations():
-    # TODO: get locations from database
-    return [{"lat": 62, "lon": 27}, {"lat": 63, "lon": 26}]
+    client = datastore.Client()
+    kind = "HiveLocation"
+    locations = []
+    for entity in client.query(kind=kind).fetch():
+        locations.append({
+            "lat": entity["LatLng"].latitude,
+            "lon": entity["LatLng"].longitude
+        })
+    return locations
