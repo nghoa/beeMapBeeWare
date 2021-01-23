@@ -31,17 +31,3 @@ def validateForm(fields):
             errors[k] = "Missing value"
 
     return errors
-
-def save_suggestion(fields):
-    """
-    TODO: Saves the bee-village suggestion to database
-    Params:
-        fields: {"field name": "field value"}
-    Returns:
-        TODO: possible errors from database
-    """
-    pass
-
-def getLocations():
-    # TODO: get locations from database
-    return [{"lat": 62, "lon": 27}, {"lat": 63, "lon": 26}]
