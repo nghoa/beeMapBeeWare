@@ -1,13 +1,10 @@
 import os
 
-from flask import Flask, session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
+from . import map_blueprint
+from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
+from app.services.bee_service import get_fields, getLocations, save_suggestion, validateForm
 
-from src.bee_service import get_fields, getLocations, save_suggestion, validateForm
-
-app = Flask(__name__)
-
-
-@app.route('/')
+@map_blueprint.route('/')
 def home():
     return render_template('map.html')
 
@@ -22,7 +19,7 @@ def parseSuggestion():
     return fields
 
 
-@app.route("/save", methods=["POST"])
+@map_blueprint.route("/save", methods=["POST"])
 def save():
     """
     Save received bee-village suggestion
@@ -41,7 +38,7 @@ def save():
     return jsonify(errors), status_code 
     
 
-@app.route("/locations", methods=["GET", "POST"])
+@map_blueprint.route("/locations", methods=["GET", "POST"])
 def locations():
     locations = getLocations()
 
@@ -53,15 +50,4 @@ def locations():
     resp.mimetype = "application/json"  # the media type of the response
 
     return resp
-
-
-def start_app():
-    host = os.getenv("HOST", "127.0.0.1")
-    port = os.getenv("PORT", "5000")
-
-    app.run(host=host, port=port)
-
-
-if __name__ == "__main__":
-    start_app()
 
