@@ -36,7 +36,8 @@ services:
 before_script:
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384
   - sleep 5
-  - docker info
+  # Disabled because python:3.8 image doesn't have docker -> fails
+  # - docker info 
 
  
 build-job:
