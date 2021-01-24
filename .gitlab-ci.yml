@@ -50,7 +50,8 @@ test-job1:
     - export PYTHONPATH=.
     - export FLASK_APP=web
     - apk update -q
-    - apk add python3 python3-dev py3-pip
+    - apk add python3 python3-dev py3-pip build-base linux-headers
+    - pip3 install -r requirements.txt
     - python3 -m unittest app/tests/test_*
 
 deploy:
