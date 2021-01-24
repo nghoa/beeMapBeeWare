@@ -31,7 +31,7 @@ function handleFormSubmit(e) {
         "location": location,
         "name": name
     }
-    fetch("/save", {
+    fetch("/map/save", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -127,7 +127,7 @@ function put_markers_to_map(data, textStatus, request) {
 function getLocations() {
     $.ajax({
         async: true,
-        url: "/locations",
+        url: "/map/locations",
         dataType: "json",
         type: "GET",
         success: put_markers_to_map,

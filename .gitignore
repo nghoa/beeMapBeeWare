@@ -139,3 +139,4 @@ cython_debug/
 
 package-lock.json
 .vscode
+secrets.json
