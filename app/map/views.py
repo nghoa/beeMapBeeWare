@@ -2,7 +2,8 @@ import os
 
 from . import map_blueprint
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
-from app.services.bee_service import get_fields, getLocations, save_suggestion, validateForm
+from app.services.bee_service import get_fields, validateForm
+from app.services.database import getLocations, save_suggestion
 
 @map_blueprint.route('/')
 def home():

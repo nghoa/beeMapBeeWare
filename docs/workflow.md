@@ -20,3 +20,4 @@ push branch to remote from branch named feature\
 `git push --set-upstream origin feature`
 
 FLASK_ENV = "development"
+GOOGLE_APPLICATION_CREDENTIALS = "path/to/secret.json"
