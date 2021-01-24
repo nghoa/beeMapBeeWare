@@ -44,7 +44,6 @@ build-job:
   stage: build
   script:
     - echo "This builds something"
-    - pip install -r requirements.txt
 
 test-job1:
   stage: test
