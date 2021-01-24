@@ -9,8 +9,8 @@ def create_app():
 def register_blueprints(app):
     # Since the application instance is now created, register each Blueprint
     # with the Flask application instance (app)
-    from app.map import map_blueprint
     from app.admin import admin_blueprint
+    from app.map import map_blueprint
 
     from app.services.auth import auth_blueprint
  
