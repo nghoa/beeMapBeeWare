@@ -1,5 +1,5 @@
 import unittest
-from ..bee_service import doubleTime
+from app.services.bee_service import doubleTime
 
 class LogicTests(unittest.TestCase):
     def test_test(self):

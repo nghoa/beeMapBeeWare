@@ -29,5 +29,4 @@ def validateForm(fields):
     for k,v in fields.items():
         if not v:
             errors[k] = "Missing value"
-
     return errors
