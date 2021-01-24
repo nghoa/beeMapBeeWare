@@ -4,18 +4,21 @@
 
 ### Administrative:
 
-- [ ] User-stories written (see: User Story Assignment for Week 2).
+- [x] User-stories written (see: User Story Assignment for Week 2).
 - [ ] Group meeting with mentor (see: Mentor weekly meetings).
 - [ ] Weekly report of tasks done (see: docs/reporting.md)
 - [ ] Bonus from week 1: Register as student in GitHub: https://education.github.com/. Existing github accounts can add university email to get education benefits on their main account.
 
 ### Operative:
-- [ ] Database set up
+- [x] Database set up
+  - google cloud datastore set up
 
 ### Development:
 
-- [ ] User can add locations.
+- [x] User can add locations.
+  - ui implemented
 - [ ] Added locations are shown and saved to the back end.
+  - added locations are loaded asynchronously
 - [ ] Begin: Admin interface / CRUD
 - [ ] Begin: Testing.
 
