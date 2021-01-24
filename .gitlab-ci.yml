@@ -52,7 +52,9 @@ test-job1:
     - export PYTHONPATH=.
     - export FLASK_APP=web
     - pip install --no-cache-dir -r requirements.txt
-    - python -m unittest app/tests/test_*
+    - pip install pytest pytest-cov
+    - pytest tests --cov --cov-report term --cov-report html
+
 
 deploy:
   stage: deploy
