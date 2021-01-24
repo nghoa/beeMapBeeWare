@@ -42,6 +42,7 @@ def save_suggestion(fields):
     """
     pass
 
+
 def getLocations():
     # TODO: get locations from database
     return [{"lat": 62, "lon": 27}, {"lat": 63, "lon": 26}]
