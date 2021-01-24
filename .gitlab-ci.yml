@@ -35,7 +35,6 @@ services:
 
 before_script:
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384
-  - sleep 5 
   - docker info
 
  
@@ -51,8 +50,8 @@ test-job1:
     - export FLASK_APP=web
     - apk update -q
     - apk add python3 python3-dev py3-pip
-    - pip3 install Flask
-    - python3 -m unittest
+    - pip3 install -r requirements.txt
+    - python3 -m unittest app/tests/test_*
 
 deploy:
   stage: deploy
