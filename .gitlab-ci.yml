@@ -35,10 +35,7 @@ services:
 
 before_script:
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384
-<<<<<<< HEAD
   - sleep 5
-=======
->>>>>>> c949562980d22d9ed7a7879ffe1296d2b8a48562
   - docker info
 
  
