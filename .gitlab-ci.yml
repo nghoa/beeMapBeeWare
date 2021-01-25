@@ -35,8 +35,9 @@ services:
 
 before_script:
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384
-  - sleep 5 
-  - docker info
+  - sleep 5
+  # Disabled because python:3.8 image doesn't have docker -> fails
+  # - docker info 
 
  
 build-job:
@@ -46,12 +47,12 @@ build-job:
 
 test-job1:
   stage: test
+  image: python:3.8
   script:
     - export PYTHONPATH=.
     - export FLASK_APP=web
-    - apk update -q
-    - apk add python3 python3-dev py3-pip
-    - pip3 install Flask pytest pytest-cov
+    - pip install --no-cache-dir -r requirements.txt
+    - pip install pytest pytest-cov
     - pytest tests --cov --cov-report term --cov-report html
 
 deploy:
