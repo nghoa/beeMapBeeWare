@@ -1,4 +1,6 @@
 import os
+from google.type import latlng_pb2
+from google.cloud.datastore.helpers import GeoPoint
 
 from . import map_blueprint
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
@@ -21,7 +23,7 @@ def parseSuggestion():
     return fields
 
 
-@map_blueprint.route("/save", methods=["POST"])
+@map_blueprint.route("/save", methods=["POST","GET"])
 def save():
     """
     Save received bee-village suggestion
@@ -30,9 +32,15 @@ def save():
     """
     fields = parseSuggestion()
 
+    # get the latitude and longitude from the form
+    location = fields["location"].split(" ")
+
+    # l = GeoPoint(latitude, longitude)
+    l = GeoPoint(float(location[1]), float(location[3]))
+    
     errors = validateForm(fields)
     if len(errors) == 0:
-        save_suggestion(fields)
+        save_suggestion(l)
         status_code = 200
     else:
         status_code = 400 #bad request

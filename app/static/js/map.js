@@ -25,26 +25,33 @@ function handleFormSubmit(e) {
     let location = document.getElementById("location").value;
     let name = document.getElementById("name").value;
 
-    console.log(location, name)
+    console.log(location, name);
 
     let data = {
         "location": location,
         "name": name
     }
-    fetch("/map/save", {
+
+    fetch("/save", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-    })
-    .then(response => {
+    }).then(response => {
         let errors = response.json();
         //TODO: errors
         console.log(errors);
-    })
-    .catch(e => console.error(e))
+
+        getLocations();                 // put all the locations to the map, including the latest
+    }).catch(e => console.error(e))
+
+
+
 }
+
+
+
 
 
 /**
@@ -57,14 +64,14 @@ function addPopUp(e) {
     let location = e.latlng;
     let popup = L.popup();
     //let message = `Valittu sijainti<br />${location.toString()}<br /><a href="#infoform">Valitse</a>`;
-    let message = `Chosen location<br />${location.toString()}<br /><button onclick="togglePanel()">Choose location</button>`;
+    let message = `Chosen location<br />${"lat: " + location.lat + " lon: " + location.lng}<br /><button onclick="togglePanel()">Choose location</button>`;
     popup
         .setLatLng(location)
         .setContent(message)
         .openOn(map);
 
     let locationInput = document.getElementById("location");
-    locationInput.value = location.toString();
+    locationInput.value = "lat: " + location.lat + " lon: "+location.lng;
 
     currentLocation = location;
 }
@@ -105,13 +112,29 @@ function initMap() {
     //L.marker({lon: 25.72088, lat: 62.24147}).bindPopup('Jyväskylä').addTo(map);
 }
 
+function put_markers_to_map_after_saving(data) {
+
+    let locations = [];
+    console.log(data);
+
+    
+    for (let i = 0; i < data.length; i++) {
+        locations.push(L.marker(data[i]));
+    }
+
+    let locations_layer = L.layerGroup(locations);
+    locations_layer.addTo(map);
+
+}
 /**
  * Put the fetched markers to the map
  */
 function put_markers_to_map(data, textStatus, request) {
 
     let locations = [];
+    console.log(data);
 
+    
     for (let i = 0; i < data.length; i++) {
         locations.push(L.marker(data[i]));
     }
@@ -121,13 +144,15 @@ function put_markers_to_map(data, textStatus, request) {
 
 }
 
+
+
 /**
  * Get the locations
  */
 function getLocations() {
     $.ajax({
         async: true,
-        url: "/map/locations",
+        url: "/locations",
         dataType: "json",
         type: "GET",
         success: put_markers_to_map,
