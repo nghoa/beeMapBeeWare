@@ -17,7 +17,7 @@
 
 - [x] User can add locations.
   - ui implemented
-- [ ] Added locations are shown and saved to the back end.
+- [X] Added locations are shown and saved to the back end.
   - added locations are loaded asynchronously
 - [ ] Begin: Admin interface / CRUD
 - [ ] Begin: Testing.
