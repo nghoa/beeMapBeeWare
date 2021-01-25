@@ -45,13 +45,7 @@ function handleFormSubmit(e) {
 
         getLocations();                 // put all the locations to the map, including the latest
     }).catch(e => console.error(e))
-
-
-
 }
-
-
-
 
 
 /**
@@ -71,13 +65,13 @@ function addPopUp(e) {
         .openOn(map);
 
     let locationInput = document.getElementById("location");
-    locationInput.value = "lat: " + location.lat + " lon: "+location.lng;
+    locationInput.value = "lat: " + location.lat + " lon: " + location.lng;
 
     currentLocation = location;
 }
 
 /** 
- * Shows form panel
+ * Shows panel that contains the location recommendation form.
 */
 function togglePanel() {
     if (currentLocation) {
@@ -85,13 +79,11 @@ function togglePanel() {
     }
     let panel = document.getElementById("panel");
     panel.classList.toggle("hidden");
-
-
 }
 
 
 /**
- * Adds map to document
+ * Adds map and its controls to document
 */
 function initMap() {
     // initialize Leaflet
@@ -112,42 +104,30 @@ function initMap() {
     //L.marker({lon: 25.72088, lat: 62.24147}).bindPopup('Jyväskylä').addTo(map);
 }
 
-function put_markers_to_map_after_saving(data) {
-
-    let locations = [];
-    console.log(data);
-
-    
-    for (let i = 0; i < data.length; i++) {
-        locations.push(L.marker(data[i]));
-    }
-
-    let locations_layer = L.layerGroup(locations);
-    locations_layer.addTo(map);
-
-}
 /**
  * Put the fetched markers to the map
  */
 function put_markers_to_map(data, textStatus, request) {
-
-    let locations = [];
     console.log(data);
 
-    
-    for (let i = 0; i < data.length; i++) {
-        locations.push(L.marker(data[i]));
-    }
+    const locations = data.map(L.marker)
+
+    // Bind mouse click to show popup that displays clicked location's data
+    locations.forEach(marker => {
+        marker.bindPopup("Location: " + marker.getLatLng().toString()).openPopup();
+
+        marker.on("click", event => {
+            event.target.openPopup();
+        })
+    });
 
     let locations_layer = L.layerGroup(locations);
     locations_layer.addTo(map);
-
 }
 
 
-
 /**
- * Get the locations
+ * Get the locations from backend
  */
 function getLocations() {
     $.ajax({
@@ -157,7 +137,6 @@ function getLocations() {
         type: "GET",
         success: put_markers_to_map,
         error: ajax_error
-
     });
 }
 
@@ -168,4 +147,5 @@ function ajax_error(xhr, status, error) {
     console.log("Error: " + error);
     console.log("Status: " + status);
     console.log(xhr);
+    // TODO: display errors to user in a meaningful way
 }
