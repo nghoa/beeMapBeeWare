@@ -1,20 +1,30 @@
 from google.cloud import datastore
 
-def save_suggestion(fields):
+
+def save_suggestion(location):
     """
-    TODO: Saves the bee-village suggestion to database
+        Saves the bee-village suggestion to database
     Params:
-        fields: {"field name": "field value"}
+        location: GeoPoint(latitude, longitude)
     Returns:
         TODO: possible errors from database 
     """
-    pass
+    client = datastore.Client()
+
+    kind = "HiveLocation"
+    task_key = client.key(kind)
+    task = datastore.Entity(key=task_key)
+    task["LatLng"] = location
+    client.put(task)
+#    print(f"Saved {task.key.name}: {task['LatLng']}")
+    
 
 def getLocations():
     client = datastore.Client()
     kind = "HiveLocation"
     locations = []
     for entity in client.query(kind=kind).fetch():
+        print(entity["LatLng"])
         locations.append({
             "lat": entity["LatLng"].latitude,
             "lon": entity["LatLng"].longitude
