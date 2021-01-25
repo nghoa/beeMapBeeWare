@@ -9,9 +9,9 @@ app = create_app()
 def start_app():
     host = os.getenv('HOST', '127.0.0.1')
     port = os.getenv('PORT', '5000')
-
     app.run(host=host, port=port)
-
+    app.debug = True
+    
 if __name__ == '__main__':
     start_app()
 
