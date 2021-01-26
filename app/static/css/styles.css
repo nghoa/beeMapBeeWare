@@ -39,7 +39,7 @@ input[type=submit] {
 
 #panel {
     position: fixed;
-    width: 40%;
+    width: minmax(400px, 40%);
     height: 100vh;
     z-index: 800;
     padding: 1em;
