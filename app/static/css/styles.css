@@ -41,7 +41,7 @@ input[type=submit] {
     position: fixed;
     width: 40%;
     height: 100vh;
-    z-index: 2;
+    z-index: 800;
     padding: 1em;
     background-color: white;
     
