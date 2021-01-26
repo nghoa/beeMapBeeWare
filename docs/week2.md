@@ -5,7 +5,7 @@
 ### Administrative:
 
 - [x] User-stories written (see: User Story Assignment for Week 2).
-- [ ] Group meeting with mentor (see: Mentor weekly meetings).
+- [x] Group meeting with mentor (see: Mentor weekly meetings).
 - [ ] Weekly report of tasks done (see: docs/reporting.md)
 - [ ] Bonus from week 1: Register as student in GitHub: https://education.github.com/. Existing github accounts can add university email to get education benefits on their main account.
 
@@ -43,6 +43,7 @@ https://owasp.org/www-project-top-ten/
       - admin session-key is heavily "randomized" to prevent impersonation attacks
       - avoid predictable admin IDs & passwords
 3. **Sensitive data exposure**
+    - Only locations are saved, so there is no sensitive data yet.
 4. XML External Entities (XXE)
 5. Broken access control
     - TODO:
@@ -50,8 +51,9 @@ https://owasp.org/www-project-top-ten/
       - admin gets unique & heavily randomized session-key
       - "centralized component": Admin-Session-Checker for all /routes regarding CRUD operations
 6. **Security misconfiguration**
-    - Google application credentials are shared through gitlab. Credentials are only transmitted to the host engine, when the CI/CD pipeline through Gitlab is triggered. Meaning, all security is handled by Gitlab in this regard
+    - Google application credentials are shared through gitlab. Credentials are only transmitted to the host engine, when the CI/CD pipeline through Gitlab is triggered. Meaning, all security is handled by Gitlab in this regard.
 7. Cross-Site Scripting (XSS)
+    - At the time of writing, only locations are saved and they can only be numbers and pplication crashes on invalid input, so it's safe.
     - TODO:
       - Input handling service 
         - escape special characters
