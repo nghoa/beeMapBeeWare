@@ -6,7 +6,7 @@
 
 - [x] User-stories written (see: User Story Assignment for Week 2).
 - [x] Group meeting with mentor (see: Mentor weekly meetings).
-- [ ] Weekly report of tasks done (see: docs/reporting.md)
+- [x] Weekly report of tasks done (see: docs/reporting.md)
 - [ ] Bonus from week 1: Register as student in GitHub: https://education.github.com/. Existing github accounts can add university email to get education benefits on their main account.
 
 ### Operative:
@@ -17,10 +17,11 @@
 
 - [x] User can add locations.
   - ui implemented
-- [X] Added locations are shown and saved to the back end.
-  - added locations are loaded asynchronously
+- [X] Added locations are shown and saved to the backend.
+  - added locations are loaded and saved asynchronously
 - [X] Begin: Admin interface / CRUD
-- [ ] Begin: Testing.
+- [x] Begin: Testing.
+  - basic input validation pure function tests
 
 ## Security
 
@@ -33,6 +34,10 @@ https://owasp.org/www-project-top-ten/
       - Input validation => Sanization approach (Reference: https://dev.to/mrkanthaliya/validating-and-sanitizing-user-inputs-on-python-projects-rest-api-5a4)
         - Special characters escape
         - maybe using prepared statements
+
+    - Saving to datastore is only done when two valid floating point numbers (latitude, longitude) are send to be saved. 
+    - Input json schema is not validated yet so it's possible to manually build a json list post request instead of object which leads to program crashing (probably, not tested). 
+
 2. Broken authentication
     - Done: flask-login package implemented
       - implemented token authentication => prevent partially impersonation attacks
@@ -61,6 +66,8 @@ https://owasp.org/www-project-top-ten/
     - Done: flask-login package implemented
       - implemented password hashing => makes eavesdrop harder
 9. **Using components with known vulnerabilities**
+    - using components from official and trusted sources
+
 10. **Insufficient logging & monitoring**
     - Done: flask-login package implemented
     - TODO:
