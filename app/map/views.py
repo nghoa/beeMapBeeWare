@@ -18,8 +18,6 @@ def parseSuggestion():
     Parses json into fields
     """
     fields = request.get_json()
-    #app.logger.debug(fields)
-
     return fields
 
 
@@ -32,15 +30,12 @@ def save():
     """
     fields = parseSuggestion()
 
-    # get the latitude and longitude from the form
-    location = fields["location"].split(" ")
-
-    # l = GeoPoint(latitude, longitude)
-    l = GeoPoint(float(location[1]), float(location[3]))
-    
     errors = validateForm(fields)
     if len(errors) == 0:
-        save_suggestion(l)
+        latitude = float(fields["latitude"])
+        longitude = float(fields["longitude"])
+        point = GeoPoint(latitude, longitude)
+        save_suggestion(point)
         status_code = 200
     else:
         status_code = 400 #bad request

@@ -13,6 +13,8 @@ window.onload = () => {
     getLocations();
 
     document.getElementById("userForm").addEventListener("submit", handleFormSubmit);
+
+    document.getElementById("hide-button").addEventListener("click", togglePanel)
 }
 
 /**
@@ -22,14 +24,14 @@ function handleFormSubmit(e) {
     //don't send form normally
     e.preventDefault();
 
-    let location = document.getElementById("location").value;
     let name = document.getElementById("name").value;
-
-    console.log(location, name);
+    let latitude = document.getElementById("latitude").value;
+    let longitude = document.getElementById("longitude").value;
 
     let data = {
-        "location": location,
-        "name": name
+        "name": name,
+        "latitude": latitude,
+        "longitude": longitude
     }
 
     fetch("/save", {
@@ -64,8 +66,10 @@ function addPopUp(e) {
         .setContent(message)
         .openOn(map);
 
-    let locationInput = document.getElementById("location");
-    locationInput.value = "lat: " + location.lat + " lon: " + location.lng;
+    let latitude = location.lat;
+    let longitude = location.lng;
+    document.getElementById("latitude").value = latitude;
+    document.getElementById("longitude").value = longitude;
 
     currentLocation = location;
 }
