@@ -34,6 +34,9 @@ https://owasp.org/www-project-top-ten/
         - Special characters escape
         - maybe using prepared statements
 2. Broken authentication
+    - Done: flask-login package implemented
+      - implemented token authentication => prevent partially impersonation attacks
+      - implemented session based authentication => further research needed...
     - TODO:
       - timeout function: brute-force login
       - DO not use verbose failure messages (i.e. "username is wrong" => means it is not in the database)
@@ -53,5 +56,11 @@ https://owasp.org/www-project-top-ten/
       - Input handling service 
         - escape special characters
 8. Insecure Deserialization
+    - Done: flask-login package implemented
+      - implemented password hashing => makes eavesdrop harder
 9. **Using components with known vulnerabilities**
 10. **Insufficient logging & monitoring**
+    - Done: flask-login package implemented
+    - TODO:
+      - build UI for login tracking (low priority)
+    
