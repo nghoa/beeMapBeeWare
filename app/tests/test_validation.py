@@ -1,9 +1,5 @@
-from app.services.bee_service import doubleTime
 from app.services.bee_service import validateForm
 from app.services.bee_service import ErrorMessages
-
-def test_double():
-    assert doubleTime(2) == 4
 
 def test_validate_normal():
     """

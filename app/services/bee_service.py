@@ -2,11 +2,6 @@ class ErrorMessages:
     MISSING = "Missing value"
     NOT_REAL = "Must be real number"
 
-def doubleTime(x):
-    """
-    TODO: remove this function
-    """
-    return 2 * x
 
 def get_fields(form, fields):
     """ 
