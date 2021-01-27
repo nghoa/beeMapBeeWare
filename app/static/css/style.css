@@ -16,8 +16,10 @@ form {
     padding: 1em;
 }
 
+
 #hide-button {
-    margin: 1em;
+    position: absolute;
+    right: 1em;
 }
 
 label {
