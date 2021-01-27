@@ -68,7 +68,6 @@ function handleSaveErrors(data) {
         for (let field in data) {
             let div = document.getElementById(field).parentElement;
             let p = div.querySelector("div");
-            console.log(div, p)
             p.textContent = data[field];
         }
     }
