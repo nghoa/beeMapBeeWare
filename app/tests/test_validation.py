@@ -1,5 +1,4 @@
 from app.services.bee_service import validateForm
-from app.services.bee_service import ErrorMessages
 
 def test_validate_normal():
     """
@@ -13,22 +12,26 @@ def test_validate_not_float_parseable():
     """
     latitude isn't a float string
     """
-    actual = validateForm({"name": "Juha", "latitude": "fdasdf", "longitude": "12.0"})
-    expected = {"latitude": ErrorMessages.NOT_REAL}
-    assert actual == expected
+    result = validateForm({"name": "Juha", "latitude": "fdasdf", "longitude": "12.0"})
+    assert "Expected a value of type 'float'" in result["latitude"]
 
 def test_validate_one_missing():
     """
     longitude is missing
     """
-    actual = validateForm({"name": "Juha", "latitude": "12.0"})
-    expected = {"longitude": ErrorMessages.MISSING}
-    assert actual == expected
+    result = validateForm({"name": "Juha", "latitude": "12.0"})
+    assert "Missing" in result["longitude"]
 
 def test_validate_empty_value():
     """
     longitude has empty value
     """
-    actual = validateForm({"name": "Juha", "latitude": "12.0", "longitude": ""})
-    expected = {"longitude": ErrorMessages.MISSING}
-    assert actual == expected
+    result = validateForm({"name": "Juha", "latitude": "12.0", "longitude": ""})
+    assert "Missing" in result["longitude"]
+
+def test_validate_empty_name():
+    """
+    Should return validation error if name is empty
+    """
+    result = validateForm({"name": "", "latitude": "12.0", "longitude": ""})
+    assert "Missing" in result["name"]
