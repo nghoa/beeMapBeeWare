@@ -61,14 +61,17 @@ function removeChildren(element) {
 
 /** 
  * Add errors to fields
+ * removes old ones
  */
 function handleSaveErrors(data) {
-    let len = Object.keys(data).length;
-    if (len > 0) {
-        for (let field in data) {
-            let div = document.getElementById(field).parentElement;
-            let p = div.querySelector("div");
-            p.textContent = data[field];
+    for (let field of ["latitude", "longitude", "name"]) {
+        let div = document.getElementById(field).parentElement;
+        let errorDiv = div.querySelector("div");
+        if (field in data) {
+            errorDiv.textContent = data[field];
+        }    
+        else {
+            errorDiv.textContent = "";
         }
     }
 }
