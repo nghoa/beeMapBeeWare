@@ -28,18 +28,14 @@ function handleFormSubmit(e) {
     let latitude = document.getElementById("latitude").value;
     let longitude = document.getElementById("longitude").value;
 
-    let data = {
-        "name": name,
-        "latitude": latitude,
-        "longitude": longitude
-    }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("latitude", latitude);
+    formData.append("longitude", longitude);
 
     fetch("/save", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData,
     })
     .then(response => response.json())
     .then(data => {
@@ -68,7 +64,8 @@ function handleSaveErrors(data) {
         let div = document.getElementById(field).parentElement;
         let errorDiv = div.querySelector("div");
         if (field in data) {
-            errorDiv.textContent = data[field];
+            let fieldErrors = data[field].join(" ");
+            errorDiv.textContent = fieldErrors;
         }    
         else {
             errorDiv.textContent = "";

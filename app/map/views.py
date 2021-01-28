@@ -4,46 +4,40 @@ from google.cloud.datastore.helpers import GeoPoint
 
 from . import map_blueprint
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
-from app.services.bee_service import get_fields, validateForm
 from app.services.database import getLocations, save_suggestion
-
+from app.services.validation import SuggestionForm
 
 @map_blueprint.route('/')
 def home():
-    return render_template('map.html')
+    form = SuggestionForm()
+    return render_template('map.html', form = form)
 
 
-def parseSuggestion():
-    """
-    Parses json into fields
-    """
-    fields = request.get_json()
-    return fields
-
-
-@map_blueprint.route("/save", methods=["POST","GET"])
+@map_blueprint.route("/save", methods=["POST"])
 def save():
     """
     Save received bee-village suggestion
+    Request:
+        http post request
+            body: formdata (name, latitude, longitude)
     Response:
-        message telling if the suggestion was valid
+        json {"fieldname": ["errors"]}
     """
-    fields = parseSuggestion()
+    form = SuggestionForm(request.form)
+    if form.validate():
+        latitude = form.latitude.data
+        longitude = form.longitude.data
 
-    errors = validateForm(fields)
-    if len(errors) == 0:
-        latitude = float(fields["latitude"])
-        longitude = float(fields["longitude"])
         point = GeoPoint(latitude, longitude)
         save_suggestion(point)
         status_code = 200
     else:
         status_code = 400 #bad request
-    
-    return jsonify(errors), status_code 
+
+    return jsonify(form.errors), status_code 
     
 
-@map_blueprint.route("/locations", methods=["GET", "POST"])
+@map_blueprint.route("/locations", methods=["GET"])
 def locations():
     locations = getLocations()
 
