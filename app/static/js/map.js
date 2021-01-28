@@ -40,13 +40,37 @@ function handleFormSubmit(e) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-    }).then(response => {
-        let errors = response.json();
-        //TODO: errors
-        console.log(errors);
+    })
+    .then(response => response.json())
+    .then(data => {
+        handleSaveErrors(data)
+        getLocations();
+    })
+    .catch(e => console.error(e));
+}
 
-        getLocations();                 // put all the locations to the map, including the latest
-    }).catch(e => console.error(e))
+
+/**
+ * removes element's children
+ */
+function removeChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
+/** 
+ * Add errors to fields
+ */
+function handleSaveErrors(data) {
+    let len = Object.keys(data).length;
+    if (len > 0) {
+        for (let field in data) {
+            let div = document.getElementById(field).parentElement;
+            let p = div.querySelector("div");
+            p.textContent = data[field];
+        }
+    }
 }
 
 
@@ -112,8 +136,6 @@ function initMap() {
  * Put the fetched markers to the map
  */
 function put_markers_to_map(data, textStatus, request) {
-    console.log(data);
-
     const locations = data.map(L.marker)
 
     // Bind mouse click to show popup that displays clicked location's data

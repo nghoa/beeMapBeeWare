@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <meta name="description" content="View and suggest bee-village location on map">
-    
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,17 +16,23 @@
 
 <body>
     <div id="panel" class="hidden">
-       <button id="hide-button">Hide</button>
-        <!--button id="hide-button" class="right-aligned">Hide</button-->
+        <button id="hide-button">Hide</button>
         <h2>We want to know more about you</h2>
         <form id="userForm" action="">
             <div>
-                <!-- the following requires numeric type with dot or comma as decimal separator step="any" might not work in every browser, lang="en" forces dot to appear as default decimal separotor -->
-                <label for="latitude">Latitude</label><input type="number" lang="en" inputmode="numeric" pattern="^-?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)$" min="-90.000000" max="90.000000" step="any" title="The location must be numeric use dot or comma as a decimal separator." name="latitude" id="latitude" required>
-                <label for="longitude">Longitude</label><input type="number" lang="en" inputmode="numeric" pattern="^-?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)$" min="-180.000000" max="180.000000" step="any" title="The location must be numeric use dot or comma as a decimal separator." name="longitude" id="longitude" required>
+                <label for="latitude">Latitude</label>
+                <input type="text" name="latitude" id="latitude">
+                <div class="errors"></div>
             </div>
             <div>
-                <label for="name">Name</label><input type="text" name="name" id="name">
+                <label for="longitude">Longitude</label>
+                <input type="text" name="longitude" id="longitude">
+                <div class="errors"></div>
+            </div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name">
+                <div class="errors"></div>
             </div>
             <div>
                 <input type="submit" value="Send" id="submit">

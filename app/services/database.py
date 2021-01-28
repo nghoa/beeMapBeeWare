@@ -16,7 +16,6 @@ def save_suggestion(location):
     task = datastore.Entity(key=task_key)
     task["LatLng"] = location
     client.put(task)
-#    print(f"Saved {task.key.name}: {task['LatLng']}")
     
 
 def getLocations():
@@ -24,7 +23,6 @@ def getLocations():
     kind = "HiveLocation"
     locations = []
     for entity in client.query(kind=kind).fetch():
-        print(entity["LatLng"])
         locations.append({
             "lat": entity["LatLng"].latitude,
             "lon": entity["LatLng"].longitude
