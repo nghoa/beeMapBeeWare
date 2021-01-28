@@ -30,3 +30,7 @@ def getLocations():
             "lon": entity["LatLng"].longitude
         })
     return locations
+
+
+if __name__ == "__main__":
+    print(getLocations())
