@@ -1,8 +1,11 @@
 from flask import Flask
+from flask_login import LoginManager
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     register_blueprints(app)
+    login_manager = LoginManager(app)
+    login_manager.login_view = 'admin.login'
 
     return app
 

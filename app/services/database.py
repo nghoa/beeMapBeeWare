@@ -41,6 +41,7 @@ def get_all_users():
     for entity in client.query(kind=kind).fetch():
         print(entity)
 
+
 def get_user(username):
     kind = "User"
     client = datastore.Client()
