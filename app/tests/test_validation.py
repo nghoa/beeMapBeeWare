@@ -39,14 +39,14 @@ def test_zero_coercion():
     data = {"name": "Juha", "latitude": "0", "longitude": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
-        valid = form.validate()
+        assert form.validate()
         assert form.errors == {}
 
 def test_latitude_range():
     data = {"name": "Juha", "latitude": "13", "longitude": "14"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
-        valid = form.validate()
+        assert form.validate()
         assert form.errors == {}
 
 def test_latitude_range_off():
