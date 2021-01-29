@@ -19,12 +19,22 @@ def save_suggestion(location):
     
 
 def getLocations():
+    """
+    Returns:
+    {
+        latitude: str, longitude: str, id: int
+    }
+    """
     client = datastore.Client()
     kind = "HiveLocation"
+    
     locations = []
     for entity in client.query(kind=kind).fetch():
+        latitude = entity["LatLng"].latitude
+        longitude = entity["LatLng"].longitude
+
         locations.append({
-            "lat": entity["LatLng"].latitude,
-            "lon": entity["LatLng"].longitude
+            "longitude": longitude,
+            "latitude": latitude
         })
     return locations
