@@ -4,6 +4,10 @@
 let map = undefined;
 /** current latlng that was clicked on map */
 let currentLocation = undefined;
+/** all markers on map except for the one user has possibly created */
+let markers = [];
+/** most recent created marker */
+let currentMarker = []
 
 window.onload = () => {
     initMap();
@@ -81,15 +85,20 @@ function handleSaveErrors(data) {
  * @param e event
 */
 function addPopUp(e) {
+    //remove old marker
+    if (currentMarker) {
+        map.removeLayer(currentMarker);
+    }
     let location = e.latlng;
-    let popup = L.popup();
-    //let message = `Valittu sijainti<br />${location.toString()}<br /><a href="#infoform">Valitse</a>`;
-    let message = `Chosen location<br />${"lat: " + location.lat + " lon: " + location.lng}<br /><button onclick="togglePanel()">Choose location</button>`;
-    popup
-        .setLatLng(location)
-        .setContent(message)
-        .openOn(map);
+    currentMarker = L.marker(location);
+    
+    let message = `Chosen location<br />lat: ${location.lat} lon: ${location.lng}<br /><button onclick="togglePanel()">Choose location</button>`;
 
+    currentMarker.addTo(map)
+        .bindPopup(message)
+        .openPopup();
+
+    //put information to form
     let latitude = location.lat;
     let longitude = location.lng;
     document.getElementById("latitude").value = latitude;
@@ -102,9 +111,11 @@ function addPopUp(e) {
  * Shows panel that contains the location recommendation form.
 */
 function togglePanel() {
+    //check if anything has been clicked and center map a bit
     if (currentLocation) {
         map.panTo(currentLocation);
     }
+    //make panel visible
     let panel = document.getElementById("panel");
     panel.classList.toggle("hidden");
 }
@@ -128,27 +139,44 @@ function initMap() {
     // show the scale bar on the lower left corner
     L.control.scale({ "imperial": false, "position": "bottomright" }).addTo(map);
 
-    // show a marker on the map
-    //L.marker({lon: 25.72088, lat: 62.24147}).bindPopup('Jyväskylä').addTo(map);
 }
 
 /**
  * Put the fetched markers to the map
  */
 function put_markers_to_map(data, textStatus, request) {
-    const locations = data.map(L.marker)
+    //remove old markers
+    markers.forEach(marker => map.removeLayer(marker))
 
-    // Bind mouse click to show popup that displays clicked location's data
-    locations.forEach(marker => {
-        marker.bindPopup("Location: " + marker.getLatLng().toString()).openPopup();
+    //transform fetched data to markers
+    markers = data.map(element => {
+        return L.marker([element["latitude"], element["longitude"]])
+    })
 
-        marker.on("click", event => {
-            event.target.openPopup();
-        })
+    //add markers to map
+    //add popup
+    markers.forEach(marker => {
+        marker.addTo(map)
+        let latlng = marker.getLatLng();
+        let message = `Chosen location<br />lat: ${latlng.lat} lon: ${latlng.lng}<br />`;
+        marker.bindPopup(message);
     });
 
-    let locations_layer = L.layerGroup(locations);
-    locations_layer.addTo(map);
+    //show popup with information about selected marker
+    markers.forEach(marker => {
+        marker.on("click", e => {
+            //hide panel if shown because user can't modify existing suggestions
+            document.getElementById("panel").classList.add("hidden");
+
+            if (currentMarker) {
+                map.removeLayer(currentMarker);
+                currentMarker = undefined;
+            }
+
+            marker.openPopup();
+        })
+    })
+
 }
 
 
