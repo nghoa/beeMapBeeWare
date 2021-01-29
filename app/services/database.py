@@ -32,5 +32,19 @@ def getLocations():
     return locations
 
 
+# user models separated by file?
+
+def getUser():
+    client = datastore.Client()
+    kind = "User"
+    for entity in client.query(kind=kind).fetch():
+        password = entity["Password"]
+        password_hash = entity["PasswordHash"]
+        username = entity["Username"]
+        print(password)
+        print(password_hash)
+        print(username)
+
+
 if __name__ == "__main__":
-    print(getLocations())
+    getUser()
