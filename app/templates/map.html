@@ -18,20 +18,18 @@
     <div id="panel" class="hidden">
         <button id="hide-button">Hide</button>
         <h2>We want to know more about you</h2>
-        <form id="userForm" action="">
+
+        <form id="userForm" method="post" action="/">
             <div>
-                <label for="latitude">Latitude</label>
-                <input type="text" name="latitude" id="latitude">
+                {{ form.latitude.label }} {{ form.latitude }}
                 <div class="errors"></div>
             </div>
             <div>
-                <label for="longitude">Longitude</label>
-                <input type="text" name="longitude" id="longitude">
+                {{ form.longitude.label }} {{ form.longitude }}
                 <div class="errors"></div>
             </div>
             <div>
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name">
+                {{ form.name.label }} {{ form.name }}
                 <div class="errors"></div>
             </div>
             <div>
