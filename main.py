@@ -10,6 +10,9 @@ def start_app():
     host = os.getenv('HOST', '127.0.0.1')
     port = os.getenv('PORT', '5000')
     
+    #load secret key from file, create this file yourself
+    #https://gitlab.jyu.fi/startuplab/courses/tjts5901-continuous-software-engineering/beemaptemplate/-/blob/master/docs/adding-flask-config-file.md
+    app.config.from_pyfile("instance_config.py")
     app.run(host=host, port=port)
     
 if __name__ == '__main__':

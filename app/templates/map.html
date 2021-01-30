@@ -15,9 +15,19 @@
 </head>
 
 <body>
+    <header>
+        <div>
+            <h1>{{ gettext("Map") }}</h1>
+        </div>
+        <div>
+            <a href="/lang/fi">FI</a>
+            <a href="/lang/en">EN</a>
+        </div>
+    </header>
+
     <div id="panel" class="hidden">
         <button id="hide-button">Hide</button>
-        <h2>We want to know more about you</h2>
+        <h2>{{ gettext("We want to know more about you") }}</h2>
 
         <form id="userForm" method="post" action="/">
             <div>
