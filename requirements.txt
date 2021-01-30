@@ -2,3 +2,4 @@ flask>=1.1
 google-cloud-datastore
 flask-login
 Flask-WTF
+Flask-Babel

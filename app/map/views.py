@@ -7,10 +7,22 @@ from flask import session, redirect, url_for, escape, request, Response, render_
 from app.services.database import getLocations, save_suggestion
 from app.services.validation import SuggestionForm
 
+from flask_babel import gettext
+
 @map_blueprint.route('/')
 def home():
     form = SuggestionForm()
     return render_template('map.html', form = form)
+
+@map_blueprint.route("/lang/<name>")
+def change(name):
+    """
+    Change language
+    load homepage again
+    """
+    if name in ["fi", "en"]:
+        session["lang"] = name
+    return redirect(url_for("map.home"))
 
 
 @map_blueprint.route("/save", methods=["POST"])
