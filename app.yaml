@@ -4,6 +4,9 @@ env_variables:
   GOOGLE_APPLICATION_CREDENTIALS: appcredentials.json
   
 handlers:
+- url: /static
+  static_dir: static
+
 - url: /.*
   secure: never
   redirect_http_response_code: 301
