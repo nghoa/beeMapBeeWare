@@ -43,12 +43,36 @@ function handleFormSubmit(e) {
     })
     .then(response => response.json())
     .then(data => {
-        handleSaveErrors(data)
+        let valid = handleSaveErrors(data)
+        if (valid) {
+            handleSuccess();
+        }
         getLocations();
     })
     .catch(e => console.error(e));
 }
 
+/**
+ * Show success message
+ * clear form 
+ */
+function handleSuccess() {
+    let feedback = document.getElementById("feedback");
+    feedback.textContent = "Suggestion was saved succesfully"
+    //clear message after 3 seconds
+    setTimeout(() => {
+        feedback.textContent = "";
+    }, 6000);
+    clearForm();
+}
+
+/** 
+ * Clear form fields
+*/
+function clearForm() {
+    let fields = ["name", "latitude", "longitude"]
+    fields.forEach(field => document.getElementById(field).value = "");
+}
 
 /**
  * removes element's children
@@ -62,12 +86,16 @@ function removeChildren(element) {
 /** 
  * Add errors to fields
  * removes old ones
+ * @return true if form was valid false otherwise
  */
 function handleSaveErrors(data) {
+    let valid = true;
+
     for (let field of ["latitude", "longitude", "name"]) {
         let div = document.getElementById(field).parentElement;
         let errorDiv = div.querySelector("div");
         if (field in data) {
+            valid = false;
             let fieldErrors = data[field].join(" ");
             errorDiv.textContent = fieldErrors;
         }    
@@ -75,6 +103,7 @@ function handleSaveErrors(data) {
             errorDiv.textContent = "";
         }
     }
+    return valid;
 }
 
 
