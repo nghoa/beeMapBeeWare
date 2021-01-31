@@ -1,8 +1,7 @@
 from datastore_entity import DatastoreEntity, EntityValue
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
 
-# from app import login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(DatastoreEntity, UserMixin):
     Username = EntityValue()
@@ -16,6 +15,13 @@ class User(DatastoreEntity, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.PasswordHash, password)
 
-    # Overwrite
-    def get_id(self):
-        return self.Username
+# @login_manager.user_loader
+def load_user(username):
+    return User().get_obj('Username', username)
+
+
+if __name__ == '__main__':
+    user = User().get_obj('Username', "admin")
+
+    test = user.check_password("admin")
+    print(test)

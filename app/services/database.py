@@ -58,5 +58,4 @@ def create_admin_user(username, password):
     print(hash)
 
 if __name__ == "__main__":
-    # get_all_users()
-    create_admin_user("admin", "admin")
+    pass

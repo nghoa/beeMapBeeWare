@@ -1,31 +1,34 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask_login import login_user, logout_user, current_user, login_required
+from werkzeug.urls import url_parse
 
+from app.admin.forms import LoginForm
+from app.admin.models import User
 from . import admin_blueprint
 
 @admin_blueprint.route('/')
+@login_required
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', title='Home')
 
-@admin_blueprint.route('/login')
+@admin_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('admin.profile'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User().get_obj('Username', form.username.data)
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('admin.login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('admin.profile')
+        return redirect(next_page)
+    return render_template('login.html', title="Login", form=form)
 
 @admin_blueprint.route('/logout')
 def logout():
-    return 'Logout'
-
-@admin_blueprint.route('/login', methods=['POST'])
-def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
-
-    # user = User.query.filter_by(email=email).first()
-
-    # # check if the user actually exists
-    # # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    # if not user or not check_password_hash(user.password, password):
-    #     flash('Please check your login details and try again.')
-
-    # # if the above check passes, then we know the user has the right credentials
+    logout_user()
     return redirect(url_for('admin.profile'))
