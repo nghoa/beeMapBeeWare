@@ -54,7 +54,7 @@ build-job:
 pylint:
   stage: test
   before_script:
-    - pip3 install pylint pylint-exit anybadge
+    - pip install pylint pylint-exit anybadge
   script:
     - mkdir ./pylint
     - pylint --output-format=text . | tee ./pylint/pylint.log || pylint-exit $?
