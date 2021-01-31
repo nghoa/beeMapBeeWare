@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
-
 from secrets import token_urlsafe
+
 from app.admin.models import User
 
 def create_app():
@@ -10,13 +10,7 @@ def create_app():
     app.secret_key = token_urlsafe(16)
 
     register_blueprints(app)
-
-    # fast login manager implement
-    login_manager = LoginManager(app)
-    login_manager.login_view = 'admin.login'
-    @login_manager.user_loader
-    def load_user(username):    
-        return User().get_obj('Username', username)
+    register_loginmanager(app)
 
     return app
 
@@ -27,5 +21,14 @@ def register_blueprints(app):
     from app.map import map_blueprint
  
     app.register_blueprint(map_blueprint)
-
     app.register_blueprint(admin_blueprint, url_prefix='/admin')    
+
+
+def register_loginmanager(app):
+    # secure login manager implemented
+    login_manager = LoginManager(app)
+    login_manager.session_protection = "strong"
+    login_manager.login_view = 'admin.login'
+    @login_manager.user_loader
+    def load_user(username):    
+        return User().get_obj('Username', username)
