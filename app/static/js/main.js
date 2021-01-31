@@ -19,6 +19,7 @@ window.onload = () => {
     document.getElementById("userForm").addEventListener("submit", handleFormSubmit);
 
     document.getElementById("hide-button").addEventListener("click", togglePanel)
+
 }
 
 /**
@@ -121,10 +122,14 @@ function addPopUp(e) {
     let location = e.latlng;
     currentMarker = L.marker(location);
     
-    let message = `Chosen location<br />lat: ${location.lat} lon: ${location.lng}<br /><button onclick="togglePanel()">Choose location</button>`;
 
+/*     if (locationOccupied(markers, marker)) {
+
+    } */
+    
+    let content = createPopupContentNew(currentMarker);
     currentMarker.addTo(map)
-        .bindPopup(message)
+        .bindPopup(content)
         .openPopup();
 
     //put information to form
@@ -134,6 +139,33 @@ function addPopUp(e) {
     document.getElementById("longitude").value = longitude;
 
     currentLocation = location;
+}
+
+/** 
+ * Content showing user information about created marker
+ * @param marker: leaflet marker object
+ * @return HTMLElement
+*/
+function createPopupContentNew(marker) {
+    let latlng = marker.getLatLng();
+
+    let div = document.createElement("div");
+    div.textContent = "Chosen location";
+    let p = document.createElement("p");
+    p.textContent = `latitude: ${latlng.lat}`;
+
+    let p2 = document.createElement("p");
+    p2.textContent = `longitude: ${latlng.lng}`;
+
+    div.appendChild(p);
+    div.appendChild(p2);
+
+    let button = document.createElement("button");
+    button.textContent = "Choose"
+    button.addEventListener("click", togglePanel)
+
+    div.appendChild(button);
+    return div;
 }
 
 /** 
@@ -177,22 +209,21 @@ function put_markers_to_map(data, textStatus, request) {
     //remove old markers
     markers.forEach(marker => map.removeLayer(marker))
 
-    //transform fetched data to markers
-    markers = data.map(element => {
-        return L.marker([element["latitude"], element["longitude"]])
-    })
-
-    //add markers to map
-    //add popup
-    markers.forEach(marker => {
+    markers = []
+    for (let element of data) {
+        //transform fetched data to markers
+        let marker = L.marker([element["latitude"], element["longitude"]]);        
+        
+        //add markers to map
         marker.addTo(map)
-        let latlng = marker.getLatLng();
-        let message = `Chosen location<br />lat: ${latlng.lat} lon: ${latlng.lng}<br />`;
-        marker.bindPopup(message);
-    });
 
-    //show popup with information about selected marker
-    markers.forEach(marker => {
+        //add popup
+        let id = element["id"];
+        let content = createPopupContent(marker, id);
+        marker.bindPopup(content);
+
+
+        //show popup with information about selected marker
         marker.on("click", e => {
             //hide panel if shown because user can't modify existing suggestions
             document.getElementById("panel").classList.add("hidden");
@@ -204,10 +235,55 @@ function put_markers_to_map(data, textStatus, request) {
 
             marker.openPopup();
         })
-    })
-
+    }
 }
 
+/** 
+ * Content showing user information about selected suggestion
+ * @param marker: leaflet marker object
+ * @param id: suggestion id
+ * @return HTMLElement
+*/
+function createPopupContent(marker, id) {
+    let latlng = marker.getLatLng();
+
+    let div = document.createElement("div");
+    div.textContent = "Chosen location";
+    let p = document.createElement("p");
+    p.textContent = `latitude: ${latlng.lat}`;
+
+    let p2 = document.createElement("p");
+    p2.textContent = `longitude: ${latlng.lng}`;
+
+    div.appendChild(p);
+    div.appendChild(p2);
+
+    let button = document.createElement("button");
+    button.textContent = "delete";
+    button.addEventListener("click", e => {
+        deleteLocation(marker, id);
+    });
+
+    div.appendChild(button);
+
+    return div;
+}
+
+/**
+ * Delete suggestion 
+ * delete marker from map
+ * @param marker leaflet marker object to delete
+ * @param id id of suggestion to delete
+ */
+function deleteLocation(marker, id) {
+    map.removeLayer(marker);
+    fetch(`/delete/${id}`, {
+        method: "GET"
+    })
+    .then(res => res.text())
+    .then(text => console.log(text))
+    .catch(e => console.error(e))
+}
 
 /**
  * Get the locations from backend

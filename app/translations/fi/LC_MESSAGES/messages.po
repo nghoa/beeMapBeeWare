@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-01-30 15:22+0200\n"
-"PO-Revision-Date: 2021-01-30 15:23+0200\n"
+"POT-Creation-Date: 2021-01-31 15:20+0200\n"
+"PO-Revision-Date: 2021-01-31 15:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fi\n"
 "Language-Team: fi <LL@li.org>\n"
@@ -18,11 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: app/templates/map.html:19
+#: app/templates/map.html:20
 msgid "Map"
 msgstr "Kartta"
 
-#: app/templates/map.html:26
+#: app/templates/map.html:30
 msgid "We want to know more about you"
-msgstr "Haluamme tietää sinut enemmän"
-
+msgstr "Haluamme tietää sinusta lisää"

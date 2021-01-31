@@ -32,7 +32,6 @@ def register_localization(app):
         Decide what language to use
         """
         if "lang" in session:
-            print("from session", session["lang"])
             return session["lang"]
         #Decides the most suitable language option
         #fi=Finnish has higher priority

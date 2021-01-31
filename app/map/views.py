@@ -4,7 +4,7 @@ from google.cloud.datastore.helpers import GeoPoint
 
 from . import map_blueprint
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
-from app.services.database import getLocations, save_suggestion
+from app.services.database import getLocations, save_suggestion, delete_suggestion
 from app.services.validation import SuggestionForm
 
 from flask_babel import gettext
@@ -48,11 +48,20 @@ def save():
 
     return jsonify(form.errors), status_code 
     
+@map_blueprint.route("/delete/<int:id>", methods=["GET"])
+def delete(id):
+    """
+    Deletes suggestion from database with given id
+    if it exists
+    Params:
+        id: entity id, gets converted to int
+    """
+    delete_suggestion(id)
+    return "ok", 200
 
 @map_blueprint.route("/locations", methods=["GET"])
 def locations():
     locations = getLocations()
-
     json_data = jsonify(locations)
 
     # make the response from json data requiderd by Flask. As HTTP code is used 200, OK
