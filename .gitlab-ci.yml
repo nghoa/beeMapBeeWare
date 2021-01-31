@@ -53,6 +53,7 @@ build-job:
 # Shameless code reuse from https://stackoverflow.com/a/47342642
 pylint:
   stage: test
+  image: python:3.8
   before_script:
     - pip install pylint pylint-exit anybadge
   script:
