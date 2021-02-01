@@ -2,7 +2,27 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h1>
-    Settings!
-</h1>
+
+<div class="box">
+    <form action="" method="post">
+        <div class="field">
+            <div class="control">
+                <label for="old_password" class="label">Old Password</label>
+                <input id="old_password" class="input is-normal" type="text" placeholder="Old Password...">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <label for="new_password" class="label">New Password</label>
+                <input id="new_password" class="input is-normal" type="text" placeholder="New Password...">
+            </div>
+        </div>
+
+        <button class="button is-primary">Change password</button>
+
+    </form>
+</div>
+
+
 {% endblock %}
