@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Beemap</title>
+    <title>{{ gettext("Beemap") }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <meta name="description" content="View and suggest bee-village location on map">
@@ -26,7 +26,7 @@
     </header>
 
     <div id="panel" class="hidden">
-        <button id="hide-button">Hide</button>
+        <button id="hide-button">{{ gettext("Hide") }}</button>
         <h2>{{ gettext("We want to know more about you") }}</h2>
 
         <form id="userForm" method="post" action="/">
@@ -51,6 +51,17 @@
 
     <div id="map"></div>
 
+    <script>
+        /** table of translations */
+        const translationData = {
+            "Chosen location": '{{ gettext("Chosen location") }}',
+            "Latitude": '{{ gettext("Latitude") }}',
+            "Longitude": '{{ gettext("Longitude") }}',
+            "Choose": '{{ gettext("Choose") }}',
+            "Suggestion was saved succesfully": '{{ gettext("Suggestion was saved succesfully") }}',
+            "Delete": '{{ gettext("Delete") }}'
+        }
+    </script>
 
 </body>
 

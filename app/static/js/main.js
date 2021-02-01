@@ -59,7 +59,7 @@ function handleFormSubmit(e) {
  */
 function handleSuccess() {
     let feedback = document.getElementById("feedback");
-    feedback.textContent = "Suggestion was saved succesfully"
+    feedback.textContent = requireTranslation("Suggestion was saved succesfully")
     //clear message after 3 seconds
     setTimeout(() => {
         feedback.textContent = "";
@@ -150,22 +150,30 @@ function createPopupContentNew(marker) {
     let latlng = marker.getLatLng();
 
     let div = document.createElement("div");
-    div.textContent = "Chosen location";
+    div.textContent = requireTranslation("Chosen location");
     let p = document.createElement("p");
-    p.textContent = `latitude: ${latlng.lat}`;
+    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat}`;
 
     let p2 = document.createElement("p");
-    p2.textContent = `longitude: ${latlng.lng}`;
+    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng}`;
 
     div.appendChild(p);
     div.appendChild(p2);
 
     let button = document.createElement("button");
-    button.textContent = "Choose"
+    button.textContent = requireTranslation("Choose")
     button.addEventListener("click", togglePanel)
 
     div.appendChild(button);
     return div;
+}
+
+/**
+ * Get translation for given text
+ */
+function requireTranslation(name) {
+    /* translationData is defined in html file */
+    return translationData[name];
 }
 
 /** 
@@ -235,6 +243,7 @@ function put_markers_to_map(data, textStatus, request) {
 
             marker.openPopup();
         })
+        markers.push(marker);
     }
 }
 
@@ -248,18 +257,18 @@ function createPopupContent(marker, id) {
     let latlng = marker.getLatLng();
 
     let div = document.createElement("div");
-    div.textContent = "Chosen location";
+    div.textContent = requireTranslation("Chosen location");
     let p = document.createElement("p");
-    p.textContent = `latitude: ${latlng.lat}`;
+    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat}`;
 
     let p2 = document.createElement("p");
-    p2.textContent = `longitude: ${latlng.lng}`;
+    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng}`;
 
     div.appendChild(p);
     div.appendChild(p2);
 
     let button = document.createElement("button");
-    button.textContent = "delete";
+    button.textContent = requireTranslation("Delete");
     button.addEventListener("click", e => {
         deleteLocation(marker, id);
     });
