@@ -67,8 +67,12 @@ def getLocations():
         })
     
     hiveCount = len(locations)
-    logging.debug(f"Found {hiveCount} locations")
 
+    if hiveCount > 0:
+        logging.debug(f"Found {hiveCount} locations")
+    else:
+        logging.warn("No hive locations found")
+        
     return locations
 
 
