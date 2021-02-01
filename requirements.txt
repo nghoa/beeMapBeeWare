@@ -1,5 +1,6 @@
 flask>=1.1
 google-cloud-datastore
 flask-login
+datastore-entity
 Flask-WTF
 Flask-Babel
