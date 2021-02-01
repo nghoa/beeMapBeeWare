@@ -8,6 +8,7 @@ from app.services.database import getLocations, save_suggestion, delete_suggesti
 from app.services.validation import SuggestionForm
 
 from flask_babel import gettext
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 @map_blueprint.route('/')
 def home():

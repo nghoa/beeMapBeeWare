@@ -78,6 +78,7 @@ def get_all_users():
     kind = "User"
     client = datastore.Client()
     for entity in client.query(kind=kind).fetch():
+        logging.debug(f"Found user entity: {entity}.")
         print(entity)
         
 
