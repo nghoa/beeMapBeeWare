@@ -107,7 +107,7 @@ staging:
   - echo $GOOGLE_APPLICATION_CREDENTIALS > appcredentials.json
   - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
   - mkdir instance
-  - cp $INSTANCE_CONFIG_PRODUCTION instance/instance_config.py
+  - cp $INSTANCE_CONFIG_STAGING instance/instance_config.py
   - gcloud --quiet --project $PROJECT_ID app deploy app-staging.yaml
   - rm /tmp/$CI_PIPELINE_ID.json
   only:
