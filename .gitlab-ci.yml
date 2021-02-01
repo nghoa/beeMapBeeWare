@@ -29,10 +29,14 @@ variables:
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4125
   DOCKER_TLS_VERIFY: 1
   DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+  WEBSITE_STAGING: https://staging-dot-nodal-figure-301713.ew.r.appspot.com
 
 stages:
   - build
   - test
+  - staging
+  # Optional step to run tests agains staged deployment.
+  - staging-test
   - deploy
 
 services:
@@ -74,7 +78,7 @@ test-job1:
     - export FLASK_APP=web
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest pytest-cov
-    - pytest --cov --cov-report term --cov-report html
+    - pytest --cov --cov-report term --cov-report html -m "not staging"
   artifacts:
     paths:
       - htmlcov/
@@ -92,6 +96,30 @@ pages:
     expire_in: 10 days
   only:
     - master
+
+staging:
+  stage: staging
+  environment:
+    name: staging
+  image: google/cloud-sdk:alpine
+  script:
+  - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+  - echo $GOOGLE_APPLICATION_CREDENTIALS > appcredentials.json
+  - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+  - mkdir instance
+  - cp $INSTANCE_CONFIG_PRODUCTION instance/instance_config.py
+  - gcloud --quiet --project $PROJECT_ID app deploy app-staging.yaml
+  - rm /tmp/$CI_PIPELINE_ID.json
+  only:
+    - master
+
+test-staging:
+  stage: test-staging
+  image: python:3.8
+  script:
+    - pip install pytest
+    # Run tests that has been marked by "@pytest.mark.staging"
+    - pytest --verbose tests -m "staging"
 
 deploy:
   stage: deploy
