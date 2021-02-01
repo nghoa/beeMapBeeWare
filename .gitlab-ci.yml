@@ -113,8 +113,8 @@ staging:
   only:
     - master
 
-test-staging:
-  stage: test-staging
+staging-test:
+  stage: staging-test
   image: python:3.8
   script:
     - pip install pytest
