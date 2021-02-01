@@ -1,5 +1,14 @@
+import logging
 from google.cloud import datastore
 from werkzeug.security import generate_password_hash
+from opencensus.ext.azure.log_exporter import AzureLogHandler
+
+logger= logging.getLogger()
+logger.setLevel(logging.DEBUG) # or whatever
+
+# Azure loghandler.
+connection_string = "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/"
+logger.addHandler(AzureLogHandler(connection_string=connection_string))
 
 
 def save_suggestion(location):
@@ -16,6 +25,9 @@ def save_suggestion(location):
     task_key = client.key(kind)
     task = datastore.Entity(key=task_key)
     task["LatLng"] = location
+
+    logger.debug(f"Saved location {location}")
+
     client.put(task)
     
 def delete_suggestion(id):
@@ -27,6 +39,8 @@ def delete_suggestion(id):
 
     kind = "HiveLocation"
     key = client.key(kind, id)
+
+    logger.debug(f"Deleted {key}.")
     client.delete(key)
 
 def getLocations():
@@ -51,6 +65,10 @@ def getLocations():
             "latitude": latitude,
             "id": id
         })
+    
+    hiveCount = len(locations)
+    logging.debug(f"Found {hiveCount} locations")
+
     return locations
 
 
@@ -61,7 +79,7 @@ def get_all_users():
     client = datastore.Client()
     for entity in client.query(kind=kind).fetch():
         print(entity)
-
+        
 
 def get_user(username):
     kind = "User"
@@ -69,6 +87,8 @@ def get_user(username):
     query = client.query(kind=kind)
     query_iter = query.add_filter('Username', '=', username).fetch()
     user_entity = list(query_iter)
+
+    logging.debug(f"Found user {user_entity}")
     return(user_entity)
 
 
