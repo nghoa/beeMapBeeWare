@@ -17,17 +17,9 @@
                 <div class="container">
 
                     <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-start">
-                            <a href="{{ url_for('admin.dashboard') }}" class="navbar-item">
-                                Dashboard
-                            </a>
-                            <a href="{{ url_for('admin.settings') }}" class="navbar-item">
-                                Settings
-                            </a>
-                        </div>
                         <div class="navbar-end">
-                            <a href="{{ url_for('admin.logout') }}" class="navbar-item">
-                                <span>Logout</span>
+                            <a href="{{ url_for('admin.login') }}" class="navbar-item">
+                                Login
                             </a>
                         </div>
                     </div>
@@ -36,7 +28,7 @@
         </div>
 
         <div class="hero-body">
-            <div class="container">
+            <div class="container has-text-centered">
                {% block content %}
                {% endblock %}
             </div>
