@@ -3,6 +3,7 @@ from flask_babel import Babel
 from flask_login import LoginManager
 from secrets import token_urlsafe
 
+
 from app.admin.models import User
 
 def create_app():
