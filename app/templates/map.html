@@ -2,39 +2,66 @@
 <html>
 
 <head>
-    <title>Beemap</title>
+    <title>{{ gettext("Beemap") }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <meta name="description" content="View and suggest bee-village location on map">
-    
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
+    <header>
+        <div>
+            <h1>{{ gettext("Map") }}</h1>
+        </div>
+        <div>
+            <a href="/lang/fi">FI</a>
+            <a href="/lang/en">EN</a>
+        </div>
+    </header>
+
     <div id="panel" class="hidden">
-       <button id="hide-button">Hide</button>
-        <!--button id="hide-button" class="right-aligned">Hide</button-->
-        <h2>We want to know more about you</h2>
-        <form id="userForm" action="">
+        <button id="hide-button">{{ gettext("Hide") }}</button>
+        <h2>{{ gettext("We want to know more about you") }}</h2>
+
+        <form id="userForm" method="post" action="/">
             <div>
-                <label for="latitude">Latitude</label><input type="text" name="latitude" id="latitude">
-                <label for="longitude">Longitude</label><input type="text" name="longitude" id="longitude">
+                {{ form.latitude.label }} {{ form.latitude }}
+                <div class="errors"></div>
             </div>
             <div>
-                <label for="name">Name</label><input type="text" name="name" id="name">
+                {{ form.longitude.label }} {{ form.longitude }}
+                <div class="errors"></div>
+            </div>
+            <div>
+                {{ form.name.label }} {{ form.name }}
+                <div class="errors"></div>
             </div>
             <div>
                 <input type="submit" value="Send" id="submit">
             </div>
+            <div id="feedback"></div>
         </form>
     </div>
 
     <div id="map"></div>
 
+    <script>
+        /** table of translations */
+        const translationData = {
+            "Chosen location": '{{ gettext("Chosen location") }}',
+            "Latitude": '{{ gettext("Latitude") }}',
+            "Longitude": '{{ gettext("Longitude") }}',
+            "Choose": '{{ gettext("Choose") }}',
+            "Suggestion was saved succesfully": '{{ gettext("Suggestion was saved succesfully") }}',
+            "Delete": '{{ gettext("Delete") }}'
+        }
+    </script>
 
 </body>
 

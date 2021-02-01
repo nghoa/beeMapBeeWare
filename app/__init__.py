@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, session, request
+from flask_babel import Babel
 from flask_login import LoginManager
 from secrets import token_urlsafe
 
@@ -12,6 +13,7 @@ def create_app():
     register_blueprints(app)
     register_loginmanager(app)
 
+    register_localization(app)
     return app
 
 def register_blueprints(app):
@@ -23,7 +25,6 @@ def register_blueprints(app):
     app.register_blueprint(map_blueprint)
     app.register_blueprint(admin_blueprint, url_prefix='/admin')    
 
-
 def register_loginmanager(app):
     # secure login manager implemented
     login_manager = LoginManager(app)
@@ -31,4 +32,23 @@ def register_loginmanager(app):
     login_manager.login_view = 'admin.login'
     @login_manager.user_loader
     def load_user(username):    
-        return User().get_obj('Username', username)
+        return User().get_obj('Username', username) 
+
+def register_localization(app):
+    """
+    Configure babel with app
+    """
+    babel = Babel(app)
+
+    def get_locale():
+        """
+        Decide what language to use
+        """
+        if "lang" in session:
+            return session["lang"]
+        #Decides the most suitable language option
+        #fi=Finnish has higher priority
+        lang = request.accept_languages.best_match(["fi", "en"])
+        return lang
+
+    babel.localeselector(get_locale)

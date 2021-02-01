@@ -53,7 +53,24 @@ test-job1:
     - export FLASK_APP=web
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest pytest-cov
-    - pytest
+    - pytest --cov --cov-report term --cov-report html
+  artifacts:
+    paths:
+      - htmlcov/
+
+# Deploy code coverage report of the master branch to GitLab Pages
+pages:
+  stage: deploy
+  dependencies:
+    - test-job1
+  script:
+    - mv htmlcov/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 10 days
+  only:
+    - master
 
 deploy:
   stage: deploy
@@ -64,6 +81,8 @@ deploy:
   - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
   - echo $GOOGLE_APPLICATION_CREDENTIALS > appcredentials.json
   - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+  - mkdir instance
+  - cp $INSTANCE_CONFIG_PRODUCTION instance/instance_config.py
   - gcloud --quiet --project $PROJECT_ID app deploy app.yaml
   - rm /tmp/$CI_PIPELINE_ID.json
   

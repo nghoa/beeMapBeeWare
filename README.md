@@ -8,3 +8,5 @@ to run app locally in docker
 
 `$ docker run -p 5000:5000 beemaptemplate:latest`
 
+Access to Application:
+- http://nodal-figure-301713.ew.r.appspot.com/

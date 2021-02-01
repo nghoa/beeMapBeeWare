@@ -1,0 +1,59 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-02-01 10:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: app/templates/map.html:5
+msgid "Beemap"
+msgstr ""
+
+#: app/templates/map.html:20
+msgid "Map"
+msgstr ""
+
+#: app/templates/map.html:29
+msgid "Hide"
+msgstr ""
+
+#: app/templates/map.html:30
+msgid "We want to know more about you"
+msgstr ""
+
+#: app/templates/map.html:57
+msgid "Chosen location"
+msgstr ""
+
+#: app/templates/map.html:58
+msgid "Latitude"
+msgstr ""
+
+#: app/templates/map.html:59
+msgid "Longitude"
+msgstr ""
+
+#: app/templates/map.html:60
+msgid "Choose"
+msgstr ""
+
+#: app/templates/map.html:61
+msgid "Suggestion was saved succesfully"
+msgstr ""
+
+#: app/templates/map.html:62
+msgid "Delete"
+msgstr ""
+
