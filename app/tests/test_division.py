@@ -14,12 +14,13 @@ logger.setLevel(logging.DEBUG)
 connection_string = "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/"
 logger.addHandler(AzureLogHandler(connection_string=connection_string))
 
-@app.route("/_divide_by_zero/<int:number>", methods=["GET"])
-def test_division_by_zero(number: int):
+def test_division_by_zero():
 
     """
         Test for division by zero
     """
+    number = 2
+    
     result = -1
     try:
         result = number / 0
