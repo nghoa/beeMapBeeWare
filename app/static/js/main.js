@@ -13,7 +13,7 @@ window.onload = () => {
     initMap();
     map.on("click", addPopUp);
 
-    // testin the putting the locations to the map
+    // put the markers from the datastore into the map
     getLocations();
 
     document.getElementById("userForm").addEventListener("submit", handleFormSubmit);
@@ -38,6 +38,21 @@ function handleFormSubmit(e) {
     formData.append("latitude", latitude);
     formData.append("longitude", longitude);
 
+    // result = [true/false, marker]
+    let result = isThereAlreadyMarker(latitude, longitude);
+
+    console.log(result);
+
+    if (result[0] == true) {
+        console.log("a marker already exists there!");
+        
+        L.popup().setLatLng(result[1].getLatLng()).setContent('<p>A marker already exists there.</p>').openOn(map);
+
+        return; // just return and don't save duplicate marker
+    } else {
+        console.log("Free space");
+    }
+
     fetch("/save", {
         method: "POST",
         body: formData,
@@ -52,6 +67,22 @@ function handleFormSubmit(e) {
     })
     .catch(e => console.error(e));
 }
+
+
+ function isThereAlreadyMarker(lat, lon) {
+     let marker = L.marker(L.latLng(lat,lon));
+
+     //if (markers.includes(marker)) return true; else return false;
+
+     // go through all markers, test if there's already a marker in the current positiion
+     for (let m of markers) {
+         if (m.getLatLng().equals(marker.getLatLng())) return [true, m];
+    }
+
+    return [false, null];
+
+ }
+ 
 
 /**
  * Show success message
@@ -121,12 +152,7 @@ function addPopUp(e) {
     }
     let location = e.latlng;
     currentMarker = L.marker(location);
-    
 
-/*     if (locationOccupied(markers, marker)) {
-
-    } */
-    
     let content = createPopupContentNew(currentMarker);
     currentMarker.addTo(map)
         .bindPopup(content)
@@ -222,6 +248,9 @@ function put_markers_to_map(data, textStatus, request) {
         //transform fetched data to markers
         let marker = L.marker([element["latitude"], element["longitude"]]);        
         
+        // add marker to the marker collection (array)
+        markers.push(marker);
+
         //add markers to map
         marker.addTo(map)
 
@@ -245,6 +274,7 @@ function put_markers_to_map(data, textStatus, request) {
         })
         markers.push(marker);
     }
+
 }
 
 /** 
