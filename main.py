@@ -8,7 +8,7 @@ app = create_app()
 app.config.from_pyfile("instance_config.py")
 
 def start_app():
-    app.debug = True
+    
     host = os.getenv('HOST', '127.0.0.1')
     port = os.getenv('PORT', '5000')
     

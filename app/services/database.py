@@ -67,8 +67,12 @@ def getLocations():
         })
     
     hiveCount = len(locations)
-    logging.debug(f"Found {hiveCount} locations")
 
+    if hiveCount > 0:
+        logging.debug(f"Found {hiveCount} locations")
+    else:
+        logging.warn("No hive locations found")
+        
     return locations
 
 
@@ -78,6 +82,7 @@ def get_all_users():
     kind = "User"
     client = datastore.Client()
     for entity in client.query(kind=kind).fetch():
+        logging.debug(f"Found user entity: {entity}.")
         print(entity)
         
 
