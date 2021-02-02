@@ -78,6 +78,7 @@ test-job1:
     - export FLASK_APP=web
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest pytest-cov
+    #run test that are not marked with staging
     - pytest --cov --cov-report term --cov-report html -m "not staging"
   artifacts:
     paths:
@@ -122,7 +123,7 @@ staging-test:
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest
     # Run tests that has been marked by "@pytest.mark.staging"
-    - pytest --verbose tests -m "staging"
+    - pytest --verbose -m "staging"
   only:
     - master
 
