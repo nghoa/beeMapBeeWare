@@ -123,7 +123,7 @@ staging-test:
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest
     # Run tests that has been marked by "@pytest.mark.staging"
-    - pytest --verbose -m "staging"
+    - pytest --verbose app/tests -m "staging"
   only:
     - master
 
