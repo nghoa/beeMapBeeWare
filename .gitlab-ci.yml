@@ -1,5 +1,10 @@
 image: docker:19.03.10
 
+# Static Application Security Tests by Gitlab CI
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
 variables:
   # When using dind service, we need to instruct docker to talk with
   # the daemon started inside of the service. The daemon is available
@@ -24,10 +29,12 @@ variables:
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4125
   DOCKER_TLS_VERIFY: 1
   DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+  WEBSITE_STAGING: https://staging.nodal-figure-301713.ew.r.appspot.com
 
 stages:
   - build
   - test
+  - staging
   - deploy
 
 services:
@@ -45,6 +52,22 @@ build-job:
   script:
     - echo "This builds something"
 
+# Shameless code reuse from https://stackoverflow.com/a/47342642
+pylint:
+  stage: test
+  image: python:3.8
+  before_script:
+    - pip install pylint pylint-exit anybadge
+  script:
+    - mkdir ./pylint
+    - pylint --output-format=text main.py | tee ./pylint/pylint.log || pylint-exit $?
+    - PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./pylint/pylint.log)
+    - anybadge --label=Pylint --file=pylint/pylint.svg --value=$PYLINT_SCORE 2=red 4=orange 8=yellow 10=green
+    - echo "Pylint score is $PYLINT_SCORE"
+  artifacts:
+    paths:
+      - ./pylint/
+
 test-job1:
   stage: test
   image: python:3.8
@@ -53,6 +76,7 @@ test-job1:
     - export FLASK_APP=web
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest pytest-cov
+    #run test that are not marked with staging
     - pytest --cov --cov-report term --cov-report html
   artifacts:
     paths:
@@ -71,6 +95,23 @@ pages:
     expire_in: 10 days
   only:
     - master
+
+staging:
+  stage: staging
+  environment:
+    name: staging
+  image: google/cloud-sdk:alpine
+  script:
+  - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+  - echo $GOOGLE_APPLICATION_CREDENTIALS > appcredentials.json
+  - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+  - mkdir instance
+  - cp $INSTANCE_CONFIG_STAGING instance/instance_config.py
+  - gcloud --quiet --project $PROJECT_ID app deploy app-staging.yaml
+  - rm /tmp/$CI_PIPELINE_ID.json
+  only:
+    - master
+
 
 deploy:
   stage: deploy
