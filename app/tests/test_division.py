@@ -15,7 +15,7 @@ connection_string = "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;Ing
 logger.addHandler(AzureLogHandler(connection_string=connection_string))
 
 @app.route("/_divide_by_zero/<int:number>", methods=["GET"])
-def division_by_zero(number: int):
+def test_division_by_zero(number: int):
 
     """
         Test for division by zero
