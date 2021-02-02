@@ -19,8 +19,8 @@ def test_division_by_zero():
     """
         Test for division by zero
     """
-    number = 2
-    
+    number = 3
+
     result = -1
     try:
         result = number / 0
