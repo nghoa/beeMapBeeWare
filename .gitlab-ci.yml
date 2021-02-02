@@ -35,8 +35,6 @@ stages:
   - build
   - test
   - staging
-  # Optional step to run tests agains staged deployment.
-  - staging-test
   - deploy
 
 services:
@@ -79,7 +77,7 @@ test-job1:
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest pytest-cov
     #run test that are not marked with staging
-    - pytest --cov --cov-report term --cov-report html -m "not staging"
+    - pytest --cov --cov-report term --cov-report html
   artifacts:
     paths:
       - htmlcov/
@@ -114,18 +112,6 @@ staging:
   only:
     - master
 
-staging-test:
-  stage: staging-test
-  image: python:3.8
-  script:
-    - export PYTHONPATH=.
-    - export FLASK_APP=web
-    - pip install --no-cache-dir -r requirements.txt
-    - pip install pytest
-    # Run tests that has been marked by "@pytest.mark.staging"
-    - pytest --verbose app/tests -m "staging"
-  only:
-    - master
 
 deploy:
   stage: deploy
