@@ -38,51 +38,51 @@ function handleFormSubmit(e) {
     formData.append("latitude", latitude);
     formData.append("longitude", longitude);
 
-    // result = [true/false, marker]
-    let result = isThereAlreadyMarker(latitude, longitude);
+    const existingMarker = isThereAlreadyMarker(latitude, longitude);
 
-    console.log(result);
-
-    if (result[0] == true) {
+    if (existingMarker) {
         console.log("a marker already exists there!");
-        
-        L.popup().setLatLng(result[1].getLatLng()).setContent('<p>A marker already exists there.</p>').openOn(map);
+
+        L.popup()
+            .setLatLng(existingMarker.getLatLng())
+            .setContent('<p>A marker already exists close by. Please, pick another location.</p>')
+            .openOn(map);
 
         return; // just return and don't save duplicate marker
-    } else {
-        console.log("Free space");
     }
+
+    console.log("Free space");
 
     fetch("/save", {
         method: "POST",
         body: formData,
     })
-    .then(response => response.json())
-    .then(data => {
-        let valid = handleSaveErrors(data)
-        if (valid) {
-            handleSuccess();
-        }
-        getLocations();
-    })
-    .catch(e => console.error(e));
+        .then(response => response.json())
+        .then(data => {
+            let valid = handleSaveErrors(data)
+            if (valid) {
+                handleSuccess();
+            }
+            getLocations();
+        })
+        .catch(e => console.error(e));
 }
 
 
- function isThereAlreadyMarker(lat, lon) {
-     let marker = L.marker(L.latLng(lat,lon));
+/**
+ * Check if a marker (location recommendation) already exists on given location within some margin
+ * (10 or so meters)
+ *
+ * @param {number} lat latitude
+ * @param {number} lon longitude
+ * @return {{}|undefined} leaflet marker or null, if no marker is found
+ */
+function isThereAlreadyMarker(lat, lon) {
+    const marker = L.marker(L.latLng(lat, lon));
 
-     //if (markers.includes(marker)) return true; else return false;
+    return markers.find(m => m.getLatLng().equals(marker.getLatLng(), 0.00004));
+}
 
-     // go through all markers, test if there's already a marker in the current positiion
-     for (let m of markers) {
-         if (m.getLatLng().equals(marker.getLatLng())) return [true, m];
-    }
-
-    return [false, null];
-
- }
- 
 
 /**
  * Show success message
@@ -91,7 +91,7 @@ function handleFormSubmit(e) {
 function handleSuccess() {
     let feedback = document.getElementById("feedback");
     feedback.textContent = requireTranslation("Suggestion was saved succesfully")
-    //clear message after 3 seconds
+    //clear message after a while
     setTimeout(() => {
         feedback.textContent = "";
     }, 6000);
@@ -130,8 +130,7 @@ function handleSaveErrors(data) {
             valid = false;
             let fieldErrors = data[field].join(" ");
             errorDiv.textContent = fieldErrors;
-        }    
-        else {
+        } else {
             errorDiv.textContent = "";
         }
     }
@@ -233,7 +232,6 @@ function initMap() {
 
     // show the scale bar on the lower left corner
     L.control.scale({ "imperial": false, "position": "bottomright" }).addTo(map);
-
 }
 
 /**
@@ -246,8 +244,8 @@ function put_markers_to_map(data, textStatus, request) {
     markers = []
     for (let element of data) {
         //transform fetched data to markers
-        let marker = L.marker([element["latitude"], element["longitude"]]);        
-        
+        let marker = L.marker([element["latitude"], element["longitude"]]);
+
         // add marker to the marker collection (array)
         markers.push(marker);
 
@@ -272,9 +270,7 @@ function put_markers_to_map(data, textStatus, request) {
 
             marker.openPopup();
         })
-        markers.push(marker);
     }
-
 }
 
 /** 
@@ -319,9 +315,9 @@ function deleteLocation(marker, id) {
     fetch(`/delete/${id}`, {
         method: "GET"
     })
-    .then(res => res.text())
-    .then(text => console.log(text))
-    .catch(e => console.error(e))
+        .then(res => res.text())
+        .then(text => console.log(text))
+        .catch(e => console.error(e))
 }
 
 /**
