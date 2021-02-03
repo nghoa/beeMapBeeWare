@@ -6,6 +6,18 @@ from app.admin.forms import LoginForm, ChangePasswordForm
 from app.admin.models import User
 from . import admin_blueprint
 
+
+
+import logging
+from opencensus.ext.azure.log_exporter import AzureLogHandler
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+# Azure loghandler.
+connection_string = "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/"
+logger.addHandler(AzureLogHandler(connection_string=connection_string))
+
 """
     Admin dashboard landing page after successful login
 """
@@ -28,6 +40,7 @@ def settings():
 
 @admin_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+
     if current_user.is_authenticated:
         return redirect(url_for('admin.profile'))
     form = LoginForm()
@@ -35,7 +48,12 @@ def login():
         user = User().get_obj('Username', form.username.data)
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
+            logger.warn("Invalid username or password inputed")
+
             return redirect(url_for('admin.login'))
+
+        logger.debug("Admin logged in")
+        
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
@@ -45,5 +63,7 @@ def login():
 
 @admin_blueprint.route('/logout')
 def logout():
+    logger.debug("User logged out.")
+    
     logout_user()
     return redirect(url_for('admin.profile'))
