@@ -33,9 +33,11 @@ https://owasp.org/www-project-top-ten/
 2. Broken authentication
 - usage of flask-login: 
 - It stores the active user’s ID in the session (easy log in and out)
+- Zaproxy: "PASS: Weak Authentication Method [10105]"
 3. **Sensitive data exposure**
 - admin password is hashed
 - public api doesn't expose any sensitive information
+- Zaproxy's "Information Disclosure" checks pass
 4. XML External Entities (XXE)
 5. Broken access control
 - usage of flask-login:
@@ -48,5 +50,6 @@ https://owasp.org/www-project-top-ten/
 - used newest version of flask-wtf (0.14.3)
 - used newest version of flask-login (0.5.0)
 - using google cloud datastore python api that google recommends
+- Zaproxy baseline scan passes: "PASS: Vulnerable JS Library [10003]"
 10. **Insufficient logging & monitoring**
 - azure logging
