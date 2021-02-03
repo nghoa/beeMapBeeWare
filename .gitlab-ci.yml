@@ -35,6 +35,7 @@ stages:
   - build
   - test
   - staging
+  - test-staging
   - deploy
 
 services:
@@ -95,6 +96,55 @@ pages:
     expire_in: 10 days
   only:
     - master
+
+dast-baseline:
+  stage: test-staging
+  image: owasp/zap2docker-stable
+
+  # https://www.zaproxy.org/docs/docker/baseline-scan/
+  # -t target         target URL including the protocol, eg https://www.example.com
+  # -r report_html    file to write the full ZAP HTML report
+  # -w report_md      file to write the full ZAP Wiki (Markdown) report
+  # -x report_xml     file to write the full ZAP XML report
+  # -J report_json    file to write the full ZAP JSON document
+  # -j                use the Ajax spider in addition to the traditional one  
+  script:
+    - mkdir /zap/wrk/
+    - /zap/zap-baseline.py -J gl-dast-report.json -j -r gl-dast-report.html -w gl-dast-report.md -t $WEBSITE_STAGING || true 
+    - cp /zap/wrk/gl-dast-report.json .
+    - cp /zap/wrk/gl-dast-report.html .
+    - cp /zap/wrk/gl-dast-report.md .
+  artifacts:
+    paths: 
+      - gl-dast-report.json
+      - gl-dast-report.html
+      - gl-dast-report.md
+  only:
+    - master
+
+dast-fullscan:
+  stage: test-staging
+  image: owasp/zap2docker-stable
+
+  # https://www.zaproxy.org/docs/docker/baseline-scan/
+  # -t target         target URL including the protocol, eg https://www.example.com
+  # -r report_html    file to write the full ZAP HTML report
+  # -w report_md      file to write the full ZAP Wiki (Markdown) report
+  # -x report_xml     file to write the full ZAP XML report
+  # -J report_json    file to write the full ZAP JSON document
+  # -j                use the Ajax spider in addition to the traditional one  
+  script:
+    - mkdir /zap/wrk/
+    - /zap/zap-full-scan.py -J gl-dast-fullscan-report.json -j -r gl-dast-fullscan-report.html -w gl-dast-fullscan-report.md -t $WEBSITE_STAGING || true 
+    - cp /zap/wrk/gl-dast-fullscan-report.json .
+    - cp /zap/wrk/gl-dast-fullscan-report.html .
+    - cp /zap/wrk/gl-dast-fullscan-report.md .
+  artifacts:
+    paths: 
+      - gl-dast-fullscan-report.json
+      - gl-dast-fullscan-report.html
+      - gl-dast-fullscan-report.md
+  when: manual
 
 staging:
   stage: staging
