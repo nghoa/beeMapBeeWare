@@ -50,8 +50,11 @@ https://owasp.org/www-project-top-ten/
 - used newest version of flask-wtf (0.14.3)
 - used newest version of flask-login (0.5.0)
 10. **Insufficient logging & monitoring**
-- admin login is logged
-- user loggout is logged
-- wrong admin username / password is logged
-- database acitivity is logged
-- Off-site availability monitoring
+  * Ensure all login, access control failures, and server-side input validation failures can be logged with
+    sufficient user context to identify suspicious or malicious accounts, and held for sufficient time to allow delayed forensic analysis.
+    - admin login is logged
+    - user loggout is logged
+    - wrong admin username / password is logged
+    - database acitivity is logged
+  * Establish effective monitoring and alerting such that suspicious activities are detected and responded to in a timely fashion.
+    - Off-site availability monitoring is established
