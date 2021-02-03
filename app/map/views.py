@@ -8,7 +8,11 @@ from app.services.database import getLocations, save_suggestion, delete_suggesti
 from app.services.validation import SuggestionForm
 
 from flask_babel import gettext
-from opencensus.ext.azure.log_exporter import AzureLogHandler
+from opencensus.ext.azure.log_exporter import AzureLogHandler   # I guess this is isn't necessary..
+
+import logging
+
+logger = logging.getLogger("main_logger")
 
 @map_blueprint.route('/')
 def home():
@@ -43,8 +47,12 @@ def save():
 
         point = GeoPoint(latitude, longitude)
         save_suggestion(point)
+        
+        logger.debug("Bee-village suggestion saved.")
+        
         status_code = 200
     else:
+        logger.warn("Bee-village suggestion failed")
         status_code = 400 #bad request
 
     return jsonify(form.errors), status_code 
@@ -57,6 +65,9 @@ def delete(id):
     Params:
         id: entity id, gets converted to int
     """
+
+    logger.debug("Bee-village deleted.")
+
     delete_suggestion(id)
     return "ok", 200
 
