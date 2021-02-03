@@ -47,8 +47,12 @@ def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: 
 def start_app():
 
     # Setup logging into azure.
-    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING")
+    
+    # need some help to get this working on our CI/CD environment... It work on my local computer, though - Markus
+    #_app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", )
 
+    # hard coded version
+    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/")
     if _app_insight_connection:
         _setup_azure_logging(logger, app, _app_insight_connection)
     else:
