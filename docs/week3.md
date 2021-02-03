@@ -49,7 +49,9 @@ https://owasp.org/www-project-top-ten/
 9. **Using components with known vulnerabilities**
 - used newest version of flask-wtf (0.14.3)
 - used newest version of flask-login (0.5.0)
-- using google cloud datastore python api that google recommends
-- Zaproxy baseline scan passes: "PASS: Vulnerable JS Library [10003]"
 10. **Insufficient logging & monitoring**
-- azure logging
+- admin login is logged
+- user loggout is logged
+- wrong admin username / password is logged
+- database acitivity is logged
+- Off-site availability monitoring
