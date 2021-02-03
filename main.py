@@ -17,7 +17,7 @@ logger.setLevel(logging.DEBUG)
 
 app = create_app()
 app.config.from_pyfile("instance_config.py")
-app.config.from_pyfile("default_config.py")
+#app.config.from_pyfile("default_config.py")
 
 def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: str):
     """Setup logging into Azure Application Insights.
