@@ -47,3 +47,4 @@ https://owasp.org/www-project-top-ten/
 - user loggout is logged
 - wrong admin username / password is logged
 - database acitivity is logged
+- Off-site availability monitoring
