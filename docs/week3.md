@@ -43,3 +43,7 @@ https://owasp.org/www-project-top-ten/
 - used newest version of flask-wtf (0.14.3)
 - used newest version of flask-login (0.5.0)
 10. **Insufficient logging & monitoring**
+- admin login is logged
+- user loggout is logged
+- wrong admin username / password is logged
+- database acitivity is logged
