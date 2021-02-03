@@ -4,17 +4,19 @@
 
 ### Administrative:
 
-- [ ] User-stories updated & Time usage reported (see: User Story Assignment for Week 3).
-- [ ] Group meeting with mentor (see: Mentor weekly meetings).
-- [ ] Weekly report of tasks done (see: docs/reporting.md)
+- [x] User-stories updated & Time usage reported (see: User Story Assignment for Week 3).
+- [x] Group meeting with mentor (see: Mentor weekly meetings).
+- [x] Weekly report of tasks done (see: docs/reporting.md)
 
 ### DevOps
 
-- [ ] Work on implementing customer requirements.
-- [ ] Setup logging and monitoring (see: docs/logging/logging.md)
+- [x] Work on implementing customer requirements.
+  - New requirements in gitlab issues and user stories
+- [x] Setup logging and monitoring (see: docs/logging/logging.md)
 - [x] Add deployment address into week report and/or into README.md.
-- [ ] Begin: Localization support (see: flask-babel).
-- [ ] Add staging stage into pipeline (see: Adding Staging Stage).
+- [x] Begin: Localization support (see: flask-babel).
+  - most of text on main page translatated (English, Finnish)
+- [x] Add staging stage into pipeline (see: Adding Staging Stage).
 - [ ] Keep coverage high by adding tests.
 - [ ] Bonus: Add badges into README.md. (see: Gitlab: Badges)
 
@@ -27,10 +29,15 @@ weekly by each group. Extra points available for further consideration of the ot
 https://owasp.org/www-project-top-ten/
 
 1. **Injection**
+- User input is validated
 2. Broken authentication
 - usage of flask-login: 
 - It stores the active user’s ID in the session (easy log in and out)
+- Zaproxy: "PASS: Weak Authentication Method [10105]"
 3. **Sensitive data exposure**
+- admin password is hashed
+- public api doesn't expose any sensitive information
+- Zaproxy's "Information Disclosure" checks pass
 4. XML External Entities (XXE)
 5. Broken access control
 - usage of flask-login:
