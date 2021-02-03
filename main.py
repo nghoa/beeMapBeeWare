@@ -12,12 +12,11 @@ from opencensus.ext.azure.log_exporter import AzureLogHandler
 # Call the Application Factory function to construct a Flask application instance
 # using the standard configuration defined in /instance/dev.cfg
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-
 app = create_app()
 app.config.from_pyfile("instance_config.py")
 #app.config.from_pyfile("default_config.py")
+
+
 
 def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: str):
     """Setup logging into Azure Application Insights.
@@ -45,20 +44,7 @@ def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: 
 
 
 def start_app():
-
-    # Setup logging into azure.
-    
-    # need some help to get this working on our CI/CD environment... It work on my local computer, though - Markus
-    #_app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", )
-
-    # hard coded version
-    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/")
-    if _app_insight_connection:
-        _setup_azure_logging(logger, app, _app_insight_connection)
-    else:
-        logger.warn("Missing azure application insight key. Logging to azure disabled.")
-        
-    
+         
     host = os.getenv('HOST', '127.0.0.1')
     port = os.getenv('PORT', '5000')
     
@@ -67,5 +53,21 @@ def start_app():
     app.run(host=host, port=port) or logger.warning(f"Flask app {__name__} failed!")
     
 if __name__ == '__main__':
+
+    # Setup logging into azure.
+    
+    # need some help to get this working on our CI/CD environment... It work on my local computer, though - Markus
+    #_app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", )
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+
+    # hard coded version
+    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/")
+    if _app_insight_connection:
+        _setup_azure_logging(logger, app, _app_insight_connection)
+    else:
+        logger.warn("Missing azure application insight key. Logging to azure disabled.")
+
     start_app()
 
