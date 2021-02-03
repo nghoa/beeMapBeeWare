@@ -5,3 +5,4 @@ datastore-entity
 Flask-WTF
 Flask-Babel
 opencensus-ext-azure
+opencensus-ext-flask
