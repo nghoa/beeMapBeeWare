@@ -7,19 +7,16 @@ from flask import Flask
 app = create_app()
 app.config["TESTING"] = True
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+import logging
 
-# Azure loghandler.
-connection_string = "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/"
-logger.addHandler(AzureLogHandler(connection_string=connection_string))
+logger = logging.getLogger("main_logger")
 
 def test_division_by_zero():
 
     """
         Test for division by zero
     """
-    number = 3
+    number = 2
 
     result = -1
     try:
