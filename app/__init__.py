@@ -8,8 +8,6 @@ from app.admin.models import User
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
-    # TODO: establish shared variable file for teammember
-    app.secret_key = token_urlsafe(16)
 
     register_blueprints(app)
     register_loginmanager(app)

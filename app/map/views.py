@@ -12,7 +12,7 @@ from opencensus.ext.azure.log_exporter import AzureLogHandler   # I guess this i
 
 import logging
 
-logger = logging.getLogger("main_logger")
+logger = logging.getLogger()
 
 @map_blueprint.route('/')
 def home():

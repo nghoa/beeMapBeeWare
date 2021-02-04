@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 
 import logging
 
-logger = logging.getLogger("main_logger")
+logger = logging.getLogger()
 
 
 def save_suggestion(location):

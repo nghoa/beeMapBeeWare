@@ -13,10 +13,9 @@ from opencensus.ext.azure.log_exporter import AzureLogHandler
 # using the standard configuration defined in /instance/dev.cfg
 
 app = create_app()
+#reads app.config from instance/instance_config.py
+#that has SECRET_KEY and APPLICATIONINSIGHTS_CONNECTION_STRING variables
 app.config.from_pyfile("instance_config.py")
-#app.config.from_pyfile("default_config.py")
-
-
 
 def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: str):
     """Setup logging into Azure Application Insights.
@@ -40,9 +39,6 @@ def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: 
         sampler=ProbabilitySampler(rate=1.0),
     )
 
-
-
-
 def start_app():
          
     host = os.getenv('HOST', '127.0.0.1')
@@ -53,17 +49,14 @@ def start_app():
     app.run(host=host, port=port) or logger.warning(f"Flask app {__name__} failed!")
     
 if __name__ == '__main__':
-
-    # Setup logging into azure.
-    
-    # need some help to get this working on our CI/CD environment... It work on my local computer, though - Markus
-    #_app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", )
-
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
-    # hard coded version
-    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING", "InstrumentationKey=bfe6d9a0-78dc-40fb-a307-b0d8c97bc266;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/")
+    #log to local machine's stderr also
+    logger.addHandler(logging.StreamHandler())
+
+    # this comes from instance/instance_config.py
+    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING")
     if _app_insight_connection:
         _setup_azure_logging(logger, app, _app_insight_connection)
     else:

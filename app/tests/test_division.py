@@ -9,10 +9,9 @@ app.config["TESTING"] = True
 
 import logging
 
-logger = logging.getLogger("main_logger")
+logger = logging.getLogger()
 
 def test_division_by_zero():
-
     """
         Test for division by zero
     """
