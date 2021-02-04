@@ -1,5 +1,4 @@
 import os
-<<<<<<< HEAD
 from app import create_app
 from flask import Flask
 # Middleware imports - the important ones
@@ -12,17 +11,6 @@ from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 # Call the Application Factory function to construct a Flask application instance
 # using the standard configuration defined in /instance/dev.cfg
-=======
-import logging
-
-logger = logging.getLogger(__name__)
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    logger.debug("Front page requested.")
-    return render_template('mymap.html')
->>>>>>> 75bcc6d055917493a8cc950815f8577d1f349bc0
 
 app = create_app()
 #reads app.config from instance/instance_config.py
