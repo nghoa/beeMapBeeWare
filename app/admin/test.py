@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 import logging
 
-logger = logging.getLogger("main_logger")
+logger = logging.getLogger()
 
 class User(DatastoreEntity, UserMixin):
     Username = EntityValue()

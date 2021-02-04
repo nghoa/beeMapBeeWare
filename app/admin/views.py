@@ -8,7 +8,7 @@ from . import admin_blueprint
 
 import logging
 
-logger = logging.getLogger("main_logger")
+logger = logging.getLogger()
 
 
 """
