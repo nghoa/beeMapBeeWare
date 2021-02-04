@@ -71,16 +71,12 @@ pylint:
 
 test-job1:
   stage: test
-  environment:
-    name: production
   image: python:3.8
   script:
     - export PYTHONPATH=.
     - export FLASK_APP=web
     - pip install --no-cache-dir -r requirements.txt
     - pip install pytest pytest-cov
-    - mkdir instance
-    - cp $INSTANCE_CONFIG_PRODUCTION instance/instance_config.py
     #run test that are not marked with staging
     - pytest --cov --cov-report term --cov-report html
   artifacts:
