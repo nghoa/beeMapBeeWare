@@ -71,6 +71,8 @@ pylint:
 
 test-job1:
   stage: test
+  environment:
+    name: production
   image: python:3.8
   script:
     - export PYTHONPATH=.
