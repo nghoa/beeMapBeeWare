@@ -17,7 +17,7 @@
 - [x] Begin: Localization support (see: flask-babel).
   - most of text on main page translatated (English, Finnish)
 - [x] Add staging stage into pipeline (see: Adding Staging Stage).
-- [ ] Keep coverage high by adding tests.
+- [x] Keep coverage high by adding tests.
 - [ ] Bonus: Add badges into README.md. (see: Gitlab: Badges)
 
 
