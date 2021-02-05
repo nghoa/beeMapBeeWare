@@ -55,11 +55,13 @@ if __name__ == '__main__':
     #log to local machine's stderr also
     logger.addHandler(logging.StreamHandler())
 
-    # this comes from instance/instance_config.py
-    _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING")
-    if _app_insight_connection:
-        _setup_azure_logging(logger, app, _app_insight_connection)
-    else:
-        logger.warn("Missing azure application insight key. Logging to azure disabled.")
+    debug = app.config.get("DEBUG", None)
+    if not debug or debug == False:
+        # this comes from instance/instance_config.py
+        _app_insight_connection = app.config.get("APPLICATIONINSIGHTS_CONNECTION_STRING")
+        if _app_insight_connection:
+            _setup_azure_logging(logger, app, _app_insight_connection)
+        else:
+            logger.warn("Missing azure application insight key. Logging to azure disabled.")
 
     start_app()
