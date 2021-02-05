@@ -1,85 +1,111 @@
-html, body {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
-* {
-    box-sizing: border-box;
-}
-
-header {
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-header a {
-    text-decoration: none;
-    color: black;
-    border: 1px solid black;
-    border-radius: 4px;
-    font-size: 120%;
-}
-
-header a:hover {
-    background-color: gray;
-    color: white;
-}
-
-
-#map {
-    width: 100%;
-    height: 90%;
-}
-
-
-form {
-    border: 1px solid black;
-    border-radius: 2px;
-    padding: 1em;
-}
-
-
-#hide-button {
-    position: absolute;
-    right: 1em;
-}
-
-label {
-    display: block;
-}
-
-input {
-    padding: 0.25em;
-    width: 50%;
-}
-
-input[type=submit] {
-    width: auto;
-}
-
-.hidden {
-    display: none;
-}
-
-#panel {
-    position: fixed;
-    width: 40%;
-    height: 100vh;
-    z-index: 800;
-    padding: 1em;
-    background-color: white;
-    border: 1px solid black;
+@media all {
+    html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    
+    header {
+        height: 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    header h1 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    header a {
+        text-decoration: none;
+        color: black;
+        border: 1px solid black;
+        border-radius: 4px;
+        font-size: 120%;
+    }
+    
+    header a:hover {
+        background-color: gray;
+        color: white;
+    }
+    
+    
+    #map {
+        width: 100%;
+        height: 90%;
+    }
+    
+    
+    form {
+        border: 1px solid black;
+        border-radius: 2px;
+        padding: 1em;
+    }
+    
+    
+    #hide-button {
+        position: absolute;
+        right: 1em;
+    }
+    
+    label {
+        display: block;
+    }
+    
+    input {
+        padding: 0.25em;
+        width: 50%;
+    }
+    
+    input[type=submit] {
+        width: auto;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    #panel {
+        position: fixed;
+        z-index: 1001; /* has to be higher than map */
+        padding: 1em;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+    }
+    
+    #lang-selection a {
+        padding: 0.25em;
+    }
+    
+    #some {
+        border: 1px solid black;
+        border-radius: 1em;
+        padding: 1em;
+        margin-top: 1em;
+    }
+    
+    #some a {
+        text-decoration: none;
+    }
+    
+    /* five square logos in one row */
+    #some a img {
+        width: 16%;
+        height: 16%;
+    }
     
 }
-.right-aligned {
-    position: absolute;
-    right: 0;
-}
 
+@media all and (min-width: 400px) {
+    #panel {
+        width: 40%;
+    }
+}
