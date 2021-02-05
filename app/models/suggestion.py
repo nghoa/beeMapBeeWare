@@ -37,6 +37,7 @@ class Suggestion:
     def populateEntity(self, entity) -> None:
         """
         puts fields from entity into object
+        don't read id as it doesn't exists yet
         """
         entity["datetime"] = self.datetime
         entity["firstname"] = self.firstname
