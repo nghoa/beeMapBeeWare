@@ -1,24 +1,27 @@
+"""
+Routing for main functionality
+"""
+
 import os
-from google.type import latlng_pb2
-from google.cloud.datastore.helpers import GeoPoint
+from tempfile import NamedTemporaryFile
+import logging
 
 from . import map_blueprint
-from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify, send_file, after_this_request
 from app.services.database import get_suggestions, save_suggestion, delete_suggestion
 from app.services.validation import SuggestionForm
 from app.models.suggestion import Suggestion
 
-from tempfile import NamedTemporaryFile
-
+from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
 from flask_babel import gettext
-from opencensus.ext.azure.log_exporter import AzureLogHandler   # I guess this is isn't necessary..
 
-import logging
 
 logger = logging.getLogger()
 
 @map_blueprint.route('/')
 def home():
+    """
+    Map main page
+    """
     form = SuggestionForm()
     return render_template('map.html', form = form)
 
@@ -27,6 +30,8 @@ def change(name):
     """
     Change language
     load homepage again
+    params:
+        name: str short version of language name
     """
     if name in ["fi", "en"]:
         session["lang"] = name
@@ -65,8 +70,9 @@ def delete(id):
     if it exists
     Params:
         id: entity id, gets converted to int
+    Response:
+        "ok", 200
     """
-
     logger.debug("Bee-village deleted.")
 
     delete_suggestion(id)
@@ -74,6 +80,10 @@ def delete(id):
 
 @map_blueprint.route("/locations", methods=["GET"])
 def locations():
+    """
+    Response:
+        json of suggestions
+    """
     suggestions = get_suggestions()
     locations = []
     for suggestion in suggestions:
@@ -93,18 +103,11 @@ def locations():
     return resp
 
 
-""" @map_blueprint.route("/export")
-def export():
-    suggestions = get_suggestions()
-    wb = Suggestion.suggestions_to_excel(suggestions)
-    ws = wb.active
-    def generate():
-        for row in ws:
-              yield ",".join([str(cell.value) for cell in row]) + "\n"    
-    return Response(generate(), mimetype="text/csv") """
-
 @map_blueprint.route("/export")
 def export():
+    """
+    Stream excel file of suggestions in bytelike format
+    """
     suggestions = get_suggestions()
     wb = Suggestion.suggestions_to_excel(suggestions)
     with NamedTemporaryFile(dir=".", suffix=".xlsx") as tmp:
