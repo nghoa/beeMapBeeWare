@@ -3,10 +3,12 @@ from google.type import latlng_pb2
 from google.cloud.datastore.helpers import GeoPoint
 
 from . import map_blueprint
-from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
+from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify, send_file, after_this_request
 from app.services.database import get_suggestions, save_suggestion, delete_suggestion
 from app.services.validation import SuggestionForm
 from app.models.suggestion import Suggestion
+
+from tempfile import NamedTemporaryFile
 
 from flask_babel import gettext
 from opencensus.ext.azure.log_exporter import AzureLogHandler   # I guess this is isn't necessary..
@@ -90,3 +92,24 @@ def locations():
 
     return resp
 
+
+""" @map_blueprint.route("/export")
+def export():
+    suggestions = get_suggestions()
+    wb = Suggestion.suggestions_to_excel(suggestions)
+    ws = wb.active
+    def generate():
+        for row in ws:
+              yield ",".join([str(cell.value) for cell in row]) + "\n"    
+    return Response(generate(), mimetype="text/csv") """
+
+@map_blueprint.route("/export")
+def export():
+    suggestions = get_suggestions()
+    wb = Suggestion.suggestions_to_excel(suggestions)
+    with NamedTemporaryFile(dir=".", suffix=".xlsx") as tmp:
+        wb.save(tmp)
+        tmp.seek(0)
+        stream = tmp.read()
+    
+    return Response(stream, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")

@@ -1,6 +1,7 @@
 from datetime import datetime
-from app.services.validation import SuggestionForm
 from google.cloud.datastore.helpers import GeoPoint, Entity
+
+from openpyxl import Workbook
 
 class Suggestion:
     """
@@ -13,6 +14,7 @@ class Suggestion:
     confirmed: bool, 
     email: str
     """
+
     def __init__(self):
         self.id = None
         self.datetime = None
@@ -23,15 +25,18 @@ class Suggestion:
         self.email = None
 
     @classmethod
-    def fromSuggestionForm(cls, form: SuggestionForm):
+    def fromSuggestionForm(cls, form):
+        """
+        Creates suggestion from SuggestionForm object
+        """
         suggestion = Suggestion()
-        suggestion.location = GeoPoint(form.latitude.data, form.longitude.data)
+        suggestion.datetime = datetime.now()
         suggestion.firstname = form.firstname.data
         suggestion.lastname = form.lastname.data
-        
-        suggestion.datetime = datetime.now()
+        suggestion.location = GeoPoint(form.latitude.data, form.longitude.data)
         suggestion.confirmed = False
-        
+        suggestion.email = form.email.data
+
         return suggestion
 
     def populateEntity(self, entity) -> None:
@@ -48,11 +53,46 @@ class Suggestion:
 
     @classmethod
     def fromEntity(cls, entity):
+        """
+        Creates suggestion from datastore entity
+        """
         suggestion = Suggestion()
         suggestion.id = entity.key.id
-        suggestion.location = entity["location"]
+        suggestion.datetime = entity["datetime"]
         suggestion.firstname = entity["firstname"]
         suggestion.lastname = entity["lastname"]
-        suggestion.datetime = entity["datetime"]
+        suggestion.location = entity["location"]
         suggestion.confirmed = entity["confirmed"]
-        return suggestion        
+        suggestion.email = entity["email"]
+        return suggestion
+
+    @staticmethod
+    def suggestions_to_excel(suggestions):
+        """
+        Transforms list of suggestions into an excel workbook
+        with header row from attribute names, makes location into two columns
+        latitude, longitude
+        """
+        wb = Workbook()
+        #first worksheet, created automatically
+        ws = wb.active
+
+        #header row
+        ws.append(["id", "datetime", "firstname", "lastname", "latitude", "longitude", "confirmed", "email"])
+        for suggestion in suggestions:
+            row = [
+                suggestion.id,
+                suggestion.datetime,
+                suggestion.firstname,
+                suggestion.lastname,
+                suggestion.location.latitude,
+                suggestion.location.longitude,
+                suggestion.confirmed,
+                suggestion.email
+            ]
+            ws.append(row)
+
+        #make datetime column wider so it shows nicely in excel
+        ws.column_dimensions["B"].width = 22
+
+        return wb
