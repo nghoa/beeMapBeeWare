@@ -56,15 +56,10 @@ def get_suggestions():
     return suggestions
 
 
+def update_suggestion(id):
+    pass
 
-# user models separated by file?
-def get_all_users():
-    kind = "User"
-    client = datastore.Client()
-    for entity in client.query(kind=kind).fetch():
-        logging.debug(f"Found user entity: {entity}.")
-        print(entity)
-        
+
 
 def get_user(username):
     kind = "User"
@@ -76,12 +71,6 @@ def get_user(username):
     logging.debug(f"Found user {user_entity}")
     return(user_entity)
 
-
-def create_admin_user(username, password):
-    kind = "User"
-    client = datastore.Client()
-    hash = generate_password_hash(password)
-    print(hash)
 
 if __name__ == "__main__":
     pass
