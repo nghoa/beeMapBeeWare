@@ -19,33 +19,43 @@ logger = logging.getLogger()
 def profile():
     return render_template('profile.html', title='Home')
 
+
 @admin_blueprint.route('/dashboard')
 @login_required
 def dashboard():
     return render_template('dashboard.html', title='Dashboard')
 
-@admin_blueprint.route('/settings')
+
+@admin_blueprint.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     form = ChangePasswordForm()
-    # print(current_user.check_password("test"))
+    if form.validate_on_submit():
+        old_password = form.old_password.data
+        new_password = form.new_password.data
+        user = User().get_obj('Username', current_user.Username)
+        if user.check_password(old_password) and old_password != new_password:
+            user.set_password(new_password)
+            user.save()
+            flash('Password successfully changed')
+        else:
+            flash('Invalid password')
 
     return render_template('settings.html', title='Settings', form=form)
+
 
 @admin_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
 
     if current_user.is_authenticated:
-
         logger.debug("Show admin profile")
-
         return redirect(url_for('admin.profile'))
+
     form = LoginForm()
     if form.validate_on_submit():
         user = User().get_obj('Username', form.username.data)
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-
             logger.warn("Invalid username or password inputed")
 
             return redirect(url_for('admin.login'))
@@ -61,6 +71,7 @@ def login():
             next_page = url_for('admin.profile')
         return redirect(next_page)
     return render_template('login.html', title="Login", form=form)
+
 
 @admin_blueprint.route('/logout')
 def logout():
