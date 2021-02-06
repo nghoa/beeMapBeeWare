@@ -1,34 +1,58 @@
 {% extends "base.html" %}
 {% block title %}{{ title }}{% endblock %}
 
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 <h1>
-    Hive Location
+    Suggestions for Beehives
 </h1>
 <table class="table is-hoverable is-fullwidth">
     <thead>
       <tr>
         <th><abbr title="Index">#</abbr></th>
         <th>Name</th>
-        <th><abbr title="Latitude"></abbr>Latitude</th>
-        <th><abbr title="Longitude"></abbr>Longitude</th>
+        <th>Bee-Hive Confirmed</th>
+        <th>last updated</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tfoot>
       <tr>
         <th><abbr title="Index">#</abbr></th>
         <th>Name</th>
-        <th><abbr title="Latitude"></abbr>Latitude</th>
-        <th><abbr title="Longitude"></abbr>Longitude</th>
+        <th>Bee-Hive Confirmed</th>
+        <th>last updated</th>
+        <th></th>
       </tr>
     </tfoot>
+
+
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Pter Pan</td>
-        <td>113.002</td>
-        <td>87.08</td>
-      </tr>
+      {% for suggestion in suggestions %}
+        <tr>
+          <td>{{ suggestion.id }}</td>
+          <td>{{ suggestion.firstname }} {{ suggestion.lastname }}</td>
+          <td>
+            <!-- {{ suggestion.confirmed }} -->
+            <div class="select" id="status_{{ suggestion.id }}">
+              <select>
+                <option>{{ suggestion.confirmed }}</option>
+                <option>{{ not suggestion.confirmed }}</option>
+              </select> 
+            </div>
+          </td>
+          <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>
+            <button class="button is-success" id="confirm_{{ suggestion.id }}">Confirm Beehive</button>
+            <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
+            <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+
     </tbody>
   </table>
 
