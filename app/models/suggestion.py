@@ -1,6 +1,7 @@
 from datetime import datetime
-from app.services.validation import SuggestionForm
 from google.cloud.datastore.helpers import GeoPoint, Entity
+
+from openpyxl import Workbook
 
 class Suggestion:
     """
@@ -13,6 +14,7 @@ class Suggestion:
     confirmed: bool, 
     email: str
     """
+
     def __init__(self):
         self.id = None
         self.datetime = None
@@ -23,15 +25,15 @@ class Suggestion:
         self.email = None
 
     @classmethod
-    def fromSuggestionForm(cls, form: SuggestionForm):
+    def fromSuggestionForm(cls, form):
         suggestion = Suggestion()
         suggestion.location = GeoPoint(form.latitude.data, form.longitude.data)
         suggestion.firstname = form.firstname.data
         suggestion.lastname = form.lastname.data
-        
+
         suggestion.datetime = datetime.now()
         suggestion.confirmed = False
-        
+
         return suggestion
 
     def populateEntity(self, entity) -> None:
@@ -55,4 +57,24 @@ class Suggestion:
         suggestion.lastname = entity["lastname"]
         suggestion.datetime = entity["datetime"]
         suggestion.confirmed = entity["confirmed"]
-        return suggestion        
+        return suggestion
+
+    @staticmethod
+    def suggestions_to_excel(suggestions):
+        wb = Workbook()
+        ws = wb.active
+        ws.append(["id", "datetime", "firstname", "lastname", "latitude", "longitude", "confirmed", "email"])
+        for suggestion in suggestions:
+            row = [
+                suggestion.id,
+                suggestion.datetime,
+                suggestion.firstname,
+                suggestion.lastname,
+                suggestion.location.latitude,
+                suggestion.location.longitude,
+                suggestion.confirmed,
+                suggestion.email
+            ]
+            ws.append(row)
+
+        return wb
