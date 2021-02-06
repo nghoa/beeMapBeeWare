@@ -43,10 +43,10 @@ function handleFormSubmit(e) {
 
     if (existingMarker) {
         console.log("a marker already exists there!");
-
+        let content = `<p>${requireTranslation("A marker already exists close by. Please, pick another location.")}</p>`
         L.popup()
             .setLatLng(existingMarker.getLatLng())
-            .setContent('<p>A marker already exists close by. Please, pick another location.</p>')
+            .setContent(content)
             .openOn(map);
 
         return; // just return and don't save duplicate marker
@@ -296,7 +296,7 @@ function createPopupContent(marker, id, confirmed) {
 
     if (confirmed) {
         let p3 = document.createElement("p");
-        p3.textContent = "Confirmed"
+        p3.textContent = requireTranslation("Confirmed");
         div.appendChild(p3);
     }
 

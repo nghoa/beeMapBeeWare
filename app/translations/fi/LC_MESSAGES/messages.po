@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-01 10:29+0200\n"
-"PO-Revision-Date: 2021-02-01 10:30+0200\n"
+"POT-Creation-Date: 2021-02-06 23:54+0200\n"
+"PO-Revision-Date: 2021-02-06 23:54+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fi\n"
 "Language-Team: fi <LL@li.org>\n"
@@ -18,42 +18,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
+#: app/services/validation.py:6
+msgid "This field is required"
+msgstr "Täytä tämä kenttä"
+
+#: app/services/validation.py:7
+msgid "Latitude has to be between -90 and 90"
+msgstr "Leveysasteen pitää olla väliltä -90 ja 90"
+
+#: app/services/validation.py:8
+msgid "Longitude has to be between -180 and 180"
+msgstr "Pituusasteen pitää olla väliltä -180 ja 180"
+
+#: app/services/validation.py:12
+msgid "firstname"
+msgstr "etunimi"
+
+#: app/services/validation.py:14
+msgid "lastname"
+msgstr "sukunimi"
+
+#: app/services/validation.py:16
+msgid "latitude"
+msgstr "leveysaste"
+
+#: app/services/validation.py:18
+msgid "longitude"
+msgstr "pituusaste"
+
+#: app/services/validation.py:20
+msgid "email"
+msgstr "sähköposti"
+
 #: app/templates/map.html:5
 msgid "Beemap"
 msgstr "Beemap"
+
+#: app/templates/map.html:8
+msgid "View and suggest bee-village location on map"
+msgstr "Katso ja ehdota mehiläiskälän sijainteja kartalla"
 
 #: app/templates/map.html:20
 msgid "Map"
 msgstr "Kartta"
 
-#: app/templates/map.html:29
+#: app/templates/map.html:23
+msgid "Export as excel"
+msgstr "Vie excelinä"
+
+#: app/templates/map.html:32
 msgid "Hide"
 msgstr "Piilota"
 
-#: app/templates/map.html:30
+#: app/templates/map.html:33
 msgid "We want to know more about you"
 msgstr "Haluamme tietää sinusta lisää"
 
-#: app/templates/map.html:57
-msgid "Chosen location"
-msgstr "Valittu paikka"
+#: app/templates/map.html:49
+msgid "Share on social media"
+msgstr "Jaa sosiaalisessa mediassa"
 
-#: app/templates/map.html:58
+#: app/templates/map.html:76
+msgid "Chosen location"
+msgstr "Valittu sijainti"
+
+#: app/templates/map.html:77
 msgid "Latitude"
 msgstr "Leveysaste"
 
-#: app/templates/map.html:59
+#: app/templates/map.html:78
 msgid "Longitude"
 msgstr "Pituusaste"
 
-#: app/templates/map.html:60
+#: app/templates/map.html:79
 msgid "Choose"
 msgstr "Valitse"
 
-#: app/templates/map.html:61
+#: app/templates/map.html:80
 msgid "Suggestion was saved succesfully"
 msgstr "Ehdotus tallennettiin onnistuneesti"
 
-#: app/templates/map.html:62
+#: app/templates/map.html:81
 msgid "Delete"
 msgstr "Poista"
+
+#: app/templates/map.html:82
+msgid "A marker already exists close by. Please, pick another location."
+msgstr "Toinen sijainti on liian lähellä. Valitse toinen kohta"
+
+#: app/templates/map.html:83
+msgid "Confirmed"
+msgstr "Vahvistettu"
+

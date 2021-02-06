@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-01 10:29+0200\n"
+"POT-Creation-Date: 2021-02-06 23:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
+#: app/services/validation.py:6
+msgid "This field is required"
+msgstr ""
+
+#: app/services/validation.py:7
+msgid "Latitude has to be between -90 and 90"
+msgstr ""
+
+#: app/services/validation.py:8
+msgid "Longitude has to be between -180 and 180"
+msgstr ""
+
+#: app/services/validation.py:12
+msgid "firstname"
+msgstr ""
+
+#: app/services/validation.py:14
+msgid "lastname"
+msgstr ""
+
+#: app/services/validation.py:16
+msgid "latitude"
+msgstr ""
+
+#: app/services/validation.py:18
+msgid "longitude"
+msgstr ""
+
+#: app/services/validation.py:20
+msgid "email"
+msgstr ""
+
 #: app/templates/map.html:5
 msgid "Beemap"
+msgstr ""
+
+#: app/templates/map.html:8
+msgid "View and suggest bee-village location on map"
 msgstr ""
 
 #: app/templates/map.html:20
 msgid "Map"
 msgstr ""
 
-#: app/templates/map.html:29
+#: app/templates/map.html:23
+msgid "Export as excel"
+msgstr ""
+
+#: app/templates/map.html:32
 msgid "Hide"
 msgstr ""
 
-#: app/templates/map.html:30
+#: app/templates/map.html:33
 msgid "We want to know more about you"
 msgstr ""
 
-#: app/templates/map.html:57
+#: app/templates/map.html:49
+msgid "Share on social media"
+msgstr ""
+
+#: app/templates/map.html:76
 msgid "Chosen location"
 msgstr ""
 
-#: app/templates/map.html:58
+#: app/templates/map.html:77
 msgid "Latitude"
 msgstr ""
 
-#: app/templates/map.html:59
+#: app/templates/map.html:78
 msgid "Longitude"
 msgstr ""
 
-#: app/templates/map.html:60
+#: app/templates/map.html:79
 msgid "Choose"
 msgstr ""
 
-#: app/templates/map.html:61
+#: app/templates/map.html:80
 msgid "Suggestion was saved succesfully"
 msgstr ""
 
-#: app/templates/map.html:62
+#: app/templates/map.html:81
 msgid "Delete"
+msgstr ""
+
+#: app/templates/map.html:82
+msgid "A marker already exists close by. Please, pick another location."
+msgstr ""
+
+#: app/templates/map.html:83
+msgid "Confirmed"
 msgstr ""
 
