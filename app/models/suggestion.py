@@ -26,13 +26,16 @@ class Suggestion:
 
     @classmethod
     def fromSuggestionForm(cls, form):
+        """
+        Creates suggestion from SuggestionForm object
+        """
         suggestion = Suggestion()
-        suggestion.location = GeoPoint(form.latitude.data, form.longitude.data)
+        suggestion.datetime = datetime.now()
         suggestion.firstname = form.firstname.data
         suggestion.lastname = form.lastname.data
-
-        suggestion.datetime = datetime.now()
+        suggestion.location = GeoPoint(form.latitude.data, form.longitude.data)
         suggestion.confirmed = False
+        suggestion.email = form.email.data
 
         return suggestion
 
@@ -50,19 +53,31 @@ class Suggestion:
 
     @classmethod
     def fromEntity(cls, entity):
+        """
+        Creates suggestion from datastore entity
+        """
         suggestion = Suggestion()
         suggestion.id = entity.key.id
-        suggestion.location = entity["location"]
+        suggestion.datetime = entity["datetime"]
         suggestion.firstname = entity["firstname"]
         suggestion.lastname = entity["lastname"]
-        suggestion.datetime = entity["datetime"]
+        suggestion.location = entity["location"]
         suggestion.confirmed = entity["confirmed"]
+        suggestion.email = entity["email"]
         return suggestion
 
     @staticmethod
     def suggestions_to_excel(suggestions):
+        """
+        Transforms list of suggestions into an excel workbook
+        with header row from attribute names, makes location into two columns
+        latitude, longitude
+        """
         wb = Workbook()
+        #first worksheet, created automatically
         ws = wb.active
+
+        #header row
         ws.append(["id", "datetime", "firstname", "lastname", "latitude", "longitude", "confirmed", "email"])
         for suggestion in suggestions:
             row = [
@@ -76,5 +91,8 @@ class Suggestion:
                 suggestion.email
             ]
             ws.append(row)
+
+        #make datetime column wider so it shows nicely in excel
+        ws.column_dimensions["B"].width = 22
 
         return wb

@@ -107,9 +107,9 @@ def export():
 def export():
     suggestions = get_suggestions()
     wb = Suggestion.suggestions_to_excel(suggestions)
-    with NamedTemporaryFile(dir="./app/filestorage/") as temp:
-        wb.save(temp.name)
-        temp.seek(0)
-        content = temp.read()
-    wb.close()
-    return Response(content)
+    with NamedTemporaryFile(dir=".", suffix=".xlsx") as tmp:
+        wb.save(tmp)
+        tmp.seek(0)
+        stream = tmp.read()
+    
+    return Response(stream, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
