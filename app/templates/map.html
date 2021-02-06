@@ -5,7 +5,7 @@
     <title>{{ gettext("Beemap") }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <meta name="description" content="View and suggest bee-village location on map">
+    <meta name="description" content="{{ gettext('View and suggest bee-village location on map') }}">
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -20,7 +20,7 @@
             <h1>{{ gettext("Map") }}</h1>
         </div>
         <div>
-            <a class="export-link" href="/export">Export as excel</a>
+            <a class="export-link" href="/export">{{ gettext("Export as excel") }}</a>
         </div>
         <div id="lang-selection">
             <a href="/lang/fi">FI</a>
@@ -46,8 +46,7 @@
         </form>
 
         <div id="some">
-            <h2>Share on social media</h2>
-
+            <h2>{{ gettext("Share on social media") }}</h2>
 
             <a href="http://www.facebook.com/sharer.php?u=https://beeings.org/">
                 <img src="{{ url_for('static', filename='img/f_logo.png') }}" alt="Facebook">
@@ -72,14 +71,16 @@
     <div id="map"></div>
 
     <script>
-        /** table of translations */
+        /** dict of translations for text that are in javascript */
         const translationData = {
             "Chosen location": '{{ gettext("Chosen location") }}',
             "Latitude": '{{ gettext("Latitude") }}',
             "Longitude": '{{ gettext("Longitude") }}',
             "Choose": '{{ gettext("Choose") }}',
             "Suggestion was saved succesfully": '{{ gettext("Suggestion was saved succesfully") }}',
-            "Delete": '{{ gettext("Delete") }}'
+            "Delete": '{{ gettext("Delete") }}',
+            "A marker already exists close by. Please, pick another location.": '{{ gettext("A marker already exists close by. Please, pick another location.")}}',
+            "Confirmed": '{{ gettext("Confirmed")}}'
         }
     </script>
 

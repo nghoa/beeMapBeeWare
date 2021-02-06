@@ -1,21 +1,21 @@
 from wtforms import Form, StringField, FloatField
 from wtforms.validators import InputRequired, NumberRange
-
+from flask_babel import lazy_gettext
 
 class ErrorMessage:
-    REQUIRED = "This field is required"
-    LATITUDE = "Latitude has to be between -90 and 90"
-    LONGITUDE = "Longitude has to be between -180 and 180"
+    REQUIRED = lazy_gettext("This field is required")
+    LATITUDE = lazy_gettext("Latitude has to be between -90 and 90")
+    LONGITUDE = lazy_gettext("Longitude has to be between -180 and 180")
 
 
 class SuggestionForm(Form):
-    firstname = StringField('firstname', validators=[
+    firstname = StringField(lazy_gettext('firstname'), validators=[
                         InputRequired(message=ErrorMessage.REQUIRED)])
-    lastname = StringField("lastname", validators=[
+    lastname = StringField(lazy_gettext("lastname"), validators=[
                         InputRequired(message=ErrorMessage.REQUIRED)])
-    latitude = FloatField("latitude", validators=[
+    latitude = FloatField(lazy_gettext("latitude"), validators=[
                         InputRequired(message=ErrorMessage.REQUIRED), NumberRange(-90, 90, message=ErrorMessage.LATITUDE)])
-    longitude = FloatField("longitude", validators=[
+    longitude = FloatField(lazy_gettext("longitude"), validators=[
                         InputRequired(message=ErrorMessage.REQUIRED), NumberRange(-180, 180, message=ErrorMessage.LONGITUDE)])
-    email = StringField("email", validators=[
+    email = StringField(lazy_gettext("email"), validators=[
                         InputRequired(message=ErrorMessage.REQUIRED)])
