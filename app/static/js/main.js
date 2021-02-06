@@ -9,6 +9,9 @@ let markers = [];
 /** most recent created marker */
 let currentMarker = []
 
+/** form fields */
+const formFields = ["firstname", "lastname", "email", "latitude", "longitude"]
+
 window.onload = () => {
     initMap();
     map.on("click", addPopUp);
@@ -29,15 +32,13 @@ function handleFormSubmit(e) {
     //don't send form normally
     e.preventDefault();
 
-    let name = document.getElementById("name").value;
+    const formData = new FormData();
+    for (let field of formFields) {
+        let value = document.getElementById(field).value
+        formData.append(field, value)
+    }
     let latitude = document.getElementById("latitude").value;
     let longitude = document.getElementById("longitude").value;
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
-
     const existingMarker = isThereAlreadyMarker(latitude, longitude);
 
     if (existingMarker) {
@@ -50,8 +51,6 @@ function handleFormSubmit(e) {
 
         return; // just return and don't save duplicate marker
     }
-
-    console.log("Free space");
 
     fetch("/save", {
         method: "POST",
@@ -71,16 +70,18 @@ function handleFormSubmit(e) {
 
 /**
  * Check if a marker (location recommendation) already exists on given location within some margin
- * (10 or so meters)
+ * (10 or so meters). If lat and lon are not floats returns null
  *
- * @param {number} lat latitude
- * @param {number} lon longitude
- * @return {{}|undefined} leaflet marker or null, if no marker is found
+ * @return truthy value if exists else falsy value
  */
 function isThereAlreadyMarker(lat, lon) {
-    const marker = L.marker(L.latLng(lat, lon));
+    try {
+        const marker = L.marker(L.latLng(lat, lon));
+        return markers.find(m => m.getLatLng().equals(marker.getLatLng(), 0.00004));
+    } catch(err) {
+        return null;
+    }
 
-    return markers.find(m => m.getLatLng().equals(marker.getLatLng(), 0.00004));
 }
 
 
@@ -102,8 +103,7 @@ function handleSuccess() {
  * Clear form fields
 */
 function clearForm() {
-    let fields = ["name", "latitude", "longitude"]
-    fields.forEach(field => document.getElementById(field).value = "");
+    formFields.forEach(field => document.getElementById(field).value = "");
 }
 
 /**
@@ -123,7 +123,7 @@ function removeChildren(element) {
 function handleSaveErrors(data) {
     let valid = true;
 
-    for (let field of ["latitude", "longitude", "name"]) {
+    for (let field of formFields) {
         let div = document.getElementById(field).parentElement;
         let errorDiv = div.querySelector("div");
         if (field in data) {
@@ -254,7 +254,7 @@ function put_markers_to_map(data, textStatus, request) {
 
         //add popup
         let id = element["id"];
-        let content = createPopupContent(marker, id);
+        let content = createPopupContent(marker, id, element["confirmed"]);
         marker.bindPopup(content);
 
 
@@ -277,9 +277,10 @@ function put_markers_to_map(data, textStatus, request) {
  * Content showing user information about selected suggestion
  * @param marker: leaflet marker object
  * @param id: suggestion id
+ * @param confirmed: boolean
  * @return HTMLElement
 */
-function createPopupContent(marker, id) {
+function createPopupContent(marker, id, confirmed) {
     let latlng = marker.getLatLng();
 
     let div = document.createElement("div");
@@ -292,6 +293,12 @@ function createPopupContent(marker, id) {
 
     div.appendChild(p);
     div.appendChild(p2);
+
+    if (confirmed) {
+        let p3 = document.createElement("p");
+        p3.textContent = "Confirmed"
+        div.appendChild(p3);
+    }
 
     let button = document.createElement("button");
     button.textContent = requireTranslation("Delete");

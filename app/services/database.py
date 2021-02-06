@@ -3,28 +3,26 @@ from google.cloud import datastore
 from werkzeug.security import generate_password_hash
 
 import logging
+from app.models.suggestion import Suggestion
+from typing import List
 
 logger = logging.getLogger()
 
 
-def save_suggestion(location):
+def save_suggestion(suggestion: Suggestion):
     """
-        Saves the bee-village suggestion to database
-    Params:
-        location: GeoPoint(latitude, longitude)
-    Returns:
-        TODO: possible errors from database 
+    Saves the bee-village suggestion to database
     """
     client = datastore.Client()
 
-    kind = "HiveLocation"
-    task_key = client.key(kind)
-    task = datastore.Entity(key=task_key)
-    task["LatLng"] = location
+    kind = "Suggestion"
+    k = client.key(kind)
+    entity = datastore.Entity(key=k)
+    suggestion.populateEntity(entity)
 
-    logger.debug(f"Saved location {location}")
+    logger.debug(f"Saved location {suggestion}")
 
-    client.put(task)
+    client.put(entity)
     
 def delete_suggestion(id):
     """
@@ -33,43 +31,29 @@ def delete_suggestion(id):
     """
     client = datastore.Client()
 
-    kind = "HiveLocation"
+    kind = "Suggestion"
     key = client.key(kind, id)
 
     logger.debug(f"Deleted {key}.")
     client.delete(key)
 
-def getLocations():
-    """
-    Returns:
-        {
-            latitude: float, 
-            longitude: float, 
-            id: int
-        }
-    """
+def get_suggestions():
     client = datastore.Client()
-    kind = "HiveLocation"
+    kind = "Suggestion"
     
-    locations = []
+    suggestions = []
     for entity in client.query(kind=kind).fetch():
-        latitude = entity["LatLng"].latitude
-        longitude = entity["LatLng"].longitude
-        id = entity.key.id
-        locations.append({
-            "longitude": longitude,
-            "latitude": latitude,
-            "id": id
-        })
+        suggestion = Suggestion.fromEntity(entity)
+        suggestions.append(suggestion)
     
-    hiveCount = len(locations)
+    hiveCount = len(suggestions)
 
     if hiveCount > 0:
         logging.debug(f"Found {hiveCount} locations")
     else:
         logging.warn("No hive locations found")
         
-    return locations
+    return suggestions
 
 
 

@@ -4,8 +4,9 @@ from google.cloud.datastore.helpers import GeoPoint
 
 from . import map_blueprint
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
-from app.services.database import getLocations, save_suggestion, delete_suggestion
+from app.services.database import get_suggestions, save_suggestion, delete_suggestion
 from app.services.validation import SuggestionForm
+from app.models.suggestion import Suggestion
 
 from flask_babel import gettext
 from opencensus.ext.azure.log_exporter import AzureLogHandler   # I guess this is isn't necessary..
@@ -42,11 +43,9 @@ def save():
     """
     form = SuggestionForm(request.form)
     if form.validate():
-        latitude = form.latitude.data
-        longitude = form.longitude.data
-
-        point = GeoPoint(latitude, longitude)
-        save_suggestion(point)
+        suggestion = Suggestion.fromSuggestionForm(form)
+        
+        save_suggestion(suggestion)
         
         logger.debug("Bee-village suggestion saved.")
         
@@ -73,9 +72,17 @@ def delete(id):
 
 @map_blueprint.route("/locations", methods=["GET"])
 def locations():
-    locations = getLocations()
-    json_data = jsonify(locations)
+    suggestions = get_suggestions()
+    locations = []
+    for suggestion in suggestions:
+        locations.append({
+            "latitude": suggestion.location.latitude,
+            "longitude": suggestion.location.longitude,
+            "id": suggestion.id,
+            "confirmed": suggestion.confirmed
+        })
 
+    json_data = jsonify(locations)
     # make the response from json data requiderd by Flask. As HTTP code is used 200, OK
     resp = make_response(json_data, 200)
     resp.charset = "UTF-8"              # the charset of the response

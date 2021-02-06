@@ -2,6 +2,7 @@ flask>=1.1
 google-cloud-datastore
 flask-login
 datastore-entity
+WTForms
 Flask-WTF
 Flask-Babel
 opencensus-ext-azure

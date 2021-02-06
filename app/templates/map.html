@@ -30,18 +30,12 @@
         <h2>{{ gettext("We want to know more about you") }}</h2>
 
         <form id="userForm" method="post" action="/">
-            <div>
-                {{ form.latitude.label }} {{ form.latitude }}
-                <div class="errors"></div>
-            </div>
-            <div>
-                {{ form.longitude.label }} {{ form.longitude }}
-                <div class="errors"></div>
-            </div>
-            <div>
-                {{ form.name.label }} {{ form.name }}
-                <div class="errors"></div>
-            </div>
+            {% for field in form %}
+                <div>
+                    {{ field.label }} {{ field }}
+                    <div class="errors"></div>
+                </div>
+            {% endfor %}
             <div>
                 <input type="submit" value="Send" id="submit">
             </div>
