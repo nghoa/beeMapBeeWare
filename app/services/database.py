@@ -1,3 +1,7 @@
+"""
+Datastore access functionality
+"""
+
 import logging
 from google.cloud import datastore
 from werkzeug.security import generate_password_hash
@@ -28,6 +32,8 @@ def delete_suggestion(id):
     """
     Tries to delete entity based on it's id
     if it doesn't exist, does nothing
+    Params:
+        id: int datastore id for suggestion to delete
     """
     client = datastore.Client()
 
@@ -38,6 +44,11 @@ def delete_suggestion(id):
     client.delete(key)
 
 def get_suggestions():
+    """
+    Fetches all Suggestions from datastore
+    Returns:
+        List[Suggestion]
+    """
     client = datastore.Client()
     kind = "Suggestion"
     

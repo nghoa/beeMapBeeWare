@@ -28,6 +28,11 @@ class Suggestion:
     def fromSuggestionForm(cls, form):
         """
         Creates suggestion from SuggestionForm object
+        Params:
+            cls: Suggestion class
+            form: SuggestionForm object
+        Returns:
+            Suggestion
         """
         suggestion = Suggestion()
         suggestion.datetime = datetime.now()
@@ -43,6 +48,8 @@ class Suggestion:
         """
         puts fields from entity into object
         don't read id as it doesn't exists yet
+        Params:
+            entity: Datastore entity
         """
         entity["datetime"] = self.datetime
         entity["firstname"] = self.firstname
@@ -55,6 +62,11 @@ class Suggestion:
     def fromEntity(cls, entity):
         """
         Creates suggestion from datastore entity
+        Params:
+            cls: Suggestion class
+            entity: datastore entity
+        Returns:
+            Suggestion
         """
         suggestion = Suggestion()
         suggestion.id = entity.key.id
@@ -72,6 +84,10 @@ class Suggestion:
         Transforms list of suggestions into an excel workbook
         with header row from attribute names, makes location into two columns
         latitude, longitude
+        Params:
+            suggestions: List[Suggestion]
+        Returns:
+            openpyxl excel workbook object
         """
         wb = Workbook()
         #first worksheet, created automatically
