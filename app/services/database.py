@@ -67,8 +67,17 @@ def get_suggestions():
     return suggestions
 
 
-def update_suggestion(id):
-    pass
+"""
+    Update the status of the suggested beehive
+    - property "confirmed" under Suggestion entity
+"""
+def update_suggestion_status(id, status):
+    client = datastore.Client()
+    kind = "Suggestion"
+    key = client.key(kind, id)
+    entity = client.get(key)
+    entity.update({'confirmed': status})
+    client.put(entity)
 
 
 
@@ -84,4 +93,6 @@ def get_user(username):
 
 
 if __name__ == "__main__":
+    # id = 5629978607616000
+    # update_suggestion_status(id, True)
     pass
