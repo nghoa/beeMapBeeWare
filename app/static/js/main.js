@@ -20,13 +20,13 @@ window.onload = () => {
     initMap();
     map.on("click", addPopUp);
 
-    // Finland's borders
-    let finlandLayer = L.geoJSON(geoFinland).addTo(map);
-    function onMapClick(e) {
-        insideFinland = true;
-    }
-    finlandLayer.on('click', onMapClick);
-    
+   // Finland's borders
+   let finlandLayer = L.geoJSON(geoFinland).addTo(map);
+   function onMapClick(e) {
+       insideFinland = true;
+   }
+   finlandLayer.on('click', onMapClick);
+
     // put the markers from the datastore into the map
     getLocations();
 
@@ -165,8 +165,8 @@ function addPopUp(e) {
     let location = e.latlng;
     currentMarker = L.marker(location);
 
-    // Only locations inside Finland's borders are allowed
-    if (insideFinland == false) {
+      // Only locations inside Finland's borders are allowed
+      if (insideFinland == false) {
         let popup = L.popup()
         .setLatLng(location)
         .setContent('<p>Outside Finland!.</p>') // TODO: Add translation
