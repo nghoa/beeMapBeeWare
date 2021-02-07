@@ -110,7 +110,7 @@ def export():
     """
     suggestions = get_suggestions()
     wb = Suggestion.suggestions_to_excel(suggestions)
-    with NamedTemporaryFile(dir=".", suffix=".xlsx") as tmp:
+    with NamedTemporaryFile(suffix=".xlsx") as tmp:
         wb.save(tmp)
         tmp.seek(0)
         stream = tmp.read()
