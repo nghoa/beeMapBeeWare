@@ -36,8 +36,6 @@ window.onload = () => {
 
 }
 
-
-
 /**
  *  send form asynchronously to server 
  */
