@@ -5,8 +5,9 @@ from werkzeug.urls import url_parse
 from app.admin.forms import LoginForm, ChangePasswordForm
 from app.admin.models import User
 from . import admin_blueprint
-from app.services.database import get_suggestions, delete_suggestion
+from app.services.database import get_suggestions, delete_suggestion, update_suggestion_status
 
+import json
 import logging
 
 logger = logging.getLogger()
@@ -35,9 +36,11 @@ def dashboard():
             suggestion.datetime
             suggestion.confirmed
     """
-
     return render_template('dashboard.html', title='Dashboard', suggestions=suggestions)
 
+"""
+    Delete Suggestion by google Datastore ID
+"""
 @admin_blueprint.route('/dashboard/delete/<int:id>')
 def del_suggestion(id):
     try:
@@ -48,7 +51,37 @@ def del_suggestion(id):
         logger.warn("There was a problem with deleting the Suggestion")
         return 'There was a problem with deleting the Suggestion'
 
+"""
+    Update Suggestion confirmed status (true | false)
+"""
+@admin_blueprint.route('/dashboard/update-status', methods=['POST'])
+def update_suggestion():
+    try:
+        data = request.get_json()
+        id = int(data['id'])
+        # Transcode status to True | False
+        status = status_transcode(data['status'])
+        update_suggestion_status(id, status)
+        logger.debug("Status of ID: {} successfully changed".format(id))
+        return redirect(url_for('admin.dashboard'))
+    except:
+        logger.warn("There was a problem with updating the Suggestion")
+        return 'There was a problem with updating the Suggestion'
 
+"""
+    Round about way for transmitting status of Suggestion
+"""
+def status_transcode(status_json):
+    if status_json == '1':
+        return True
+    elif status_json == '0':
+        return False
+    else:
+        logger.warn("Suggestion Status has a type problem")
+
+"""
+    Change Password of current user
+"""
 @admin_blueprint.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():

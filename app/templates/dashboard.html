@@ -2,58 +2,73 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}
 
 {% block content %}
 <h1>
-    Suggestions for Beehives
+  Suggestions for Beehives
 </h1>
 <table class="table is-hoverable is-fullwidth">
-    <thead>
-      <tr>
-        <th><abbr title="Index">#</abbr></th>
-        <th>Name</th>
-        <th>Bee-Hive Confirmed</th>
-        <th>last updated</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th><abbr title="Index">#</abbr></th>
-        <th>Name</th>
-        <th>Bee-Hive Confirmed</th>
-        <th>last updated</th>
-        <th></th>
-      </tr>
-    </tfoot>
+  <thead>
+    <tr>
+      <th><abbr title="Index">#</abbr></th>
+      <th>Name</th>
+      <th>Bee-Hive Confirmed</th>
+      <th>last updated</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th><abbr title="Index">#</abbr></th>
+      <th>Name</th>
+      <th>Bee-Hive Confirmed</th>
+      <th>last updated</th>
+      <th></th>
+    </tr>
+  </tfoot>
 
 
-    <tbody>
-      {% for suggestion in suggestions %}
-        <tr>
-          <td>{{ suggestion.id }}</td>
-          <td>{{ suggestion.firstname }} {{ suggestion.lastname }}</td>
-          <td>
-            <!-- {{ suggestion.confirmed }} -->
-            <div class="select" id="status_{{ suggestion.id }}">
-              <select>
-                <option>{{ suggestion.confirmed }}</option>
-                <option>{{ not suggestion.confirmed }}</option>
-              </select> 
-            </div>
-          </td>
-          <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
-          <td>
-            <button class="button is-success" id="confirm_{{ suggestion.id }}">Confirm Beehive</button>
-            <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
-            <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
-          </td>
-        </tr>
-      {% endfor %}
+  <tbody>
+    {% for suggestion in suggestions %}
+    <tr>
+      <td>{{ suggestion.id }}</td>
+      <td>{{ suggestion.firstname }} {{ suggestion.lastname }}</td>
+      <td>
+        <!-- {{ suggestion.confirmed }} -->
+        <div class="select" id="status_{{ suggestion.id }}">
+          <select>
+            <option value="1">{{ suggestion.confirmed }}</option>
+            <option value="2">{{ not suggestion.confirmed }}</option>
+          </select>
+        </div>
+      </td>
+      <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>
+        <button class="button is-success" id="confirm_{{ suggestion.id }}">Update Suggestion</button>
+        <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
+        <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-    </tbody>
-  </table>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <!-- Any other Bulma elements you want -->
+    <div class="modal-card">
+      <section class="modal-card-body">
+        <!-- Content ... -->
+        <h1 style="color:black;">Suggestion successfully updated!!!</h1>
+      </section>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
 
 {% endblock %}
