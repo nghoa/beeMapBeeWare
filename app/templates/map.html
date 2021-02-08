@@ -35,7 +35,10 @@
         <form id="userForm" method="post" action="/">
             {% for field in form %}
                 <div>
-                    {{ field.label }} {{ field }}
+                    {% if field.widget.input_type != 'hidden' %}
+                        {{ field.label }}
+                    {% endif %}
+                    {{ field }}
                     <div class="errors"></div>
                 </div>
             {% endfor %}
