@@ -30,7 +30,7 @@ def test_missing():
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
-        assert form.errors == {"latitude": [ErrorMessage.INSIDE], "longitude": [ErrorMessage.REQUIRED]}
+        assert form.errors == {"latitude": [ErrorMessage.INSIDE]}
 
 
 def test_inside():
