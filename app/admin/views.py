@@ -38,6 +38,20 @@ def dashboard():
     """
     return render_template('dashboard.html', title='Dashboard', suggestions=suggestions)
 
+
+"""
+    render Leaflet map
+"""
+@admin_blueprint.route('/map')
+@login_required
+def show_map():
+    lon = request.args.get('lon')
+    lat = request.args.get('lat')
+    id = request.args.get('id')
+    # return "Longitude: {} and Latitude: {} and Id: {}".format(lon, lat, id)       # just for checking data
+    return render_template('dashboard_map.html', id = id, longitude = lon, latitude = lat)
+
+
 """
     Delete Suggestion by google Datastore ID
 """

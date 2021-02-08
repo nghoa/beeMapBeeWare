@@ -1,0 +1,37 @@
+<style>
+    .map {
+        height: 260px;
+    }
+</style>
+
+<div id="map_{{ id }}" class="map"></div>
+
+<script>
+    var lon = '{{ longitude }}';
+    var lat = '{{ latitude }}';
+    var zoom = 6
+    var id = '{{ id }}';
+    var mapName = 'map_' + id
+
+    var container = L.DomUtil.get(mapName);
+    if(container != null){
+        container._leaflet_id = null;
+        initMap();
+    }
+
+
+    function initMap() {
+        // init Leaflet
+        var map = L.map(mapName, {"zoomControl": false}).setView({lon: lon, lat: lat}, zoom);
+        var control = L.control.zoom({"position": "topright"})
+        map.addControl(control);
+        var marker = L.marker([lat, lon]).addTo(map);
+
+        // add the OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+        }).addTo(map);
+    }
+
+</script>

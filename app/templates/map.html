@@ -35,7 +35,11 @@
         <form id="userForm" method="post" action="/">
             {% for field in form %}
                 <div>
-                    {{ field.label }} {{ field }}
+                    {% if field.widget.input_type != 'hidden' %}
+                        {{ field.label }} {{ field }}
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
                     <div class="errors"></div>
                 </div>
             {% endfor %}
@@ -80,7 +84,8 @@
             "Suggestion was saved succesfully": '{{ gettext("Suggestion was saved succesfully") }}',
             "Delete": '{{ gettext("Delete") }}',
             "A marker already exists close by. Please, pick another location.": '{{ gettext("A marker already exists close by. Please, pick another location.")}}',
-            "Confirmed": '{{ gettext("Confirmed")}}'
+            "Confirmed": '{{ gettext("Confirmed")}}',
+            "Only locations inside borders of Finland are allowed.": '{{ gettext("Only locations inside borders of Finland are allowed.")}}'
         }
     </script>
 

@@ -4,6 +4,9 @@
 {% block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 {% endblock %}
 
 {% block content %}
@@ -50,8 +53,18 @@
         <button class="button is-success" id="confirm_{{ suggestion.id }}">Update Suggestion</button>
         <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
         <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
+        <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}" class="button is-info">Show Map</button>
       </td>
     </tr>
+
+    <tr id="target_{{ suggestion.id }}" style="display:none"> 
+      <td colspan="5">
+        <!-- <div id="mapContent"></div> -->
+        <div id="map_{{ suggestion.id }}"></div>
+      </td>
+    </tr>
+
+
     {% endfor %}
   </tbody>
 </table>
