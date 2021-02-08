@@ -6,7 +6,10 @@ window.onload = () => {
     $(".modal-close").click(function() {
         $(".modal").removeClass("is-active");
     });
+
 }
+
+ 
 
 function confirmBeehive() {
     var eventId = event.srcElement.id.split("_")[1];

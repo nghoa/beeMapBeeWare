@@ -4,6 +4,12 @@
 {% block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<style>
+  #map { height: 260px; }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -52,6 +58,31 @@
         <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
       </td>
     </tr>
+
+    <tr>
+      <td colspan="5">
+        <div id="map"></div>
+        <script>
+          var lon = 25.72088
+          var lat = 62.24147
+          var zoom = 13
+          // init Leaflet
+          var map = L.map('map', { "zoomControl": false }).setView({ lon: 25.72088, lat: 62.24147 }, 6);
+          let control = L.control.zoom({ "position": "topright" })
+          map.addControl(control);
+          var marker = L.marker([lat, lon]).addTo(map);
+
+          // add the OpenStreetMap tiles
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+          }).addTo(map);
+
+        </script>
+      </td>
+    </tr>
+
+
     {% endfor %}
   </tbody>
 </table>
