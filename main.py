@@ -40,7 +40,7 @@ def _setup_azure_logging(logger: logging.Logger, app: Flask, connection_string: 
     )
 
 def start_app():
-         
+
     host = os.getenv('HOST', '127.0.0.1')
     port = os.getenv('PORT', '5000')
     

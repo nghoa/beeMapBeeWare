@@ -109,3 +109,6 @@ msgstr ""
 msgid "Confirmed"
 msgstr ""
 
+#: app/templates/map.html:84
+msgid "Only locations inside borders of Finland are allowed."
+msgstr ""
