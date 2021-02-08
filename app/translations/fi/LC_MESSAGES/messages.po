@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-02-06 23:54+0200\n"
-"PO-Revision-Date: 2021-02-06 23:54+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2021-02-08 21:58+0200\n"
 "Language: fi\n"
 "Language-Team: fi <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: app/services/validation.py:6
 msgid "This field is required"
@@ -104,9 +105,12 @@ msgstr "Poista"
 
 #: app/templates/map.html:82
 msgid "A marker already exists close by. Please, pick another location."
-msgstr "Toinen sijainti on liian lähellä. Valitse toinen kohta"
+msgstr "Toinen sijainti on liian lähellä. Valitse toinen kohta."
 
 #: app/templates/map.html:83
 msgid "Confirmed"
 msgstr "Vahvistettu"
 
+#: app/templates/map.html:84
+msgid "Only locations inside borders of Finland are allowed."
+msgstr "Vain sijainnit Suomen rajojen sisällä ovat sallittu."

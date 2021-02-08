@@ -21,7 +21,8 @@ window.onload = () => {
     map.on("click", addPopUp);
 
    // Finland's borders
-   let finlandLayer = L.geoJSON(geoFinland).addTo(map);
+   let finlandLayer = L.geoJSON(geoFinland).addTo(map)
+
    function onMapClick(e) {
        insideFinland = true;
    }
@@ -167,9 +168,10 @@ function addPopUp(e) {
 
       // Only locations inside Finland's borders are allowed
       if (insideFinland == false) {
+        let content = `<p>${requireTranslation("Only locations inside borders of Finland are allowed.")}</p>`;
         let popup = L.popup()
         .setLatLng(location)
-        .setContent('<p>Outside Finland!.</p>') // TODO: Add translation
+        .setContent(content)
         .openOn(map);
         return;    
     }
