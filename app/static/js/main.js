@@ -20,8 +20,14 @@ window.onload = () => {
     initMap();
     map.on("click", addPopUp);
 
+    // style of Finland layer
+    var exteriorStyle = {
+        "color": "#ffffff",
+        "weight": 0,
+        "fillOpacity": 0.0
+    };
    // Finland's borders
-   let finlandLayer = L.geoJSON(geoFinland).addTo(map)
+   let finlandLayer = L.geoJSON(geoFinland, {style: exteriorStyle}).addTo(map)
 
    function onMapClick(e) {
        insideFinland = true;
