@@ -3,13 +3,33 @@ window.onload = () => {
         item.addEventListener("click", confirmBeehive);
     });
 
+    document.querySelectorAll(".is-info").forEach(item => {
+        item.addEventListener("click", toggleTable);
+    });
+
     $(".modal-close").click(function() {
         $(".modal").removeClass("is-active");
     });
 
 }
 
- 
+
+
+function toggleTable() {
+    var test = event.srcElement.id.split("_");
+    var eventId = event.srcElement.id.split("_")[1];
+    var longitude = event.srcElement.id.split("_")[2];
+    var latitude = event.srcElement.id.split("_")[3];
+    var targetName = "#target_" + eventId;
+    var mapName = "#map_" + eventId;
+    // $("#mapContent").load("map")
+    
+    var route = "map?" + "lon=" + longitude + "&lat=" + latitude + "&id=" + eventId
+
+    $(targetName).toggle('slow');
+    $(mapName).load(route);
+}
+
 
 function confirmBeehive() {
     var eventId = event.srcElement.id.split("_")[1];

@@ -7,9 +7,6 @@
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<style>
-  #map { height: 260px; }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -56,29 +53,14 @@
         <button class="button is-success" id="confirm_{{ suggestion.id }}">Update Suggestion</button>
         <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
         <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
+        <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}" class="button is-info">Show Map</button>
       </td>
     </tr>
 
-    <tr>
+    <tr id="target_{{ suggestion.id }}" style="display:none"> 
       <td colspan="5">
-        <div id="map"></div>
-        <script>
-          var lon = 25.72088
-          var lat = 62.24147
-          var zoom = 13
-          // init Leaflet
-          var map = L.map('map', { "zoomControl": false }).setView({ lon: 25.72088, lat: 62.24147 }, 6);
-          let control = L.control.zoom({ "position": "topright" })
-          map.addControl(control);
-          var marker = L.marker([lat, lon]).addTo(map);
-
-          // add the OpenStreetMap tiles
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-          }).addTo(map);
-
-        </script>
+        <!-- <div id="mapContent"></div> -->
+        <div id="map_{{ suggestion.id }}"></div>
       </td>
     </tr>
 
