@@ -16,7 +16,7 @@ def test_normal():
     """
     Valid input, no errors
     """
-    data = {"firstname": "aa", "lastname": "fdafda", "latitude": "22.4", "longitude": "12.34", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "fdafda", "latitude": "62", "longitude": "23", "email": "add@email.com"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert form.validate()
@@ -26,43 +26,29 @@ def test_missing():
     """
     Missing longitude
     """
-    data = {"firstname": "aa", "lastname": "bb", "latitude": "22.4", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "bb", "latitude": "62", "email": "add@email.com"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
-        assert form.errors == {"longitude": [ErrorMessage.REQUIRED]}
+        assert form.errors == {"latitude": [ErrorMessage.INSIDE]}
 
-def test_zero_coercion():
+
+def test_inside():
     """
-    Check that 0 is not interpreted as a missing value
+    Inside Finland is valid
     """
-    data = {"firstname": "aa", "lastname": "bb", "latitude": "0", "longitude": "0", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert form.validate()
         assert form.errors == {}
 
-def test_latitude_range():
-    data = {"firstname": "aa", "lastname": "bb", "latitude": "13", "longitude": "14", "email": "add@email.com"}
-    with app.test_request_context("/testing", data=data):
-        form = SuggestionForm(request.form)
-        assert form.validate()
-        assert form.errors == {}
-
-def test_latitude_range_off():
-    data = {"firstname": "aa", "lastname": "bb", "latitude": "100.0", "longitude": "12.0", "email": "add@email.com"}
+def test_outside():
+    """
+    Point outside Finland is not valid
+    """
+    data = {"firstname": "aa", "lastname": "bb", "longitude": "16", "latitude": "63", "email": "add@email.com"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
-        assert form.errors == {
-            "latitude": [ErrorMessage.LATITUDE]
-        }
-
-def test_longitude_range_off():
-    data = {"firstname": "aa", "lastname": "bb", "latitude": "12.0", "longitude": "200", "email": "add@email.com"}
-    with app.test_request_context("/testing", data=data):
-        form = SuggestionForm(request.form)
-        assert not form.validate()
-        assert form.errors == {
-            "longitude": [ErrorMessage.LONGITUDE]
-        }
+        assert form.errors == {"latitude": [ErrorMessage.INSIDE]}

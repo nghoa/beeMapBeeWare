@@ -1,34 +1,42 @@
+from wtforms.validators import InputRequired, NumberRange, ValidationError
 from wtforms import Form, StringField, FloatField, HiddenField
 from wtforms.widgets import HiddenInput
-from wtforms.validators import InputRequired, NumberRange
 from flask_babel import lazy_gettext
+from shapely.geometry import Point, Polygon
+from app.services.finland_polygon import finland_polygon_data
+
 
 class ErrorMessage:
     REQUIRED = lazy_gettext("This field is required")
-    LATITUDE = lazy_gettext("Latitude has to be between -90 and 90")
-    LONGITUDE = lazy_gettext("Longitude has to be between -180 and 180")
+    INSIDE = lazy_gettext("Please select a location inside Finland")
+
+
+def validate_inside_Finland(form, field):
+    """
+    Check if given point is inside finland
+    """
+    try:
+        lat = float(form.latitude.data)
+        lng = float(form.longitude.data)
+    except:
+        raise ValidationError(ErrorMessage.INSIDE)
+    point = Point(lng, lat)
+    polygon = Polygon(finland_polygon_data)
+    if not point.within(polygon):
+        raise ValidationError(ErrorMessage.INSIDE)
 
 
 class SuggestionForm(Form):
     firstname = StringField(lazy_gettext('firstname'), validators=[
-                        InputRequired(message=ErrorMessage.REQUIRED)])
+        InputRequired(message=ErrorMessage.REQUIRED)])
+
     lastname = StringField(lazy_gettext("lastname"), validators=[
-                        InputRequired(message=ErrorMessage.REQUIRED)])
-    latitude = FloatField(
-        lazy_gettext("latitude"),
-        validators=[
-            InputRequired(message=ErrorMessage.REQUIRED), 
-            NumberRange(-90, 90, message=ErrorMessage.LATITUDE)
-        ],
-        widget=HiddenInput())
+        InputRequired(message=ErrorMessage.REQUIRED)])
 
-    longitude = FloatField(
-        lazy_gettext("longitude"), 
-        validators=[
-            InputRequired(message=ErrorMessage.REQUIRED),
-            NumberRange(-180, 180, message=ErrorMessage.LONGITUDE)
-        ],
-        widget=HiddenInput())
+    latitude = FloatField(lazy_gettext("latitude"), validators=[
+        validate_inside_Finland], widget=HiddenInput())
 
-    email = StringField(lazy_gettext("email"), validators=[
+    longitude = FloatField(lazy_gettext("longitude"),widget = HiddenInput())
+
+    email=StringField(lazy_gettext("email"), validators = [
                         InputRequired(message=ErrorMessage.REQUIRED)])

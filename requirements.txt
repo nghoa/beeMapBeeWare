@@ -8,3 +8,4 @@ Flask-Babel
 opencensus-ext-azure
 opencensus-ext-flask
 openpyxl
+Shapely
