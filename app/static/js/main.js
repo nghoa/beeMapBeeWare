@@ -19,7 +19,6 @@ let geoFinland = { "type": "Feature", "properties": null, "geometry": { "type": 
 window.onload = () => {
     initMap();
     map.on("click", addPopUp);
-
     // style of Finland layer
     var exteriorStyle = {
         "color": "#ffffff",
@@ -28,12 +27,12 @@ window.onload = () => {
     };
     // Finland's borders
     let finlandLayer = L.geoJSON(geoFinland, { style: exteriorStyle }).addTo(map)
-
+    
     function onMapClick(e) {
         insideFinland = true;
     }
     finlandLayer.on('click', onMapClick);
-
+    
     // put the markers from the datastore into the map
     getLocations();
 
@@ -41,6 +40,22 @@ window.onload = () => {
 
     document.getElementById("hide-button").addEventListener("click", togglePanel)
 
+}
+
+/** 
+ * Create markers with assigned css class
+ * @param latlng L.latLng object
+ * @param confirmed Boolean
+ * @return L.marker object
+ */
+function createMarker(latlng, confirmed) {
+    if (confirmed) {
+        L.Icon.Default.prototype.options.className = "icon-confirmed"
+    }
+    else {
+        L.Icon.Default.prototype.options.className = "icon-not-confirmed"
+    }
+    return L.marker(latlng);
 }
 
 /**
@@ -170,7 +185,7 @@ function addPopUp(e) {
         map.removeLayer(currentMarker);
     }
     let location = e.latlng;
-    currentMarker = L.marker(location);
+    currentMarker = createMarker(location, false)
 
     // Only locations inside Finland's borders are allowed
     if (insideFinland == false) {
@@ -276,7 +291,10 @@ function put_markers_to_map(data, textStatus, request) {
     markers = []
     for (let element of data) {
         //transform fetched data to markers
-        let marker = L.marker([element["latitude"], element["longitude"]]);
+        let lat = element["latitude"];
+        let lng = element["longitude"];
+        let confirmed = element["confirmed"]
+        let marker = createMarker(L.latLng(lat, lng), confirmed);
 
         // add marker to the marker collection (array)
         markers.push(marker);
