@@ -1,3 +1,5 @@
+import re
+
 from wtforms.validators import InputRequired, NumberRange, ValidationError, Length
 from wtforms import Form, StringField, FloatField, HiddenField
 from wtforms.widgets import HiddenInput
@@ -12,6 +14,17 @@ class ErrorMessage:
     LENGTH_FIRSTNAME = lazy_gettext("Must be between 1 and 20 characters long")
     LENGTH_LASTNAME = lazy_gettext("Must be between 1 and 20 characters long")
     LENGTH_EMAIL = lazy_gettext("Must be between 1 and 254 characters long")
+    EMAIL_FORMAT = lazy_gettext("Please enter valid email address")
+
+
+def validate_email(form, field):
+    """
+    Check that email address is of correct format
+    """
+    emailstring = field.data
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", emailstring):
+        raise ValidationError(ErrorMessage.EMAIL_FORMAT)
+
 
 def validate_inside_Finland(form, field):
     """
@@ -45,4 +58,5 @@ class SuggestionForm(Form):
 
     email=StringField(lazy_gettext("email"), validators = [
                         InputRequired(message=ErrorMessage.REQUIRED),
-                        Length(min=1, max=254, message=ErrorMessage.LENGTH_EMAIL)])
+                        Length(min=1, max=254, message=ErrorMessage.LENGTH_EMAIL),
+                        validate_email])
