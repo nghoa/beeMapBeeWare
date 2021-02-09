@@ -62,3 +62,45 @@ def test_firstname_too_long():
         form = SuggestionForm(request.form)
         assert not form.validate()
         assert form.errors == {"firstname": [ErrorMessage.LENGTH_FIRSTNAME]}
+
+def test_email_correct():
+    """
+    Test that correct email is valid
+    """
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com"}
+    with app.test_request_context("/testing", data=data):
+        form = SuggestionForm(request.form)
+        assert form.validate()
+        assert form.errors == {}
+
+def test_email_no_parts():
+    """
+    Test email missing @ and dot part
+    """
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "asdfdas"}
+    with app.test_request_context("/testing", data=data):
+        form = SuggestionForm(request.form)
+        assert not form.validate()
+        assert form.errors == {"email": [ErrorMessage.EMAIL_FORMAT]}
+
+def test_email_no_dot():
+    """
+    Test missing dot part
+    """
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "asdfdas@fdfa"}
+    with app.test_request_context("/testing", data=data):
+        form = SuggestionForm(request.form)
+        assert not form.validate()
+        assert form.errors == {"email": [ErrorMessage.EMAIL_FORMAT]}
+
+
+def test_email_no_():
+    """
+    Test missing beginning
+    """
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "@com.com"}
+    with app.test_request_context("/testing", data=data):
+        form = SuggestionForm(request.form)
+        assert not form.validate()
+        assert form.errors == {"email": [ErrorMessage.EMAIL_FORMAT]}
+
