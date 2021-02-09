@@ -1,4 +1,4 @@
-from wtforms.validators import InputRequired, NumberRange, ValidationError
+from wtforms.validators import InputRequired, NumberRange, ValidationError, Length
 from wtforms import Form, StringField, FloatField, HiddenField
 from wtforms.widgets import HiddenInput
 from flask_babel import lazy_gettext
@@ -9,7 +9,9 @@ from app.services.finland_polygon import finland_polygon_data
 class ErrorMessage:
     REQUIRED = lazy_gettext("This field is required")
     INSIDE = lazy_gettext("Please select a location inside Finland")
-
+    LENGTH_FIRSTNAME = lazy_gettext("Must be between 1 and 20 characters long")
+    LENGTH_LASTNAME = lazy_gettext("Must be between 1 and 20 characters long")
+    LENGTH_EMAIL = lazy_gettext("Must be between 1 and 254 characters long")
 
 def validate_inside_Finland(form, field):
     """
@@ -28,10 +30,13 @@ def validate_inside_Finland(form, field):
 
 class SuggestionForm(Form):
     firstname = StringField(lazy_gettext('firstname'), validators=[
-        InputRequired(message=ErrorMessage.REQUIRED)])
+        InputRequired(message=ErrorMessage.REQUIRED),
+        Length(min=1, max=20, message=ErrorMessage.LENGTH_FIRSTNAME)
+        ])
 
     lastname = StringField(lazy_gettext("lastname"), validators=[
-        InputRequired(message=ErrorMessage.REQUIRED)])
+        InputRequired(message=ErrorMessage.REQUIRED),
+        Length(min=1, max=20, message=ErrorMessage.LENGTH_LASTNAME)])
 
     latitude = FloatField(lazy_gettext("latitude"), validators=[
         validate_inside_Finland], widget=HiddenInput())
@@ -39,4 +44,5 @@ class SuggestionForm(Form):
     longitude = FloatField(lazy_gettext("longitude"),widget = HiddenInput())
 
     email=StringField(lazy_gettext("email"), validators = [
-                        InputRequired(message=ErrorMessage.REQUIRED)])
+                        InputRequired(message=ErrorMessage.REQUIRED),
+                        Length(min=1, max=254, message=ErrorMessage.LENGTH_EMAIL)])

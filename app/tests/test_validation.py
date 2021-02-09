@@ -52,3 +52,13 @@ def test_outside():
         form = SuggestionForm(request.form)
         assert not form.validate()
         assert form.errors == {"latitude": [ErrorMessage.INSIDE]}
+
+def test_firstname_too_long():
+    """
+    Point outside Finland is not valid
+    """
+    data = {"firstname": "a"*40, "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com"}
+    with app.test_request_context("/testing", data=data):
+        form = SuggestionForm(request.form)
+        assert not form.validate()
+        assert form.errors == {"firstname": [ErrorMessage.LENGTH_FIRSTNAME]}
