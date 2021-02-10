@@ -6,64 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <meta name="description" content="{{ gettext('View and suggest bee-village location on map') }}">
-    <script 
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"
-    ></script>
-    <script 
-        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin="anonymous"
-    ></script>
-    <link 
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" 
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="anonymous"
-    />
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+        integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA=="
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
-    <header>
-        <div>
-            <h1>{{ gettext("Map") }}</h1>
+    <nav class="navbar has-shadow">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="../">
+                    <img src="//static1.squarespace.com/static/5f849222d4483c18f3c4d400/t/5fc8ad1d46ef2e08cbbbb715/1612722830829/?format=1500w"
+                        alt="Beeings Map">&nbsp; Beeings &nbsp; <h1>{{ gettext("Map") }}</h1>
+                </a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Language
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/lang/fi">
+                            <img src="{{ url_for('static', filename='img/finland.png') }}" alt="FI">
+                            &nbsp;
+                            <b>FI</b>
+                        </a>
+                        <a class="navbar-item" href="/lang/en">
+                            <img src="{{ url_for('static', filename='img/uk.png') }}" alt="ENG">
+                            &nbsp;
+                            <b>ENG</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <a class="export-link" href="/export">{{ gettext("Export as excel") }}</a>
-        </div>
-        <div id="lang-selection">
-            <a href="/lang/fi">FI</a>
-            <a href="/lang/en">EN</a>
-        </div>
-    </header>
-    
-    <div id="panel" class="hidden">
-        <button id="hide-button">{{ gettext("Hide") }}</button>
-        <h2>{{ gettext("We want to know more about you") }}</h2>
+    </nav>
 
+    <div id="panel" class="hidden">
+        <button id="hide-button" class="button is-small">
+            <span class="icon">
+                <i class="far fa-eye-slash"></i>
+            </span>
+            <span>{{ gettext("Hide") }}</span>
+        </button>
+        <h2 class="title is-4">{{ gettext("We want to know more about you") }}</h2>
         <form id="userForm" method="post" action="/">
             {% for field in form %}
-                <div>
-                    {% if field.widget.input_type != 'hidden' %}
-                        {{ field.label }} {{ field }}
-                    {% else %}
-                        {{ field }}
-                    {% endif %}
-                    <div class="errors"></div>
-                </div>
-            {% endfor %}
             <div>
-                <input type="submit" value="Send" id="submit">
+                {% if field.widget.input_type != 'hidden' %}
+                {{ field.label(class="field-label") }} {{ field(class="input is-normal") }}
+                {% else %}
+                {{ field(class="input is-normal") }}
+                {% endif %}
+                <div class="errors"></div>
+            </div>
+            {% endfor %}
+            <div class="submit-div">
+                <input type="submit" value="Send" id="submit" class="button is-link is-rounded">
             </div>
             <div id="feedback"></div>
         </form>
 
-        <div id="some">
-            <h2>{{ gettext("Share on social media") }}</h2>
+        <div class="is-divider"></div>
 
+        <div id="some">
+            <h1 class="title is-4">{{ gettext("Share on social media") }}</h1>
             <a href="http://www.facebook.com/sharer.php?u=https://beeings.org/">
                 <img src="{{ url_for('static', filename='img/f_logo.png') }}" alt="Facebook">
             </a>
@@ -85,6 +106,9 @@
     </div>
 
     <div id="map"></div>
+
+
+
 
     <script>
         /** dict of translations for text that are in javascript */
