@@ -1,15 +1,11 @@
-This repository was created to be an example for the course work.
+## Project work for course **TJTS5901**
 
-Python 3.8.5
+Made by Aleksi, Hoa, Juha and Markus (Group 16)
 
-to run app locally in docker
 
-`$ docker build -t beemaptemplate .`
+Access to Application: http://nodal-figure-301713.ew.r.appspot.com/
 
-`$ docker run -p 5000:5000 beemaptemplate:latest`
-
-Access to Application:
-- http://nodal-figure-301713.ew.r.appspot.com/
+---
 
 ## Reporting issues
 
@@ -24,3 +20,15 @@ Access to Application:
 9. Thank you for your service! You may be asked further questions about the issue you submitted once we start working on it. Please, answer them.
 
 [Report an issue](https://gitlab.jyu.fi/beeware/beemapbeeware/-/issues/new).
+
+## Short Description
+
+This repository was created to be an example for the course work.
+
+Python 3.8.5
+
+to run app locally in docker
+
+`$ docker build -t beemaptemplate .`
+
+`$ docker run -p 5000:5000 beemaptemplate:latest`
