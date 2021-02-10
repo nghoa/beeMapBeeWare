@@ -2,22 +2,15 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block scripts %}
-<script 
-  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
   integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-  crossorigin="anonymous"
-></script>
-<script 
-  src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-  crossorigin="anonymous"
-></script>
-<link 
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" 
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-  crossorigin="anonymous"
-/>
+  crossorigin="anonymous" />
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}
 
@@ -32,7 +25,11 @@
       <th>Name</th>
       <th>Bee-Hive Confirmed</th>
       <th>last updated</th>
-      <th>Action</th>
+      <th>
+        <div>
+          <a class="button is-link" href="/export">Export as Excel</a>
+        </div>
+      </th>
     </tr>
   </thead>
   <tfoot>
@@ -65,11 +62,12 @@
         <button class="button is-success" id="confirm_{{ suggestion.id }}">Update Suggestion</button>
         <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
         <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
-        <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}" class="button is-info">Show Map</button>
+        <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}"
+          class="button is-info">Show Map</button>
       </td>
     </tr>
 
-    <tr id="target_{{ suggestion.id }}" style="display:none"> 
+    <tr id="target_{{ suggestion.id }}" style="display:none">
       <td colspan="5">
         <!-- <div id="mapContent"></div> -->
         <div id="map_{{ suggestion.id }}"></div>
