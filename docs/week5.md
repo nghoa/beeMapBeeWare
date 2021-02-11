@@ -27,6 +27,7 @@ weekly by each group. Extra points available for further consideration of the ot
 https://owasp.org/www-project-top-ten/
 
 1. **Injection**
+    - XXS: tested strings like <button>hei</button> as input and browser didn't interpret them as html elements.
 2. Broken authentication
 3. **Sensitive data exposure**
 4. XML External Entities (XXE)
@@ -36,3 +37,17 @@ https://owasp.org/www-project-top-ten/
 8. Insecure Deserialization
 9. **Using components with known vulnerabilities**
 10. **Insufficient logging & monitoring**
+
+## Bug fixes 
+
+Report bug fixes in weekly report → What were the issues; What was the cause of the issue; What was the solution?
+
+### Input length
+  - there was no validation for how long the inputted fields can be. Validation of it was added.
+
+### Email validation
+  - Email was not validated. Simple regex validation was added.
+
+### Subresource integrity
+  - Loaded javascript libraries didn't have integrity hashes. They were added. 
+
