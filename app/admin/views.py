@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request, Response
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 
@@ -6,9 +6,11 @@ from app.admin.forms import LoginForm, ChangePasswordForm
 from app.admin.models import User
 from . import admin_blueprint
 from app.services.database import get_suggestions, delete_suggestion, update_suggestion_status
+from app.models.suggestion import Suggestion
 
 import json
 import logging
+from tempfile import NamedTemporaryFile
 
 logger = logging.getLogger()
 
@@ -64,6 +66,7 @@ def del_suggestion(id):
     except:
         logger.warn("There was a problem with deleting the Suggestion")
         return 'There was a problem with deleting the Suggestion'
+
 
 """
     Update Suggestion confirmed status (true | false)
@@ -151,3 +154,18 @@ def logout():
     logger.debug("User logged out.")
     logout_user()
     return redirect(url_for('admin.profile'))
+
+
+@admin_blueprint.route("/export")
+def export():
+    """
+    Stream excel file of suggestions in bytelike format
+    """
+    suggestions = get_suggestions()
+    wb = Suggestion.suggestions_to_excel(suggestions)
+    with NamedTemporaryFile(suffix=".xlsx") as tmp:
+        wb.save(tmp)
+        tmp.seek(0)
+        stream = tmp.read()
+    
+    return Response(stream, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")

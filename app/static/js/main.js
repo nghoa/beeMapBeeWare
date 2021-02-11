@@ -140,14 +140,6 @@ function clearForm() {
     formFields.forEach(field => document.getElementById(field).value = "");
 }
 
-/**
- * removes element's children
- */
-function removeChildren(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
-    }
-}
 
 /** 
  * Add errors to fields
@@ -350,32 +342,9 @@ function createPopupContent(marker, id, confirmed) {
         div.appendChild(p3);
     }
 
-    let button = document.createElement("button");
-    button.textContent = requireTranslation("Delete");
-    button.addEventListener("click", e => {
-        deleteLocation(marker, id);
-    });
-
-    div.appendChild(button);
-
     return div;
 }
 
-/**
- * Delete suggestion 
- * delete marker from map
- * @param marker leaflet marker object to delete
- * @param id id of suggestion to delete
- */
-function deleteLocation(marker, id) {
-    map.removeLayer(marker);
-    fetch(`/delete/${id}`, {
-        method: "GET"
-    })
-        .then(res => res.text())
-        .then(text => console.log(text))
-        .catch(e => console.error(e))
-}
 
 /**
  * Get the locations from backend

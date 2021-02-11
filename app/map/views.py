@@ -2,12 +2,10 @@
 Routing for main functionality
 """
 
-import os
-from tempfile import NamedTemporaryFile
 import logging
 
 from . import map_blueprint
-from app.services.database import get_suggestions, save_suggestion, delete_suggestion
+from app.services.database import get_suggestions, save_suggestion
 from app.services.validation import SuggestionForm
 from app.models.suggestion import Suggestion
 
@@ -63,20 +61,7 @@ def save():
 
     return jsonify(form.errors), status_code 
     
-@map_blueprint.route("/delete/<int:id>", methods=["GET"])
-def delete(id):
-    """
-    Deletes suggestion from database with given id
-    if it exists
-    Params:
-        id: entity id, gets converted to int
-    Response:
-        "ok", 200
-    """
-    logger.debug("Bee-village deleted.")
 
-    delete_suggestion(id)
-    return "ok", 200
 
 @map_blueprint.route("/locations", methods=["GET"])
 def locations():
@@ -103,16 +88,3 @@ def locations():
     return resp
 
 
-@map_blueprint.route("/export")
-def export():
-    """
-    Stream excel file of suggestions in bytelike format
-    """
-    suggestions = get_suggestions()
-    wb = Suggestion.suggestions_to_excel(suggestions)
-    with NamedTemporaryFile(suffix=".xlsx") as tmp:
-        wb.save(tmp)
-        tmp.seek(0)
-        stream = tmp.read()
-    
-    return Response(stream, mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
