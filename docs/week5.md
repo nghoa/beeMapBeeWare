@@ -51,3 +51,5 @@ Report bug fixes in weekly report → What were the issues; What was the cause o
 ### Subresource integrity
   - Loaded javascript libraries didn't have integrity hashes. They were added. 
 
+### Version limit
+  - Google app engine had version limit of 210 which was exceeded and as a result ci/cd pipeline failed. 209 version were deleted. Apparently google cloud doesn't do this automatically at least with default settings. 
