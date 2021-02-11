@@ -15,11 +15,11 @@ window.onload = () => {
 
 
 
-function toggleTable() {
-    var test = event.srcElement.id.split("_");
-    var eventId = event.srcElement.id.split("_")[1];
-    var longitude = event.srcElement.id.split("_")[2];
-    var latitude = event.srcElement.id.split("_")[3];
+function toggleTable(e) {
+    var test = e.target.id.split("_");
+    var eventId = e.target.id.split("_")[1];
+    var longitude = e.target.id.split("_")[2];
+    var latitude = e.target.id.split("_")[3];
     var targetName = "#target_" + eventId;
     var mapName = "#map_" + eventId;
     // $("#mapContent").load("map")
@@ -31,8 +31,8 @@ function toggleTable() {
 }
 
 
-function confirmBeehive() {
-    var eventId = event.srcElement.id.split("_")[1];
+function confirmBeehive(e) {
+    var eventId = e.target.id.split("_")[1];
     // console.log("ID: ", eventId);
     var statusId = "status_" + eventId
     var selectedStatus = $("#"+ statusId + " option:selected").text();
