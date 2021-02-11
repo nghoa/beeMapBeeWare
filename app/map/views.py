@@ -75,7 +75,6 @@ def locations():
         locations.append({
             "latitude": suggestion.location.latitude,
             "longitude": suggestion.location.longitude,
-            "id": suggestion.id,
             "confirmed": suggestion.confirmed
         })
 
