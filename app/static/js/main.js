@@ -5,6 +5,9 @@ let map = undefined;
 /** current latlng that was clicked on map */
 let currentLocation = undefined;
 
+/** How many decimals are displayed to user on the latitude and longitude values  */
+const coordinateDecimals = 6;
+
 /** form fields */
 const formFields = ["firstname", "lastname", "email", "latitude", "longitude"]
 
@@ -138,7 +141,7 @@ var MARKERS = (function() {
 
         // Only locations inside Finland's borders are allowed
         if (insideFinland == false) {
-            let content = `<p>${requireTranslation("Only locations inside borders of Finland are allowed.")}</p>`;
+            let content = `<p><i class="fas fa-ban fa-lg" style="color: red;"></i><br>${requireTranslation("Only locations inside borders of Finland are allowed.")}</p>`;
             let popup = L.popup()
                 .setLatLng(location)
                 .setContent(content)
@@ -191,7 +194,7 @@ var MARKERS = (function() {
     function isThereAlreadyMarker(lat, lon) {
         try {
             const marker = L.marker(L.latLng(lat, lon));
-            return markers.find(m => m.getLatLng().equals(marker.getLatLng(), 0.00004));
+            return markers.find(m => m.getLatLng().equals(marker.getLatLng(), 0.0004));
         } catch (err) {
             return null;
         }
@@ -392,18 +395,19 @@ function createPopupContent(marker, confirmed) {
     let div = document.createElement("div");
     div.textContent = requireTranslation("Chosen location");
     let p = document.createElement("p");
-    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat}`;
+    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat.toFixed(coordinateDecimals)}`;
 
     let p2 = document.createElement("p");
-    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng}`;
+    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng.toFixed(coordinateDecimals)}`;
 
     div.appendChild(p);
     div.appendChild(p2);
 
     if (confirmed) {
-        let p3 = document.createElement("p");
-        p3.textContent = requireTranslation("Confirmed");
-        div.appendChild(p3);
+        let successTag = document.createElement("span");
+        $(successTag).addClass("tag").addClass("is-success");
+        successTag.textContent = requireTranslation("Confirmed");
+        div.appendChild(successTag);
     }
 
     return div;
@@ -420,15 +424,16 @@ function createPopupContentNew(marker) {
     let div = document.createElement("div");
     div.textContent = requireTranslation("Chosen location");
     let p = document.createElement("p");
-    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat}`;
+    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat.toFixed(coordinateDecimals)}`;
 
     let p2 = document.createElement("p");
-    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng}`;
+    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng.toFixed(coordinateDecimals)}`;
 
     div.appendChild(p);
     div.appendChild(p2);
 
     let button = document.createElement("button");
+    $(button).addClass("button").addClass("is-link").addClass("is-rounded");
     button.textContent = requireTranslation("Choose")
     button.addEventListener("click", openPanel)
 
@@ -436,8 +441,17 @@ function createPopupContentNew(marker) {
     return div;
 }
 
+/**
+ * 
+ */
 function createPopupContentError() {
-    return `<p>${requireTranslation("A marker already exists close by. Please, pick another location.")}</p>`
+    const content =
+            `<p>
+                <i class="fas fa-ban fa-lg" style="color: red;"></i>
+                <br>
+                ${requireTranslation("A marker already exists close by. Please, pick another location.")}
+            </p>`
+
 }
 
 
