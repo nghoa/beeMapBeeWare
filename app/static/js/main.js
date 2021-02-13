@@ -451,6 +451,7 @@ function createPopupContentError() {
                 <br>
                 ${requireTranslation("A marker already exists close by. Please, pick another location.")}
             </p>`
+    return content;
 
 }
 
