@@ -3,12 +3,12 @@ Routing for main functionality
 """
 
 import logging
+from ipaddress import ip_address
 
 from . import map_blueprint
-from app.services.database import get_suggestions, save_suggestion
+from app.services.database import get_suggestions, save_suggestion, get_recent_ip_addresses, delete_recent_ips, save_ip
 from app.services.validation import SuggestionForm
 from app.models.suggestion import Suggestion
-
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
 from flask_babel import gettext
 
@@ -44,14 +44,44 @@ def save():
         http post request
             body: formdata (name, latitude, longitude)
     Response:
-        json {"fieldname": ["errors"]}
+        200 {} valid suggestion
+        400 {} if ip address parsing fails
+        400 {"fieldname": ["errors"]} if not valid suggestion
+        429 {} if ip has made too many suggestions recently
     """
+
     form = SuggestionForm(request.form)
     if form.validate():
+        try:
+            ip = request.remote_addr
+            ip = ip_address(ip)
+        except:
+            return jsonify({}), 400 #bad request
+
+        recent_ips = get_recent_ip_addresses()
+        ip_found_count = 0
+        for recent_ip in recent_ips:
+            if recent_ip == ip:
+                ip_found_count += 1
+        # how many suggestions one user can make out of the most recent 1000
+        max_by_one = 10
+        # maximum number of recent ips to save to datastore
+        # after limit has been reached all the old ones are removed
+        # since deletion is blocking operation it's not wise to make this very large
+        # as user would have to wait a long time for the response to return
+        max_in_datastore = 1000
+        
+        if len(recent_ips) > max_in_datastore:
+            delete_recent_ips()
+
+        if ip_found_count > max_by_one:
+            return jsonify({}), 429 #too many requests
+
         suggestion = Suggestion.fromSuggestionForm(form)
         
         save_suggestion(suggestion)
         
+        save_ip(ip)
         logger.debug("Bee-village suggestion saved.")
         
         status_code = 200
@@ -61,7 +91,6 @@ def save():
 
     return jsonify(form.errors), status_code 
     
-
 
 @map_blueprint.route("/locations", methods=["GET"])
 def locations():
