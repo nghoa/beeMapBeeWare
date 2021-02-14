@@ -123,8 +123,8 @@ def login():
 
     # flask login handles the current_user object
     if current_user.is_authenticated:
-        logger.debug("Show admin profile")
-        return redirect(url_for('admin.profile'))
+        logger.debug("Show admin dashboard")
+        return redirect(url_for('admin.dashboard'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -142,9 +142,9 @@ def login():
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
 
-            logger.debug("Show admin profile page")
+            logger.debug("Show admin dashboard page")
 
-            next_page = url_for('admin.profile')
+            next_page = url_for('admin.dashboard')
         return redirect(next_page)
     return render_template('login.html', title="Login", form=form)
 
@@ -153,7 +153,7 @@ def login():
 def logout():
     logger.debug("User logged out.")
     logout_user()
-    return redirect(url_for('admin.profile'))
+    return redirect(url_for('admin.login'))
 
 
 @admin_blueprint.route("/export")
