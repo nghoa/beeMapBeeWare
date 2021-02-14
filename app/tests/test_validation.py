@@ -11,7 +11,7 @@ it would require setting up fake database
 
 app = create_app()
 app.config["TESTING"] = True
-
+app.config["WTF_CSRF_ENABLED"] = False
 def test_normal():
     """
     Valid input, no errors
@@ -103,4 +103,3 @@ def test_email_no_():
         form = SuggestionForm(request.form)
         assert not form.validate()
         assert form.errors == {"email": [ErrorMessage.EMAIL_FORMAT]}
-
