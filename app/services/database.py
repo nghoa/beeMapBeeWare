@@ -3,8 +3,6 @@ Datastore access functionality
 """
 
 import logging
-from ipaddress import ip_address
-
 from google.cloud import datastore
 from werkzeug.security import generate_password_hash
 
@@ -81,58 +79,7 @@ def update_suggestion_status(id, status):
     entity.update({'confirmed': status})
     client.put(entity)
 
-def get_recent_ip_addresses():
-    """
-    Get list of ip addresses from datastore
-    """
-    client = datastore.Client()
-    kind = "RecentIp"
-    
-    ips = []
-    for entity in client.query(kind=kind).fetch():
-        try:
-            ip = entity["ip"]
-            ip = ip_address(ip)
-            ips.append(ip)
-        except:
-            pass
 
-    return ips
-
-
-def _get_ip_keys():
-    """
-    Ip keys
-    """
-    client = datastore.Client()
-    kind = "RecentIp"
-
-    ipkeys = []
-    for entity in client.query(kind = kind).fetch():
-        ipkeys.append(entity.key)
-    return ipkeys
-
-def save_ip(ip):
-    """
-    Saves this ip to recent ips
-    """
-    client = datastore.Client()
-    kind = "RecentIp"
-    k = client.key(kind)
-    entity = datastore.Entity(key=k)
-    entity["ip"] = str(ip)
-
-    client.put(entity)
-
-
-def delete_recent_ips():
-    """
-    Delete all ips in datastore
-    """
-    client = datastore.Client()
-    keys = _get_ip_keys()
-    client.delete_multi(keys)
-    
 
 def get_user(username):
     kind = "User"
