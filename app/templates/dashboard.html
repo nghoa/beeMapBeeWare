@@ -16,18 +16,18 @@
 
 {% block content %}
 <h1 class="title is-4">
-  Suggestions for Beehives
+  {{ gettext("Suggestions for Beehives") }}
 </h1>
 <table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
       <th><abbr title="Index">#</abbr></th>
-      <th>Name</th>
-      <th>Bee-Hive Confirmed</th>
-      <th>last updated</th>
+      <th>{{ gettext("Name") }}</th>
+      <th>{{ gettext("Bee-Hive Confirmed") }}</th>
+      <th>{{ gettext("last updated") }}</th>
       <th>
         <div>
-          <a class="button is-link" href="/admin/export">Export as Excel</a>
+          <a class="button is-link" href="/admin/export">{{ gettext("Export as Excel") }}</a>
         </div>
       </th>
     </tr>
@@ -35,9 +35,9 @@
   <tfoot>
     <tr>
       <th><abbr title="Index">#</abbr></th>
-      <th>Name</th>
-      <th>Bee-Hive Confirmed</th>
-      <th>last updated</th>
+      <th>{{ gettext("Name") }}</th>
+      <th>{{ gettext("Bee-Hive Confirmed") }}</th>
+      <th>{{ gettext("last updated") }}</th>
       <th></th>
     </tr>
   </tfoot>
@@ -52,18 +52,23 @@
         <!-- {{ suggestion.confirmed }} -->
         <div class="select" id="status_{{ suggestion.id }}">
           <select>
-            <option value="1">{{ suggestion.confirmed }}</option>
-            <option value="2">{{ not suggestion.confirmed }}</option>
+              {% if suggestion.confirmed %}
+                <option value="1">{{ gettext("yes") }}</option>
+                <option value="2">{{ gettext("no") }}</option>
+              {% else %}
+                <option value="1">{{ gettext("no") }}</option>
+                <option value="2">{{ gettext("yes") }}</option>
+              {% endif %}
           </select>
         </div>
       </td>
       <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
       <td>
-        <button class="button is-success" id="confirm_{{ suggestion.id }}">Update Suggestion</button>
+        <button class="button is-success" id="confirm_{{ suggestion.id }}">{{ gettext("Update Suggestion") }}</button>
         <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
-        <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">Delete</a>
+        <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">{{ gettext("Delete") }}</a>
         <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}"
-          class="button is-info">Show Map</button>
+          class="button is-info">{{ gettext("Show Map") }}</button>
       </td>
     </tr>
 
@@ -86,7 +91,7 @@
     <div class="modal-card">
       <section class="modal-card-body">
         <!-- Content ... -->
-        <h1 style="color:black;">Suggestion successfully updated!!!</h1>
+        <h1 style="color:black;">{{ gettext("Suggestion successfully updated!!!") }}</h1>
       </section>
     </div>
   </div>

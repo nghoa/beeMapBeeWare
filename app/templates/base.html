@@ -35,13 +35,13 @@
                                 <span class="icon">
                                     <i class="fas fa-columns"></i>
                                 </span>
-                                <span>Dashboard</span>
+                                <span>{{ gettext("Dashboard") }}</span>
                             </a>
                             <a href="{{ url_for('admin.settings') }}" class="navbar-item">
                                 <span class="icon">
                                     <i class="fas fa-cog"></i>
                                 </span>
-                                <span>Settings</span>
+                                <span>{{ gettext("Settings") }}</span>
                             </a>
                         </div>
                         <div class="navbar-end">
@@ -49,7 +49,7 @@
                                 <span class="icon">
                                     <i class="fas fa-sign-out-alt"></i>
                                 </span>
-                                <span>Logout</span>
+                                <span>{{ gettext("Logout") }}</span>
                             </a>
                         </div>
                     </div>

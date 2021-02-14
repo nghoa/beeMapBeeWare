@@ -24,6 +24,7 @@
     <script src="{{ url_for('static', filename='js/geodatafi.js')}}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
@@ -59,7 +60,7 @@
     
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
-                                Language
+                                {{ gettext("Language") }}
                             </a>
                             <div class="navbar-dropdown">
                                 <a class="navbar-item" href="/lang/fi">
@@ -112,8 +113,8 @@
             <a href="http://www.facebook.com/sharer.php?u=https://beeings.org/">
                 <img src="{{ url_for('static', filename='img/f_logo.png') }}" alt="Facebook">
             </a>
-
-            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=beeings.org" target="_blank">
+            
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fbeeings.org" target="_blank">
                 <img src="{{ url_for('static', filename='img/l_logo.png')}}" alt="LinkedIn" />
             </a>
 
@@ -125,7 +126,6 @@
             <a href="mailto:?Subject=Beeings.org&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 beeings.org">
                 <img src="{{ url_for('static', filename='img/email_icon.jpg') }}" alt="Email" />
             </a>
-
         </div>
     </div>
 

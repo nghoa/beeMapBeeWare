@@ -2,7 +2,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1 class="title is-3">Welcome, {{ current_user.Username }}!</h1>
+    <h1 class="title is-3">{{ gettext("Welcome") }}, {{ current_user.Username }}!</h1>
 {% endblock %}
 
 

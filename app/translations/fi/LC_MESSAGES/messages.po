@@ -7,49 +7,141 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-06 23:54+0200\n"
-"PO-Revision-Date: 2021-02-08 21:58+0200\n"
+"POT-Creation-Date: 2021-02-14 22:09+0200\n"
+"PO-Revision-Date: 2021-02-14 21:07+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fi\n"
 "Language-Team: fi <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
-"Last-Translator: \n"
-"X-Generator: Poedit 2.4.2\n"
 
-#: app/services/validation.py:6
-msgid "This field is required"
-msgstr "Täytä tämä kenttä"
+#: app/admin/forms.py:9
+msgid "Username"
+msgstr "Käyttäjänimi"
 
-#: app/services/validation.py:7
-msgid "Latitude has to be between -90 and 90"
-msgstr "Leveysasteen pitää olla väliltä -90 ja 90"
+#: app/admin/forms.py:10
+msgid "Password"
+msgstr "Salasana"
 
-#: app/services/validation.py:8
-msgid "Longitude has to be between -180 and 180"
-msgstr "Pituusasteen pitää olla väliltä -180 ja 180"
+#: app/admin/forms.py:11
+msgid "Remember Me"
+msgstr "Muista minut"
+
+#: app/admin/forms.py:12 app/templates/base_logout.html:25
+#: app/templates/login.html:6
+msgid "Login"
+msgstr "Kirjaudu"
+
+#: app/admin/forms.py:16 app/templates/settings.html:13
+msgid "Old Password"
+msgstr "Vanva salasana"
+
+#: app/admin/forms.py:17 app/templates/settings.html:23
+msgid "New Password"
+msgstr "Uusi salasana"
+
+#: app/admin/forms.py:18
+msgid "Change Password"
+msgstr "Vaihda salasana"
 
 #: app/services/validation.py:12
+msgid "This field is required"
+msgstr "Tämä kenttä on pakollinen"
+
+#: app/services/validation.py:13
+msgid "Please select a location inside Finland"
+msgstr "Ole hyvä ja valitse sijainti Suomen sisältä"
+
+#: app/services/validation.py:14 app/services/validation.py:15
+msgid "Must be between 1 and 20 characters long"
+msgstr "Pitää olla 1-20 merkkiä pitkä"
+
+#: app/services/validation.py:16
+msgid "Must be between 1 and 254 characters long"
+msgstr "Pitää olla 1-254 merkkiä pitkä"
+
+#: app/services/validation.py:17
+msgid "Please enter valid email address"
+msgstr "Ole hyvä ja syötä kelvollinen sähköpostiosoite"
+
+#: app/services/validation.py:45
 msgid "firstname"
 msgstr "etunimi"
 
-#: app/services/validation.py:14
+#: app/services/validation.py:50
 msgid "lastname"
 msgstr "sukunimi"
 
-#: app/services/validation.py:16
+#: app/services/validation.py:54
 msgid "latitude"
 msgstr "leveysaste"
 
-#: app/services/validation.py:18
+#: app/services/validation.py:57
 msgid "longitude"
 msgstr "pituusaste"
 
-#: app/services/validation.py:20
+#: app/services/validation.py:59
 msgid "email"
 msgstr "sähköposti"
+
+#: app/templates/base.html:38
+msgid "Dashboard"
+msgstr "Ohjauspaneeli"
+
+#: app/templates/base.html:44
+msgid "Settings"
+msgstr "Asetukset"
+
+#: app/templates/base.html:52
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+#: app/templates/dashboard.html:19
+msgid "Suggestions for Beehives"
+msgstr "Ehdotukset"
+
+#: app/templates/dashboard.html:25 app/templates/dashboard.html:38
+msgid "Name"
+msgstr "Nimi"
+
+#: app/templates/dashboard.html:26 app/templates/dashboard.html:39
+msgid "Bee-Hive Confirmed"
+msgstr "Vahvistettu"
+
+#: app/templates/dashboard.html:27 app/templates/dashboard.html:40
+msgid "last updated"
+msgstr "viimeeksi päivitetty"
+
+#: app/templates/dashboard.html:30
+msgid "Export as Excel"
+msgstr "Vie exceliin"
+
+#: app/templates/dashboard.html:56 app/templates/dashboard.html:60
+msgid "yes"
+msgstr "kyllä"
+
+#: app/templates/dashboard.html:57 app/templates/dashboard.html:59
+msgid "no"
+msgstr "ei"
+
+#: app/templates/dashboard.html:67
+msgid "Update Suggestion"
+msgstr "Päivitä ehdotus"
+
+#: app/templates/dashboard.html:69 app/templates/map.html:142
+msgid "Delete"
+msgstr "Poista"
+
+#: app/templates/dashboard.html:71
+msgid "Show Map"
+msgstr "Näytä kartta"
+
+#: app/templates/dashboard.html:94
+msgid "Suggestion successfully updated!!!"
+msgstr "Ehdotus tallennettiin onnistuneesti"
 
 #: app/templates/map.html:5
 msgid "Beemap"
@@ -57,60 +149,69 @@ msgstr "Beemap"
 
 #: app/templates/map.html:8
 msgid "View and suggest bee-village location on map"
-msgstr "Katso ja ehdota mehiläiskälän sijainteja kartalla"
+msgstr "Katso ja ehdota mehiläiskylän sijaintia kartalla"
 
-#: app/templates/map.html:20
+#: app/templates/map.html:38
 msgid "Map"
 msgstr "Kartta"
 
-#: app/templates/map.html:23
-msgid "Export as excel"
-msgstr "Vie excelinä"
+#: app/templates/map.html:54
+msgid "All"
+msgstr "Kaikki"
 
-#: app/templates/map.html:32
-msgid "Hide"
-msgstr "Piilota"
-
-#: app/templates/map.html:33
-msgid "We want to know more about you"
-msgstr "Haluamme tietää sinusta lisää"
-
-#: app/templates/map.html:49
-msgid "Share on social media"
-msgstr "Jaa sosiaalisessa mediassa"
-
-#: app/templates/map.html:76
-msgid "Chosen location"
-msgstr "Valittu sijainti"
-
-#: app/templates/map.html:77
-msgid "Latitude"
-msgstr "Leveysaste"
-
-#: app/templates/map.html:78
-msgid "Longitude"
-msgstr "Pituusaste"
-
-#: app/templates/map.html:79
-msgid "Choose"
-msgstr "Valitse"
-
-#: app/templates/map.html:80
-msgid "Suggestion was saved succesfully"
-msgstr "Ehdotus tallennettiin onnistuneesti"
-
-#: app/templates/map.html:81
-msgid "Delete"
-msgstr "Poista"
-
-#: app/templates/map.html:82
-msgid "A marker already exists close by. Please, pick another location."
-msgstr "Toinen sijainti on liian lähellä. Valitse toinen kohta."
-
-#: app/templates/map.html:83
+#: app/templates/map.html:55 app/templates/map.html:144
 msgid "Confirmed"
 msgstr "Vahvistettu"
 
-#: app/templates/map.html:84
+#: app/templates/map.html:56
+msgid "Unconfirmed"
+msgstr "Vahvistamaton"
+
+#: app/templates/map.html:63
+msgid "Language"
+msgstr "Kieli"
+
+#: app/templates/map.html:89
+msgid "Hide"
+msgstr "Piilota"
+
+#: app/templates/map.html:91
+msgid "We want to know more about you"
+msgstr "Me haluamme tietää sinusta lisää"
+
+#: app/templates/map.html:112
+msgid "Share on social media"
+msgstr "Jaa sosiaalisessa mediassa"
+
+#: app/templates/map.html:137
+msgid "Chosen location"
+msgstr "Valitse sijainti"
+
+#: app/templates/map.html:138
+msgid "Latitude"
+msgstr "Leveysaste"
+
+#: app/templates/map.html:139
+msgid "Longitude"
+msgstr "Pituusaste"
+
+#: app/templates/map.html:140
+msgid "Choose"
+msgstr "Valitse"
+
+#: app/templates/map.html:141
+msgid "Suggestion was saved succesfully"
+msgstr "Ehdotus tallennettiin onnistuneesti"
+
+#: app/templates/map.html:143
+msgid "A marker already exists close by. Please, pick another location."
+msgstr "Toinen ehdotus on liian lähellä. Valitse toinen sijainti"
+
+#: app/templates/map.html:145
 msgid "Only locations inside borders of Finland are allowed."
-msgstr "Vain sijainnit Suomen rajojen sisällä ovat sallittu."
+msgstr "Vain sijainnit Suomen sisällä ovat sallittuja"
+
+#: app/templates/profile.html:5
+msgid "Welcome"
+msgstr "Tervetuloa"
+
