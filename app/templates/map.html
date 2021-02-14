@@ -32,36 +32,47 @@
             <div class="container">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="../">
-                        <img src="{{ url_for('static', filename='img/beeings-logo.png')}}" alt="Beeings Map">&nbsp; Beeings
+                        <img src="{{ url_for('static', filename='img/beeings-logo.png')}}" alt="Beeings Map">&nbsp;
+                        Beeings
                         &nbsp; <h1>{{ gettext("Map") }}</h1>
                     </a>
-                </div>
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="select">
-                            <select id="suggestion-select">
-                                <option value="All">{{ gettext("All") }}</option>
-                                <option value="Confirmed">{{ gettext("Confirmed") }}</option>
-                                <option value="Unconfirmed">{{ gettext("Unconfirmed") }}</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            Language
-                        </a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="/lang/fi">
-                                <img src="{{ url_for('static', filename='img/finland.png') }}" alt="FI">
-                                &nbsp;
-                                <b>FI</b>
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                        data-target="navMenu">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="select">
+                                <select id="suggestion-select">
+                                    <option value="All">{{ gettext("All") }}</option>
+                                    <option value="Confirmed">{{ gettext("Confirmed") }}</option>
+                                    <option value="Unconfirmed">{{ gettext("Unconfirmed") }}</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Language
                             </a>
-                            <a class="navbar-item" href="/lang/en">
-                                <img src="{{ url_for('static', filename='img/uk.png') }}" alt="ENG">
-                                &nbsp;
-                                <b>ENG</b>
-                            </a>
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="/lang/fi">
+                                    <img src="{{ url_for('static', filename='img/finland.png') }}" alt="FI">
+                                    &nbsp;
+                                    <b>FI</b>
+                                </a>
+                                <a class="navbar-item" href="/lang/en">
+                                    <img src="{{ url_for('static', filename='img/uk.png') }}" alt="ENG">
+                                    &nbsp;
+                                    <b>ENG</b>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
