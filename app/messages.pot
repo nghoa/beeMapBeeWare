@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-14 21:54+0200\n"
+"POT-Creation-Date: 2021-02-14 22:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: app/admin/forms.py:16 app/templates/settings.html:11
+#: app/admin/forms.py:16 app/templates/settings.html:13
 msgid "Old Password"
 msgstr ""
 
-#: app/admin/forms.py:17 app/templates/settings.html:21
+#: app/admin/forms.py:17 app/templates/settings.html:23
 msgid "New Password"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Update Suggestion"
 msgstr ""
 
-#: app/templates/dashboard.html:69 app/templates/map.html:131
+#: app/templates/dashboard.html:69 app/templates/map.html:142
 msgid "Delete"
 msgstr ""
 
@@ -150,63 +150,63 @@ msgstr ""
 msgid "View and suggest bee-village location on map"
 msgstr ""
 
-#: app/templates/map.html:37
+#: app/templates/map.html:38
 msgid "Map"
 msgstr ""
 
-#: app/templates/map.html:44
+#: app/templates/map.html:54
 msgid "All"
 msgstr ""
 
-#: app/templates/map.html:45 app/templates/map.html:133
+#: app/templates/map.html:55 app/templates/map.html:144
 msgid "Confirmed"
 msgstr ""
 
-#: app/templates/map.html:46
+#: app/templates/map.html:56
 msgid "Unconfirmed"
 msgstr ""
 
-#: app/templates/map.html:53
+#: app/templates/map.html:63
 msgid "Language"
 msgstr ""
 
-#: app/templates/map.html:78
+#: app/templates/map.html:89
 msgid "Hide"
 msgstr ""
 
-#: app/templates/map.html:80
+#: app/templates/map.html:91
 msgid "We want to know more about you"
 msgstr ""
 
-#: app/templates/map.html:101
+#: app/templates/map.html:112
 msgid "Share on social media"
 msgstr ""
 
-#: app/templates/map.html:126
+#: app/templates/map.html:137
 msgid "Chosen location"
 msgstr ""
 
-#: app/templates/map.html:127
+#: app/templates/map.html:138
 msgid "Latitude"
 msgstr ""
 
-#: app/templates/map.html:128
+#: app/templates/map.html:139
 msgid "Longitude"
 msgstr ""
 
-#: app/templates/map.html:129
+#: app/templates/map.html:140
 msgid "Choose"
 msgstr ""
 
-#: app/templates/map.html:130
+#: app/templates/map.html:141
 msgid "Suggestion was saved succesfully"
 msgstr ""
 
-#: app/templates/map.html:132
+#: app/templates/map.html:143
 msgid "A marker already exists close by. Please, pick another location."
 msgstr ""
 
-#: app/templates/map.html:134
+#: app/templates/map.html:145
 msgid "Only locations inside borders of Finland are allowed."
 msgstr ""
 
