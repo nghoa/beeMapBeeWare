@@ -3,6 +3,7 @@ Routing for main functionality
 """
 
 import logging
+from urllib.parse import urlencode
 
 from . import map_blueprint
 from app.services.database import get_suggestions, save_suggestion
@@ -21,6 +22,7 @@ def home():
     Map main page
     """
     form = SuggestionForm()
+    
     return render_template('map.html', form = form)
 
 @map_blueprint.route("/lang/<name>")

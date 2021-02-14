@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-14 22:09+0200\n"
+"POT-Creation-Date: 2021-02-14 23:00+0200\n"
 "PO-Revision-Date: 2021-02-14 21:07+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fi\n"
@@ -214,4 +214,3 @@ msgstr "Vain sijainnit Suomen sisällä ovat sallittuja"
 #: app/templates/profile.html:5
 msgid "Welcome"
 msgstr "Tervetuloa"
-
