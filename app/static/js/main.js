@@ -9,7 +9,7 @@ let currentLocation = undefined;
 const coordinateDecimals = 6;
 
 /** form fields */
-const formFields = ["firstname", "lastname", "email", "latitude", "longitude"]
+const formFields = ["firstname", "lastname", "email", "latitude", "longitude", "csrf_token"]
 
 let insideFinland = false;
 
@@ -286,9 +286,14 @@ var FORM = (function() {
             return; // just return and don't save duplicate marker
         }
 
+        let headers = new Headers();
+        let csrf_token =  document.getElementById("csrf_token").value
+        headers.append("X-CSRFToken", csrf_token)
+
         fetch("/save", {
             method: "POST",
             body: formData,
+            headers: headers
         })
             .then(response => response.json())
             .then(data => {
