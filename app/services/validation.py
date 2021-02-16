@@ -2,7 +2,6 @@ import re
 
 from wtforms.validators import InputRequired, NumberRange, ValidationError, Length
 from wtforms import Form, StringField, FloatField, HiddenField, SelectField
-from flask_wtf import FlaskForm
 from wtforms.widgets import HiddenInput
 from flask_babel import lazy_gettext
 from shapely.geometry import Point, Polygon
@@ -42,7 +41,7 @@ def validate_inside_Finland(form, field):
         raise ValidationError(ErrorMessage.INSIDE)
 
 
-class SuggestionForm(FlaskForm):
+class SuggestionForm(Form):
     firstname = StringField(lazy_gettext('firstname'), validators=[
         InputRequired(message=ErrorMessage.REQUIRED),
         Length(min=1, max=20, message=ErrorMessage.LENGTH_FIRSTNAME)
