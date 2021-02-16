@@ -5,6 +5,8 @@ let map = undefined;
 /** current latlng that was clicked on map */
 let currentLocation = undefined;
 
+var geocodeService = undefined;
+
 /** How many decimals are displayed to user on the latitude and longitude values  */
 const coordinateDecimals = 6;
 
@@ -25,7 +27,7 @@ var MARKERS = (function() {
     /**
      * Put the fetched markers to the map
      */
-    function put_markers_to_map(data, textStatus, request) {
+    async function put_markers_to_map(data, textStatus, request) {
         //remove old markers
         markers.forEach(marker => map.removeLayer(marker["marker"]))
 
@@ -130,7 +132,7 @@ var MARKERS = (function() {
      * adds location to form
      * @param e event
     */
-    function addPopUp(e) {
+    async function addPopUp(e) {
 
         //remove old marker
         if (currentMarker) {
@@ -153,7 +155,7 @@ var MARKERS = (function() {
             return;
         }
 
-        let content = createPopupContentNew(currentMarker);
+        let content = await createPopupContentNew(currentMarker);
         currentMarker.addTo(map)
             .bindPopup(content)
             .openPopup();
@@ -398,6 +400,8 @@ function initMap() {
 
     // show the scale bar on the lower left corner
     L.control.scale({ "imperial": false, "position": "bottomright" }).addTo(map);
+
+    geocodeService = L.esri.Geocoding.geocodeService();
 }
 
 
@@ -409,25 +413,32 @@ function initMap() {
  * @param confirmed: boolean
  * @return HTMLElement
 */
+
+// already setted markers -> popup description
 function createPopupContent(marker, confirmed) {
     let latlng = marker.getLatLng();
 
     let div = document.createElement("div");
-    div.textContent = requireTranslation("Chosen location");
+    let title = document.createElement("h1");
+    title.textContent = requireTranslation("Chosen location");
+    $(title).addClass("title").addClass("is-5");
     let p = document.createElement("p");
-    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat.toFixed(coordinateDecimals)}`;
+    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat.toFixed(coordinateDecimals)}, ${requireTranslation("Longitude")}: ${latlng.lng.toFixed(coordinateDecimals)}`;
+    $(p).addClass("light-font");
 
-    let p2 = document.createElement("p");
-    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng.toFixed(coordinateDecimals)}`;
-
+    div.appendChild(title);
     div.appendChild(p);
-    div.appendChild(p2);
 
     if (confirmed) {
         let successTag = document.createElement("span");
         $(successTag).addClass("tag").addClass("is-success");
         successTag.textContent = requireTranslation("Confirmed");
         div.appendChild(successTag);
+    } else {
+        let noSuccessTag = document.createElement("span");
+        $(noSuccessTag).addClass("tag").addClass("is-warning");
+        noSuccessTag.textContent = requireTranslation("Unconfirmed");
+        div.appendChild(noSuccessTag);
     }
 
     return div;
@@ -438,28 +449,62 @@ function createPopupContent(marker, confirmed) {
  * @param marker: leaflet marker object
  * @return HTMLElement
 */
-function createPopupContentNew(marker) {
+// popup when clicking new field
+async function createPopupContentNew(marker) {
     let latlng = marker.getLatLng();
 
+    // get geocodeObject through Esri
+    let geoObject = await reverseGeocoding(latlng);
+
     let div = document.createElement("div");
-    div.textContent = requireTranslation("Chosen location");
+    let title = document.createElement("h1");
+    title.textContent = requireTranslation("Chosen location");
+    $(title).addClass("title").addClass("is-5");
+
+    let addressSpan = document.createElement("span");
+    $(addressSpan).addClass("thick-address");
+    addressSpan.innerHTML = geoObject.address.Address;
+
+    let citySpan = document.createElement("p");
+    citySpan.textContent = geoObject.address.Postal + " " + geoObject.address.City;
+
     let p = document.createElement("p");
-    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat.toFixed(coordinateDecimals)}`;
+    p.textContent = `${requireTranslation("Latitude")}: ${latlng.lat.toFixed(coordinateDecimals)}, ${requireTranslation("Longitude")}: ${latlng.lng.toFixed(coordinateDecimals)}`;
+    $(p).addClass("light-font");
 
-    let p2 = document.createElement("p");
-    p2.textContent = `${requireTranslation("Longitude")}: ${latlng.lng.toFixed(coordinateDecimals)}`;
-
+    // Build together div bubble
+    div.appendChild(title);
+    div.appendChild(addressSpan);
+    div.appendChild(citySpan);
     div.appendChild(p);
-    div.appendChild(p2);
 
     let button = document.createElement("button");
-    $(button).addClass("button").addClass("is-link").addClass("is-rounded");
+    $(button).addClass("button").addClass("is-link").addClass("is-rounded").addClass("is-small");
     button.textContent = requireTranslation("Choose")
     button.addEventListener("click", openPanel)
 
     div.appendChild(button);
     return div;
+
 }
+
+
+// Wrapper function for geocodeService
+async function reverseGeocoding(latlng) {
+    var promise = new Promise((resolve, reject) => {
+        geocodeService.reverse().latlng(latlng).run(function (error, result) {
+            if (error) {
+                console.log(error);
+            }
+            resolve(result);
+        });
+    });
+
+    var geocodeObject = await promise;
+    return geocodeObject;
+}
+
+
 
 /**
  * 

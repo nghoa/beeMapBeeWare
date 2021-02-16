@@ -35,12 +35,12 @@ function confirmBeehive(e) {
     var eventId = e.target.id.split("_")[1];
     // console.log("ID: ", eventId);
     var statusId = "status_" + eventId
-    var selectedStatus = $("#"+ statusId + " option:selected").text();
+    var selectedStatus = $("#"+ statusId + " option:selected").val();
     // console.log('selectedText: ', selectedStatus);
 
     // roundabout way to sent boolean values to server side
     // 1 and 0 are more consistent than string with True and False
-    if (selectedStatus == 'True' || selectedStatus == 'true') {
+    if (selectedStatus == '1' || selectedStatus == 1) {
         var sentStatus = "1"
     } else {
         var sentStatus = "0"

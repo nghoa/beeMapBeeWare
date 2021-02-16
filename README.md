@@ -5,6 +5,8 @@ Made by Aleksi, Hoa, Juha and Markus (Group 16)
 
 Access to Application: http://nodal-figure-301713.ew.r.appspot.com/
 
+Access to admin interface: http://nodal-figure-301713.ew.r.appspot.com/admin
+
 ---
 
 ## Reporting issues
