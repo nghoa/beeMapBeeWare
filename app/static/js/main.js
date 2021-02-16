@@ -422,7 +422,7 @@ function createPopupContent(marker, confirmed) {
     } else {
         let noSuccessTag = document.createElement("span");
         $(noSuccessTag).addClass("tag").addClass("is-warning");
-        noSuccessTag.textContent = "Not Confirmed";
+        noSuccessTag.textContent = requireTranslation("Unconfirmed");
         div.appendChild(noSuccessTag);
     }
 
