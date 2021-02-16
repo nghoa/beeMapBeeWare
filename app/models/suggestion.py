@@ -13,6 +13,8 @@ class Suggestion:
     location: GeoPoint
     confirmed: bool, 
     email: str
+    suggestee: str
+    suggesteeType: int [0,1,2] Mehiläisenhoitaja, Mehiläisystävä, sponsori
     """
 
     def __init__(self):
@@ -23,6 +25,8 @@ class Suggestion:
         self.location = None
         self.confirmed = None
         self.email = None
+        self.suggestee = None
+        self.suggesteeType = None
 
     @classmethod
     def fromSuggestionForm(cls, form):
@@ -41,6 +45,8 @@ class Suggestion:
         suggestion.location = GeoPoint(form.latitude.data, form.longitude.data)
         suggestion.confirmed = False
         suggestion.email = form.email.data
+        suggestion.suggestee = form.suggestee.data
+        suggestion.suggesteeType = form.suggesteeType.data
 
         return suggestion
 
@@ -57,6 +63,8 @@ class Suggestion:
         entity["location"] = self.location
         entity["confirmed"] = self.confirmed
         entity["email"] = self.email
+        entity["suggestee"] = self.suggestee
+        entity["suggesteeType"] = self.suggesteeType
 
     @classmethod
     def fromEntity(cls, entity):
@@ -76,6 +84,8 @@ class Suggestion:
         suggestion.location = entity["location"]
         suggestion.confirmed = entity["confirmed"]
         suggestion.email = entity["email"]
+        suggestion.suggestee = entity["suggestee"]
+        suggestion.suggesteeType = entity["suggesteeType"]
         return suggestion
 
     @staticmethod
@@ -94,7 +104,7 @@ class Suggestion:
         ws = wb.active
 
         #header row
-        ws.append(["id", "datetime", "firstname", "lastname", "latitude", "longitude", "confirmed", "email"])
+        ws.append(["id", "datetime", "firstname", "lastname", "latitude", "longitude", "confirmed", "email", "suggestee", "suggesteeType"])
         for suggestion in suggestions:
             row = [
                 suggestion.id,
@@ -104,7 +114,9 @@ class Suggestion:
                 suggestion.location.latitude,
                 suggestion.location.longitude,
                 suggestion.confirmed,
-                suggestion.email
+                suggestion.email,
+                suggestion.suggestee,
+                suggestion.suggesteeType
             ]
             ws.append(row)
 

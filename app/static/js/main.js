@@ -11,7 +11,7 @@ var geocodeService = undefined;
 const coordinateDecimals = 6;
 
 /** form fields */
-const formFields = ["firstname", "lastname", "email", "latitude", "longitude", "csrf_token"]
+const formFields = ["firstname", "lastname", "email", "latitude", "longitude", "csrf_token", "suggestee", "suggesteeType"]
 
 let insideFinland = false;
 
@@ -235,7 +235,12 @@ var FORM = (function() {
      * Clear form fields
     */
     function clearForm() {
-        formFields.forEach(field => document.getElementById(field).value = "");
+        formFields.forEach(field => {
+            let element = document.getElementById(field);
+            if (element.id != "suggesteeType") {
+                element.value = "";
+            }
+        });
     }
 
 
@@ -326,7 +331,17 @@ window.onload = () => {
     document.getElementById("userForm").addEventListener("submit", FORM.handleFormSubmit);
 
     document.getElementById("hide-button").addEventListener("click", togglePanel)
+    
+    // Check for click events on the navbar burger icon
+    $(".navbar-burger").click(function() {
 
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+
+    });
+
+        
 }
 
 /** 
@@ -531,17 +546,3 @@ function ajax_error(xhr, status, error) {
     console.log(xhr);
     // TODO: display errors to user in a meaningful way
 }
-
-
-// mobile version navbar
-$(document).ready(function() {
-
-  // Check for click events on the navbar burger icon
-  $(".navbar-burger").click(function() {
-
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-      $(".navbar-burger").toggleClass("is-active");
-      $(".navbar-menu").toggleClass("is-active");
-
-  });
-});

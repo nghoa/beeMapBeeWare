@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-14 23:00+0200\n"
+"POT-Creation-Date: 2021-02-16 18:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,43 +46,67 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: app/services/validation.py:12
+#: app/services/validation.py:13
 msgid "This field is required"
 msgstr ""
 
-#: app/services/validation.py:13
+#: app/services/validation.py:14
 msgid "Please select a location inside Finland"
 msgstr ""
 
-#: app/services/validation.py:14 app/services/validation.py:15
+#: app/services/validation.py:15 app/services/validation.py:16
 msgid "Must be between 1 and 20 characters long"
 msgstr ""
 
-#: app/services/validation.py:16
+#: app/services/validation.py:17
 msgid "Must be between 1 and 254 characters long"
 msgstr ""
 
-#: app/services/validation.py:17
+#: app/services/validation.py:18
 msgid "Please enter valid email address"
 msgstr ""
 
-#: app/services/validation.py:45
+#: app/services/validation.py:19
+msgid "Must be between 1 and 40 characters long"
+msgstr ""
+
+#: app/services/validation.py:46
 msgid "firstname"
 msgstr ""
 
-#: app/services/validation.py:50
+#: app/services/validation.py:51
 msgid "lastname"
 msgstr ""
 
-#: app/services/validation.py:54
+#: app/services/validation.py:55
+msgid "name of the person or company who you wants to join"
+msgstr ""
+
+#: app/services/validation.py:60
+msgid "As"
+msgstr ""
+
+#: app/services/validation.py:61
+msgid "Beekeeper"
+msgstr ""
+
+#: app/services/validation.py:62
+msgid "Bee-friend"
+msgstr ""
+
+#: app/services/validation.py:63
+msgid "sponsor"
+msgstr ""
+
+#: app/services/validation.py:66
 msgid "latitude"
 msgstr ""
 
-#: app/services/validation.py:57
+#: app/services/validation.py:69
 msgid "longitude"
 msgstr ""
 
-#: app/services/validation.py:59
+#: app/services/validation.py:71
 msgid "email"
 msgstr ""
 
@@ -176,6 +200,10 @@ msgstr ""
 
 #: app/templates/map.html:91
 msgid "We want to know more about you"
+msgstr ""
+
+#: app/templates/map.html:104
+msgid "Send"
 msgstr ""
 
 #: app/templates/map.html:112

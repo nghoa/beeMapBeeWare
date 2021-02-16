@@ -1,7 +1,7 @@
 import re
 
 from wtforms.validators import InputRequired, NumberRange, ValidationError, Length
-from wtforms import Form, StringField, FloatField, HiddenField
+from wtforms import Form, StringField, FloatField, HiddenField, SelectField
 from flask_wtf import FlaskForm
 from wtforms.widgets import HiddenInput
 from flask_babel import lazy_gettext
@@ -16,7 +16,7 @@ class ErrorMessage:
     LENGTH_LASTNAME = lazy_gettext("Must be between 1 and 20 characters long")
     LENGTH_EMAIL = lazy_gettext("Must be between 1 and 254 characters long")
     EMAIL_FORMAT = lazy_gettext("Please enter valid email address")
-
+    LENGTH_SUGGESTEE = lazy_gettext("Must be between 1 and 40 characters long")
 
 def validate_email(form, field):
     """
@@ -51,6 +51,17 @@ class SuggestionForm(FlaskForm):
     lastname = StringField(lazy_gettext("lastname"), validators=[
         InputRequired(message=ErrorMessage.REQUIRED),
         Length(min=1, max=20, message=ErrorMessage.LENGTH_LASTNAME)])
+
+    suggestee = StringField(lazy_gettext("name of the person or company who you wants to join"), validators=[
+        InputRequired(message=ErrorMessage.REQUIRED),
+        Length(min=1, max=40, message=ErrorMessage.LENGTH_SUGGESTEE)
+    ])
+
+    suggesteeType = SelectField(lazy_gettext("As"), choices=[
+        ("0", lazy_gettext("Beekeeper")),
+        ("1", lazy_gettext("Bee-friend")),
+        ("2", lazy_gettext("sponsor"))
+    ])
 
     latitude = FloatField(lazy_gettext("latitude"), validators=[
         validate_inside_Finland], widget=HiddenInput())
