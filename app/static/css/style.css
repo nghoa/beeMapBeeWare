@@ -63,15 +63,16 @@
   }
 
   .is-divider {
-    border-top: 2px solid rgb(141, 141, 141);
+    border-top: 2px solid rgb(172, 172, 172);
     margin-top: 2em;
     margin-bottom: 1em;
   }
 
   /* five square logos in one row */
   #some a img {
-    width: 16%;
-    height: 16%;
+    width: 20%;
+    height: 20%;
+    padding-right: 2rem;
   } 
 
   /* leaflet need this */
@@ -81,10 +82,23 @@
   .icon-not-confirmed {
     filter: invert(100%);
   }
+
+  .light-font {
+    color: #999;
+  }
+
+  .thick-address {
+    font-weight: bold;
+  }
+
+  .leaflet-popup-content p {
+    margin: 0.8em 0 !important;
+  }
+
 }
 
 @media all and (min-width: 400px) {
   #panel {
-    width: 40%;
+    width: 35%;
   }
 }

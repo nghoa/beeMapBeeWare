@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'GothamRoundedBold';
+    src: url('fonts/Gotham_Rounded_Bold.otf')
+}
+
+.box {
+    box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, 0.26),0 0 0 1px rgba(10,10,10,.02) !important;
+}
+
+.hero-body {
+    padding: 2rem 1.5rem !important;
+}
+
+.navbar {
+    background-color: #e0e012 !important;
+}
+
+.navbar-font {
+    font-family: 'GothamRoundedBold' !important;
+    font-size: 16px !important;
+    color: black !important;
+}
