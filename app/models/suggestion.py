@@ -2,7 +2,7 @@ from datetime import datetime
 from google.cloud.datastore.helpers import GeoPoint, Entity
 
 from openpyxl import Workbook
-
+from flask_babel import lazy_gettext
 class Suggestion:
     """
     Bee-village location suggestion
@@ -103,9 +103,15 @@ class Suggestion:
         #first worksheet, created automatically
         ws = wb.active
 
+        typeNames = {
+            "0": lazy_gettext("Beekeeper"),
+            "1": lazy_gettext("Bee-friend"), 
+            "2": lazy_gettext("sponsor")
+        }
         #header row
         ws.append(["id", "datetime", "firstname", "lastname", "latitude", "longitude", "confirmed", "email", "suggestee", "suggesteeType"])
         for suggestion in suggestions:
+            typeName = str(typeNames[suggestion.suggesteeType])
             row = [
                 suggestion.id,
                 suggestion.datetime,
@@ -116,7 +122,7 @@ class Suggestion:
                 suggestion.confirmed,
                 suggestion.email,
                 suggestion.suggestee,
-                suggestion.suggesteeType
+                typeName
             ]
             ws.append(row)
 
