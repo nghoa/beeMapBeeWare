@@ -24,7 +24,10 @@
       <th><abbr title="Index">#</abbr></th>
       <th>{{ gettext("Name") }}</th>
       <th>{{ gettext("Bee-Hive Confirmed") }}</th>
+      <th>{{ gettext("Email") }}</th>
       <th>{{ gettext("last updated") }}</th>
+      <th>{{ gettext("suggestee") }}</th>
+      <th>{{ gettext("Type") }}</th>
       <th>
         <div>
           <a class="button is-link" href="/admin/export">{{ gettext("Export as Excel") }}</a>
@@ -37,7 +40,10 @@
       <th><abbr title="Index">#</abbr></th>
       <th>{{ gettext("Name") }}</th>
       <th>{{ gettext("Bee-Hive Confirmed") }}</th>
+      <th>{{ gettext("Email") }}</th>
       <th>{{ gettext("last updated") }}</th>
+      <th>{{ gettext("suggestee") }}</th>
+      <th>{{ gettext("Type") }}</th>
       <th></th>
     </tr>
   </tfoot>
@@ -62,7 +68,20 @@
           </select>
         </div>
       </td>
+      <td>{{ suggestion.email }}</td>
       <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>
+        {{ suggestion.suggestee }}
+      </td>
+      <td>
+        {% if suggestion.suggesteeType == "0" %}
+          {{ gettext("Beekeeper") }}
+        {% elif suggestion.suggesteeType == "1" %}
+          {{ gettext("Bee-friend") }}
+        {% else %}
+          {{ gettext("Sponsor") }}
+        {% endif %}
+      </td>
       <td>
         <button class="button is-success" id="confirm_{{ suggestion.id }}">{{ gettext("Update Suggestion") }}</button>
         <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->

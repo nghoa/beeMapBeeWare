@@ -16,7 +16,7 @@ def test_normal():
     """
     Valid input, no errors
     """
-    data = {"firstname": "aa", "lastname": "fdafda", "latitude": "62", "longitude": "23", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "fdafda", "latitude": "62", "longitude": "23", "email": "add@email.com", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert form.validate()
@@ -26,7 +26,7 @@ def test_missing():
     """
     Missing longitude
     """
-    data = {"firstname": "aa", "lastname": "bb", "latitude": "62", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "bb", "latitude": "62", "email": "add@email.com", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
@@ -37,7 +37,7 @@ def test_inside():
     """
     Inside Finland is valid
     """
-    data = {"firstname": "aa", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert form.validate()
@@ -47,7 +47,7 @@ def test_outside():
     """
     Point outside Finland is not valid
     """
-    data = {"firstname": "aa", "lastname": "bb", "longitude": "16", "latitude": "63", "email": "add@email.com"}
+    data = {"firstname": "aa", "lastname": "bb", "longitude": "16", "latitude": "63", "email": "add@email.com", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
@@ -57,7 +57,7 @@ def test_firstname_too_long():
     """
     Point outside Finland is not valid
     """
-    data = {"firstname": "a"*40, "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com"}
+    data = {"firstname": "a"*40, "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com" , "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
@@ -67,7 +67,7 @@ def test_email_correct():
     """
     Test that correct email is valid
     """
-    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com"}
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "add@email.com", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert form.validate()
@@ -77,7 +77,7 @@ def test_email_no_parts():
     """
     Test email missing @ and dot part
     """
-    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "asdfdas"}
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "asdfdas", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
@@ -87,7 +87,7 @@ def test_email_no_dot():
     """
     Test missing dot part
     """
-    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "asdfdas@fdfa"}
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "asdfdas@fdfa", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
@@ -98,7 +98,7 @@ def test_email_no_():
     """
     Test missing beginning
     """
-    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "@com.com"}
+    data = {"firstname": "a", "lastname": "bb", "longitude": "23", "latitude": "62", "email": "@com.com", "suggestee": "aa", "suggesteeType": "0"}
     with app.test_request_context("/testing", data=data):
         form = SuggestionForm(request.form)
         assert not form.validate()
