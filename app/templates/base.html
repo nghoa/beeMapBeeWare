@@ -18,15 +18,16 @@
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" 
     />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
     {% block scripts %}
     {% endblock %}
 </head>
 
 <body>
-    <section class="hero is-primary is-fullheight">
+    <section class="hero is-fullheight">
 
         <div class="hero-head">
-            <nav class="navbar">
+            <nav class="navbar has-shadow">
                 <div class="container">
 
                     <div id="navbarMenuHeroA" class="navbar-menu is-active">
@@ -35,13 +36,13 @@
                                 <span class="icon">
                                     <i class="fas fa-columns"></i>
                                 </span>
-                                <span>{{ gettext("Dashboard") }}</span>
+                                <span class="navbar-font">{{ gettext("Dashboard") }}</span>
                             </a>
                             <a href="{{ url_for('admin.settings') }}" class="navbar-item">
                                 <span class="icon">
                                     <i class="fas fa-cog"></i>
                                 </span>
-                                <span>{{ gettext("Settings") }}</span>
+                                <span class="navbar-font">{{ gettext("Settings") }}</span>
                             </a>
                         </div>
                         <div class="navbar-end">
@@ -49,7 +50,7 @@
                                 <span class="icon">
                                     <i class="fas fa-sign-out-alt"></i>
                                 </span>
-                                <span>{{ gettext("Logout") }}</span>
+                                <span class="navbar-font">{{ gettext("Logout") }}</span>
                             </a>
                         </div>
                     </div>

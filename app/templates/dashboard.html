@@ -18,71 +18,73 @@
 <h1 class="title is-4">
   {{ gettext("Suggestions for Beehives") }}
 </h1>
-<table class="table is-hoverable is-fullwidth">
-  <thead>
-    <tr>
-      <th><abbr title="Index">#</abbr></th>
-      <th>{{ gettext("Name") }}</th>
-      <th>{{ gettext("Bee-Hive Confirmed") }}</th>
-      <th>{{ gettext("last updated") }}</th>
-      <th>
-        <div>
-          <a class="button is-link" href="/admin/export">{{ gettext("Export as Excel") }}</a>
-        </div>
-      </th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <th><abbr title="Index">#</abbr></th>
-      <th>{{ gettext("Name") }}</th>
-      <th>{{ gettext("Bee-Hive Confirmed") }}</th>
-      <th>{{ gettext("last updated") }}</th>
-      <th></th>
-    </tr>
-  </tfoot>
-
-
-  <tbody>
-    {% for suggestion in suggestions %}
-    <tr>
-      <td>{{ suggestion.id }}</td>
-      <td>{{ suggestion.firstname }} {{ suggestion.lastname }}</td>
-      <td>
-        <!-- {{ suggestion.confirmed }} -->
-        <div class="select" id="status_{{ suggestion.id }}">
-          <select>
-              {% if suggestion.confirmed %}
-                <option value="1">{{ gettext("yes") }}</option>
-                <option value="0">{{ gettext("no") }}</option>
-              {% else %}
-                <option value="0">{{ gettext("no") }}</option>
-                <option value="1">{{ gettext("yes") }}</option>
-              {% endif %}
-          </select>
-        </div>
-      </td>
-      <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
-      <td>
-        <button class="button is-success" id="confirm_{{ suggestion.id }}">{{ gettext("Update Suggestion") }}</button>
-        <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
-        <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">{{ gettext("Delete") }}</a>
-        <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}"
-          class="button is-info">{{ gettext("Show Map") }}</button>
-      </td>
-    </tr>
-
-    <tr id="target_{{ suggestion.id }}" style="display:none">
-      <td colspan="5">
-        <!-- <div id="mapContent"></div> -->
-        <div id="map_{{ suggestion.id }}"></div>
-      </td>
-    </tr>
-
-
-    {% endfor %}
-  </tbody>
-</table>
+<div class="box">
+  <table class="table is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th><abbr title="Index">#</abbr></th>
+        <th>{{ gettext("Name") }}</th>
+        <th>{{ gettext("Bee-Hive Confirmed") }}</th>
+        <th>{{ gettext("last updated") }}</th>
+        <th>
+          <div>
+            <a class="button is-link" href="/admin/export">{{ gettext("Export as Excel") }}</a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><abbr title="Index">#</abbr></th>
+        <th>{{ gettext("Name") }}</th>
+        <th>{{ gettext("Bee-Hive Confirmed") }}</th>
+        <th>{{ gettext("last updated") }}</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  
+  
+    <tbody>
+      {% for suggestion in suggestions %}
+      <tr>
+        <td>{{ suggestion.id }}</td>
+        <td>{{ suggestion.firstname }} {{ suggestion.lastname }}</td>
+        <td>
+          <!-- {{ suggestion.confirmed }} -->
+          <div class="select" id="status_{{ suggestion.id }}">
+            <select>
+                {% if suggestion.confirmed %}
+                  <option value="1">{{ gettext("yes") }}</option>
+                  <option value="0">{{ gettext("no") }}</option>
+                {% else %}
+                  <option value="0">{{ gettext("no") }}</option>
+                  <option value="1">{{ gettext("yes") }}</option>
+                {% endif %}
+            </select>
+          </div>
+        </td>
+        <td>{{ suggestion.datetime.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>
+          <button class="button is-success" id="confirm_{{ suggestion.id }}">{{ gettext("Update Suggestion") }}</button>
+          <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
+          <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">{{ gettext("Delete") }}</a>
+          <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}"
+            class="button is-info">{{ gettext("Show Map") }}</button>
+        </td>
+      </tr>
+  
+      <tr id="target_{{ suggestion.id }}" style="display:none">
+        <td colspan="5">
+          <!-- <div id="mapContent"></div> -->
+          <div id="map_{{ suggestion.id }}"></div>
+        </td>
+      </tr>
+  
+  
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 <div class="modal">
   <div class="modal-background"></div>
