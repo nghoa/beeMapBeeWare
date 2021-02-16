@@ -13,7 +13,6 @@ from app.models.suggestion import Suggestion
 from flask import session, redirect, url_for, escape, request, Response, render_template, make_response, jsonify
 from flask_babel import gettext
 
-
 logger = logging.getLogger()
 
 @map_blueprint.route('/')
@@ -80,6 +79,7 @@ def locations():
             "confirmed": suggestion.confirmed
         })
 
+    form = SuggestionForm()
     json_data = jsonify(locations)
     # make the response from json data requiderd by Flask. As HTTP code is used 200, OK
     resp = make_response(json_data, 200)

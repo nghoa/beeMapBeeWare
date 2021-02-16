@@ -11,7 +11,7 @@ var geocodeService = undefined;
 const coordinateDecimals = 6;
 
 /** form fields */
-const formFields = ["firstname", "lastname", "email", "latitude", "longitude", "csrf_token", "suggestee", "suggesteeType"]
+const formFields = ["firstname", "lastname", "email", "latitude", "longitude", "suggestee", "suggesteeType"]
 
 let insideFinland = false;
 
@@ -30,7 +30,6 @@ var MARKERS = (function() {
     async function put_markers_to_map(data, textStatus, request) {
         //remove old markers
         markers.forEach(marker => map.removeLayer(marker["marker"]))
-
         markers = []
         for (let element of data) {
             //transform fetched data to markers
@@ -280,6 +279,11 @@ var FORM = (function() {
         }
         let latitude = document.getElementById("latitude").value;
         let longitude = document.getElementById("longitude").value;
+        
+        if (latitude === "" || longitude === "") {
+            handleSaveErrors({"latitude": ["select new location"]})    
+            return;
+        }
         const existingMarker = MARKERS.isThereAlreadyMarker(latitude, longitude);
 
         if (existingMarker) {
@@ -293,14 +297,10 @@ var FORM = (function() {
             return; // just return and don't save duplicate marker
         }
 
-        let headers = new Headers();
-        let csrf_token =  document.getElementById("csrf_token").value
-        headers.append("X-CSRFToken", csrf_token)
 
         fetch("/save", {
             method: "POST",
-            body: formData,
-            headers: headers
+            body: formData
         })
             .then(response => response.json())
             .then(data => {
