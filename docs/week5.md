@@ -5,13 +5,13 @@
 ### Administrative
 
 - [ ] User-stories updated & Time usage reported. Marks completed ones as done. (see: User Story Assignment for Week 5).
-- [ ] Group meeting with mentor (see: Mentor weekly meetings).
+- [X] Group meeting with mentor (see: Mentor weekly meetings).
 - [ ] Weekly report of tasks done (see: docs/reporting.md)
-- [ ] Report bug fixes in weekly report → What were the issues; What was the cause of the issue; What was the solution?
+- [X] Report bug fixes in weekly report → What were the issues; What was the cause of the issue; What was the solution?
 
 ### DevOps
 
-- [ ] Triage and prioritize fixing issues.
+- [X] Triage and prioritize fixing issues.
 - [ ] Finalize application.
 - [ ] Client requirements validation.
 
@@ -36,6 +36,8 @@ https://owasp.org/www-project-top-ten/
 7. Cross-Site Scripting (XSS)
 8. Insecure Deserialization
 9. **Using components with known vulnerabilities**
+    - double checked all used libraries regarding known vulnerabilities
+    - Note: WTForms versions <2.1 are vulnerable against XSS, but the used version is 2.3.3
 10. **Insufficient logging & monitoring**
 
 ## Bug fixes 
@@ -53,3 +55,6 @@ Report bug fixes in weekly report → What were the issues; What was the cause o
 
 ### Version limit
   - Google app engine had version limit of 210 which was exceeded and as a result ci/cd pipeline failed. 209 version were deleted. Apparently google cloud doesn't do this automatically at least with default settings. 
+
+### Update Suggestion
+  - was buggy due to localization -> fixed now
