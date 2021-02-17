@@ -2,9 +2,14 @@
 
 /** Leaflet map object */
 let map = undefined;
+
 /** current latlng that was clicked on map */
 let currentLocation = undefined;
 
+/**
+ * Geocoding service, which is used for getting address of the location, is
+ * initialized to this variable
+ */
 var geocodeService = undefined;
 
 /** How many decimals are displayed to user on the latitude and longitude values  */
@@ -13,6 +18,7 @@ const coordinateDecimals = 6;
 /** form fields */
 const formFields = ["firstname", "lastname", "email", "latitude", "longitude", "suggestee", "suggesteeType"]
 
+/** Tells whether current location is in Finland or not */
 let insideFinland = false;
 
 /**
@@ -109,6 +115,10 @@ var MARKERS = (function() {
     }
 
 
+/**
+ * Create a transparent layer of Finlands borders to the map. This is used
+ * for checking whether clicked location is inside Finland's borders.
+ */
     function createFinlandLayer() {
         // style of Finland layer
         var exteriorStyle = {
@@ -357,10 +367,6 @@ function togglePanel() {
     panel.classList.toggle("hidden");
 }
 
-
-
-
-
 /**
  * Get translation for given text
  */
@@ -369,11 +375,16 @@ function requireTranslation(name) {
     return translationData[name];
 }
 
-
+/**
+ * Close the panel which include recommendation form
+ */
 function closePanel() {
     document.getElementById("panel").classList.add("hidden");
 }
 
+/**
+ * Open the panel which includes the recommendation form
+ */
 function openPanel() {
     //check if anything has been clicked and center map a bit
     if (currentLocation) {
@@ -381,7 +392,6 @@ function openPanel() {
     }
     document.getElementById("panel").classList.remove("hidden");
 }
-
 
 /**
  * Adds map and its controls to document
@@ -404,8 +414,6 @@ function initMap() {
     geocodeService = L.esri.Geocoding.geocodeService();
 }
 
-
-
 /** 
  * Content showing user information about selected suggestion
  * @param marker: leaflet marker object
@@ -413,7 +421,6 @@ function initMap() {
  * @param confirmed: boolean
  * @return HTMLElement
 */
-
 // already setted markers -> popup description
 function createPopupContent(marker, confirmed) {
     let latlng = marker.getLatLng();
@@ -488,7 +495,6 @@ async function createPopupContentNew(marker) {
 
 }
 
-
 // Wrapper function for geocodeService
 async function reverseGeocoding(latlng) {
     var promise = new Promise((resolve, reject) => {
@@ -504,10 +510,8 @@ async function reverseGeocoding(latlng) {
     return geocodeObject;
 }
 
-
-
 /**
- * 
+ * Create popup content for the error when another marker is too close.
  */
 function createPopupContentError() {
     const content =
@@ -517,11 +521,7 @@ function createPopupContentError() {
                 ${requireTranslation("A marker already exists close by. Please, pick another location.")}
             </p>`
     return content;
-
 }
-
-
-
 
 /**
  * Get the locations from backend
