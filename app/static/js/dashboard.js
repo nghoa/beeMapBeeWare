@@ -18,7 +18,11 @@ window.onload = () => {
 }
 
 
-
+/**
+ * Toggle map for location recommendation on dashboard
+ *
+ * @param {*} e event
+ */
 function toggleTable(e) {
     var test = e.target.id.split("_");
     var eventId = e.target.id.split("_")[1];
@@ -35,6 +39,11 @@ function toggleTable(e) {
 }
 
 
+/**
+ * Update location recommendation's status
+ *
+ * @param {*} e
+ */
 function confirmBeehive(e) {
     var eventId = e.target.id.split("_")[1];
     // console.log("ID: ", eventId);
@@ -63,9 +72,11 @@ function confirmBeehive(e) {
         });
 }
 
+/**
+ * Trigger Modal after success
+ */
 function ajax_success() {
     console.log('Update Status worked');
-    // Trigger Modal after success
     // TODO: 
     // improve loading time of ajax request because modal is loading to slow
     $(".modal").addClass("is-active");  
