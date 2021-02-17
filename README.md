@@ -34,7 +34,7 @@ Access to admin interface: http://nodal-figure-301713.ew.r.appspot.com/admin
 3. Install dependencies
 `pip install -r requirements.txt`
 
-4. Setup your Google Application Credentials: [Setup Link](https://cloud.google.com/docs/authentication/getting-started?hl=de)
+4. Setup your Google Application Credentials: [Setup Link](https://cloud.google.com/docs/authentication/getting-started)
 
 5. Setup an instance-configuration file, where some variables are specified
     - flask secret key (needed for hashing in the application)
