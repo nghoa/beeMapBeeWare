@@ -11,6 +11,10 @@ window.onload = () => {
         $(".modal").removeClass("is-active");
     });
 
+    $(".modal-delete").click(function() {
+        $(".modal").removeClass("is-active");
+    });
+
 }
 
 

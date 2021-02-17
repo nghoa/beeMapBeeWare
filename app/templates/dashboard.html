@@ -90,7 +90,7 @@
       </tr>
 
       <tr id="target_{{ suggestion.id }}" style="display:none">
-        <td colspan="5">
+        <td colspan="7">
           <!-- <div id="mapContent"></div> -->
           <div id="map_{{ suggestion.id }}"></div>
         </td>
@@ -107,6 +107,10 @@
   <div class="modal-content">
     <!-- Any other Bulma elements you want -->
     <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title"></p>
+        <button class="delete modal-delete" aria-label="close"></button>
+      </header>
       <section class="modal-card-body">
         <!-- Content ... -->
         <h1 style="color:black;">{{ gettext("Suggestion successfully updated!!!") }}</h1>
