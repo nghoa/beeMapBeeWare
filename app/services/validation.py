@@ -42,32 +42,32 @@ def validate_inside_Finland(form, field):
 
 
 class SuggestionForm(Form):
-    firstname = StringField(lazy_gettext('firstname'), validators=[
+    firstname = StringField(lazy_gettext('Firstname'), validators=[
         InputRequired(message=ErrorMessage.REQUIRED),
         Length(min=1, max=20, message=ErrorMessage.LENGTH_FIRSTNAME)
         ])
 
-    lastname = StringField(lazy_gettext("lastname"), validators=[
+    lastname = StringField(lazy_gettext("Lastname"), validators=[
         InputRequired(message=ErrorMessage.REQUIRED),
         Length(min=1, max=20, message=ErrorMessage.LENGTH_LASTNAME)])
 
-    suggestee = StringField(lazy_gettext("name of the person or company who you wants to join"), validators=[
+    suggestee = StringField(lazy_gettext("Referee"), validators=[
         InputRequired(message=ErrorMessage.REQUIRED),
         Length(min=1, max=40, message=ErrorMessage.LENGTH_SUGGESTEE)
     ])
 
-    suggesteeType = SelectField(lazy_gettext("As"), choices=[
+    suggesteeType = SelectField(lazy_gettext("Referee type"), choices=[
         ("0", lazy_gettext("Beekeeper")),
         ("1", lazy_gettext("Bee-friend")),
         ("2", lazy_gettext("sponsor"))
     ])
 
-    latitude = FloatField(lazy_gettext("latitude"), validators=[
+    latitude = FloatField(lazy_gettext("Latitude"), validators=[
         validate_inside_Finland], widget=HiddenInput())
 
-    longitude = FloatField(lazy_gettext("longitude"),widget = HiddenInput())
+    longitude = FloatField(lazy_gettext("Longitude"),widget = HiddenInput())
 
-    email=StringField(lazy_gettext("email"), validators = [
+    email=StringField(lazy_gettext("Email"), validators = [
                         InputRequired(message=ErrorMessage.REQUIRED),
                         Length(min=1, max=254, message=ErrorMessage.LENGTH_EMAIL),
                         validate_email])

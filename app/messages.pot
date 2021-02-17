@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-17 00:25+0200\n"
+"POT-Creation-Date: 2021-02-17 10:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,31 +85,33 @@ msgid "Must be between 1 and 40 characters long"
 msgstr ""
 
 #: app/services/validation.py:45
-msgid "firstname"
+msgid "Firstname"
 msgstr ""
 
 #: app/services/validation.py:50
-msgid "lastname"
+msgid "Lastname"
 msgstr ""
 
-#: app/services/validation.py:54
-msgid "name of the person or company who you wants to join"
+#: app/services/validation.py:54 app/templates/dashboard.html:29
+#: app/templates/dashboard.html:44
+msgid "Referee"
 msgstr ""
 
 #: app/services/validation.py:59
-msgid "As"
+msgid "Referee type"
 msgstr ""
 
-#: app/services/validation.py:65
-msgid "latitude"
+#: app/services/validation.py:65 app/templates/map.html:156
+msgid "Latitude"
 msgstr ""
 
-#: app/services/validation.py:68
-msgid "longitude"
+#: app/services/validation.py:68 app/templates/map.html:157
+msgid "Longitude"
 msgstr ""
 
-#: app/services/validation.py:70
-msgid "email"
+#: app/services/validation.py:70 app/templates/dashboard.html:27
+#: app/templates/dashboard.html:42
+msgid "Email"
 msgstr ""
 
 #: app/templates/base.html:39
@@ -136,20 +138,12 @@ msgstr ""
 msgid "Bee-Hive Confirmed"
 msgstr ""
 
-#: app/templates/dashboard.html:27 app/templates/dashboard.html:42
-msgid "Email"
-msgstr ""
-
 #: app/templates/dashboard.html:28 app/templates/dashboard.html:43
-msgid "last updated"
-msgstr ""
-
-#: app/templates/dashboard.html:29 app/templates/dashboard.html:44
-msgid "suggestee"
+msgid "Last updated"
 msgstr ""
 
 #: app/templates/dashboard.html:30 app/templates/dashboard.html:45
-msgid "Type"
+msgid "RefereeType"
 msgstr ""
 
 #: app/templates/dashboard.html:33
@@ -172,15 +166,15 @@ msgstr ""
 msgid "Update Suggestion"
 msgstr ""
 
-#: app/templates/dashboard.html:86 app/templates/map.html:160
-msgid "Delete"
-msgstr ""
-
-#: app/templates/dashboard.html:88
+#: app/templates/dashboard.html:87
 msgid "Show Map"
 msgstr ""
 
-#: app/templates/dashboard.html:112
+#: app/templates/dashboard.html:89 app/templates/map.html:160
+msgid "Delete"
+msgstr ""
+
+#: app/templates/dashboard.html:121
 msgid "Suggestion successfully updated!!!"
 msgstr ""
 
@@ -230,14 +224,6 @@ msgstr ""
 
 #: app/templates/map.html:155
 msgid "Chosen location"
-msgstr ""
-
-#: app/templates/map.html:156
-msgid "Latitude"
-msgstr ""
-
-#: app/templates/map.html:157
-msgid "Longitude"
 msgstr ""
 
 #: app/templates/map.html:158
