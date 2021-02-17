@@ -28,7 +28,13 @@ Access to admin interface: http://nodal-figure-301713.ew.r.appspot.com/admin
 1. Clone this repo
 `git clone https://gitlab.jyu.fi/beeware/beemapbeeware.git`
 
-2. Setup your Google Application Credentials
+2. Setup your Google Application Credentials: [Setup Link](https://cloud.google.com/docs/authentication/getting-started?hl=de)
 
-3. Start Application
+3. Setup an instance-configuration file, where some variables are specified
+    - flask secret key (needed for hashing in the application)
+    - environment (not mandatory)
+    - APPLICATIONINSIGHTS_CONNECTION_STRING (-> That one is for Azure logging)
+
+
+4. Start Application
 `python main.py`
