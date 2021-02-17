@@ -4,9 +4,9 @@
 
 ### Administrative:
 
-- [ ] User-stories updated & Time usage reported (see: User Story Assignment for Week 4).
+- [X] User-stories updated & Time usage reported (see: User Story Assignment for Week 4).
 - [x] Group meeting with mentor (see: Mentor weekly meetings).
-- [ ] Weekly report of tasks done (see: docs/reporting.md)
+- [X] Weekly report of tasks done (see: docs/reporting.md)
 
 ### DevOps
 
@@ -16,7 +16,7 @@
 - [x] Write bug and security issue reporting guide (see: GitLab: Description Templates).
 - [x] Describe how to report issues in README.md.
 - [x] Bughunt! You will be assigned to evaluate two other teams’ implementation, and to identify security and bug issues within their solution (peer review).
-- [ ] Bonus: Collect interesting metrics.
+- [X] Bonus: Collect interesting metrics.
 
 
 
