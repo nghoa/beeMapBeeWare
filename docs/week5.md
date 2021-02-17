@@ -4,20 +4,20 @@
 
 ### Administrative
 
-- [ ] User-stories updated & Time usage reported. Marks completed ones as done. (see: User Story Assignment for Week 5).
+- [X] User-stories updated & Time usage reported. Marks completed ones as done. (see: User Story Assignment for Week 5).
 - [X] Group meeting with mentor (see: Mentor weekly meetings).
-- [ ] Weekly report of tasks done (see: docs/reporting.md)
+- [X] Weekly report of tasks done (see: docs/reporting.md)
 - [X] Report bug fixes in weekly report → What were the issues; What was the cause of the issue; What was the solution?
 
 ### DevOps
 
 - [X] Triage and prioritize fixing issues.
-- [ ] Finalize application.
-- [ ] Client requirements validation.
+- [X] Finalize application.
+- [X] Client requirements validation.
 
 ### Marketing
 
-- [ ] Prepare final presentation. Presentation should be about 5 min in length - including time for questions. (More details under Final Event (17.2.2021)
+- [X] Prepare final presentation. Presentation should be about 5 min in length - including time for questions. (More details under Final Event (17.2.2021)
 
 
 ## Security
@@ -30,9 +30,12 @@ https://owasp.org/www-project-top-ten/
     - XXS: tested strings like <button>hei</button> as input and browser didn't interpret them as html elements.
 2. Broken authentication
 3. **Sensitive data exposure**
+    - checked whether all error messages were correct
+    - outsider should not get too much information out of the messages
 4. XML External Entities (XXE)
 5. Broken access control
 6. **Security misconfiguration**
+    - disabled CSRF token in suggestion form because of unnecessary token generation
 7. Cross-Site Scripting (XSS)
 8. Insecure Deserialization
 9. **Using components with known vulnerabilities**
