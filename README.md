@@ -23,14 +23,12 @@ Access to admin interface: http://nodal-figure-301713.ew.r.appspot.com/admin
 
 [Report an issue](https://gitlab.jyu.fi/beeware/beemapbeeware/-/issues/new).
 
-## Short Description
+## Short Setup
 
-This repository was created to be an example for the course work.
+1. Clone this repo
+`git clone https://gitlab.jyu.fi/beeware/beemapbeeware.git`
 
-Python 3.8.5
+2. Setup your Google Application Credentials
 
-to run app locally in docker
-
-`$ docker build -t beemaptemplate .`
-
-`$ docker run -p 5000:5000 beemaptemplate:latest`
+3. Start Application
+`python main.py`
