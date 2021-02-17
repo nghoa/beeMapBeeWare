@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-17 00:25+0200\n"
+"POT-Creation-Date: 2021-02-17 10:37+0200\n"
 "PO-Revision-Date: 2021-02-14 21:07+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fi\n"
@@ -82,37 +82,38 @@ msgid "Please enter valid email address"
 msgstr "Ole hyvä ja syötä kelvollinen sähköpostiosoite"
 
 #: app/services/validation.py:18
-#, fuzzy
 msgid "Must be between 1 and 40 characters long"
-msgstr "Pitää olla 1-20 merkkiä pitkä"
+msgstr "Pitää olla 1-40 merkkiä pitkä"
 
 #: app/services/validation.py:45
-msgid "firstname"
-msgstr "etunimi"
+msgid "Firstname"
+msgstr "Etunimi"
 
 #: app/services/validation.py:50
-msgid "lastname"
-msgstr "sukunimi"
+msgid "Lastname"
+msgstr "Sukunimi"
 
-#: app/services/validation.py:54
-msgid "name of the person or company who you wants to join"
-msgstr "Henkilön tai yrityksen nimi, jonka haluat liittyvät"
+#: app/services/validation.py:54 app/templates/dashboard.html:29
+#: app/templates/dashboard.html:44
+msgid "Referee"
+msgstr "Ehdotettava"
 
 #: app/services/validation.py:59
-msgid "As"
-msgstr "Miten"
+msgid "Referee type"
+msgstr "Ehdotettavan tyyppi"
 
-#: app/services/validation.py:65
-msgid "latitude"
-msgstr "leveysaste"
+#: app/services/validation.py:65 app/templates/map.html:156
+msgid "Latitude"
+msgstr "Leveysaste"
 
-#: app/services/validation.py:68
-msgid "longitude"
-msgstr "pituusaste"
+#: app/services/validation.py:68 app/templates/map.html:157
+msgid "Longitude"
+msgstr "Pituusaste"
 
-#: app/services/validation.py:70
-msgid "email"
-msgstr "sähköposti"
+#: app/services/validation.py:70 app/templates/dashboard.html:27
+#: app/templates/dashboard.html:42
+msgid "Email"
+msgstr "Sähköposti"
 
 #: app/templates/base.html:39
 msgid "Dashboard"
@@ -138,22 +139,13 @@ msgstr "Nimi"
 msgid "Bee-Hive Confirmed"
 msgstr "Vahvistettu"
 
-#: app/templates/dashboard.html:27 app/templates/dashboard.html:42
-#, fuzzy
-msgid "Email"
-msgstr "sähköposti"
-
 #: app/templates/dashboard.html:28 app/templates/dashboard.html:43
-msgid "last updated"
-msgstr "viimeeksi päivitetty"
-
-#: app/templates/dashboard.html:29 app/templates/dashboard.html:44
-msgid "suggestee"
-msgstr "ehdotettu"
+msgid "Last updated"
+msgstr "Viimeeksi päivitetty"
 
 #: app/templates/dashboard.html:30 app/templates/dashboard.html:45
-msgid "Type"
-msgstr "tyyppi"
+msgid "RefereeType"
+msgstr "Ehdotettavan tyyppi"
 
 #: app/templates/dashboard.html:33
 msgid "Export as Excel"
@@ -168,23 +160,22 @@ msgid "no"
 msgstr "ei"
 
 #: app/templates/dashboard.html:80
-#, fuzzy
 msgid "Sponsor"
-msgstr "sponsori"
+msgstr "Sponsori"
 
 #: app/templates/dashboard.html:84
 msgid "Update Suggestion"
 msgstr "Päivitä ehdotus"
 
-#: app/templates/dashboard.html:86 app/templates/map.html:160
-msgid "Delete"
-msgstr "Poista"
-
-#: app/templates/dashboard.html:88
+#: app/templates/dashboard.html:87
 msgid "Show Map"
 msgstr "Näytä kartta"
 
-#: app/templates/dashboard.html:112
+#: app/templates/dashboard.html:89 app/templates/map.html:160
+msgid "Delete"
+msgstr "Poista"
+
+#: app/templates/dashboard.html:121
 msgid "Suggestion successfully updated!!!"
 msgstr "Ehdotus tallennettiin onnistuneesti"
 
@@ -236,14 +227,6 @@ msgstr "Jaa sosiaalisessa mediassa"
 msgid "Chosen location"
 msgstr "Valitse sijainti"
 
-#: app/templates/map.html:156
-msgid "Latitude"
-msgstr "Leveysaste"
-
-#: app/templates/map.html:157
-msgid "Longitude"
-msgstr "Pituusaste"
-
 #: app/templates/map.html:158
 msgid "Choose"
 msgstr "Valitse"
@@ -263,4 +246,3 @@ msgstr "Vain sijainnit Suomen sisällä ovat sallittuja"
 #: app/templates/profile.html:7
 msgid "Welcome"
 msgstr "Tervetuloa"
-
