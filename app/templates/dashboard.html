@@ -82,16 +82,21 @@
         </td>
         <td>
           <button class="button is-success" id="confirm_{{ suggestion.id }}">{{ gettext("Update Suggestion") }}</button>
-          <!-- <button class="button is-danger" id="delete_{{ suggestion.id }}">Delete</button> -->
-          <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">{{ gettext("Delete") }}</a>
+
           <button id="toggle_{{ suggestion.id }}_{{ suggestion.location.longitude }}_{{ suggestion.location.latitude }}"
             class="button is-info">{{ gettext("Show Map") }}</button>
+
+          <!-- <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">{{ gettext("Delete") }}</a> -->
+          <a href="/admin/dashboard/delete/{{ suggestion.id }}" class="button is-danger">
+            <span class="icon">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
         </td>
       </tr>
 
       <tr id="target_{{ suggestion.id }}" style="display:none">
         <td colspan="7">
-          <!-- <div id="mapContent"></div> -->
           <div id="map_{{ suggestion.id }}"></div>
         </td>
       </tr>
